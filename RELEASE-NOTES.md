@@ -1,22 +1,22 @@
-## Bắt đầu trong 5 phút
+## ViSO Alpha 0.2.4
 
-**1. Tải app cho máy tính** (bên dưới, mục *Assets*)
-- Windows: `ViSO-x.y.z-win-x64.exe` → mở → nếu hiện SmartScreen, bấm **More info → Run anyway** (app chưa ký số).
-- macOS (Apple Silicon): `ViSO-x.y.z-mac-arm64.dmg` → kéo ViSO vào Applications → chuột phải ViSO → **Open** → **Open**.
+**Hướng dẫn cài có hình:** https://tryviso.me/download.html — chọn máy của bạn, 3 bước, ~1 phút.
 
-**2. Mở app một lần.** Một vạch mỏng hiện ở mép phải màn hình — đó là ViSO. Rê chuột vào thấy logo mèo, bấm vào là ra bảng Notes. App tự đăng ký với Chrome ở lần mở này.
+### Tải gì
+- **Windows 10/11 (64-bit):** `ViSO-0.2.4-win-x64.exe` — mở file → *More info → Run anyway* (app chưa ký số, chỉ hỏi một lần).
+- **macOS 13+ Apple Silicon:** `ViSO-0.2.4-mac-arm64.dmg` — kéo vào Applications → **chuột phải ViSO → Open → Open** (lần đầu). Sequoia: System Settings → Privacy & Security → *Open Anyway*.
+- **Extension Chrome / Brave / Edge:** `ViSO-extension-0.2.4.zip` — giải nén → `chrome://extensions` → bật *Developer mode* → *Load unpacked* → chọn thư mục vừa giải nén.
 
-**3. Cài extension cho Chrome**
-- Tải `ViSO-extension-x.y.z.zip` (bên dưới) và giải nén ra một thư mục.
-- Chrome → `chrome://extensions` → bật **Developer mode** (góc phải trên) → **Load unpacked** → chọn thư mục vừa giải nén.
-- Ghim ViSO lên thanh công cụ (biểu tượng ghim cạnh 🧩).
+### Dùng thử
+- **Ctrl + Space** → nói: *"ghi chú gửi báo giá thứ Sáu"* / *"nhắc tôi 3 giờ chiều gọi anh Đông"* / *"việc cần làm nộp báo cáo"*.
+- Ẩn/hiện vạch ViSO ở mép phải: **Ctrl/⌘ + Shift + H**.
+- Trong khung ViSO trên trang web: `@` chọn loại, `···` Nhóm/Sửa/Xoá, ⚙ chọn khung tự hiện hay không.
 
-**4. Thử ngay**
-- Mở Gmail (hoặc bất kỳ trang nào), **tải lại tab**.
-- Bấm **Ctrl + Space** → quả cầu Orb hiện lên → nói: *"ghi chú gửi báo giá thứ Sáu"*.
-- Ghi chú hiện trong khung ViSO ở mép phải trang, và trong bảng Notes của app. Nói *"nhắc tôi 3 giờ chiều gọi anh Đông"* → thành lời nhắc; *"việc cần làm nộp báo cáo"* → thành việc.
-- Trong khung ViSO: `···` để Sửa/Xoá, ⚙ để chọn khung tự hiện hay không.
+### Mới trong 0.2.4
+- Giao diện mới (bầu trời xanh, sao, mèo) cho app và extension; tự co theo màn hình.
+- Nhóm ghi chú: thư mục trong ô nhập, *Nhóm* trong menu `···` ở cả app lẫn extension.
+- Extension: `@` chọn loại, đổi cách xem (trang này / tất cả; theo loại / nhóm), trang ViSO Agent Hub, model tự tải khi cài.
+- Windows: hết giật khi mở lại app (nhận dạng giọng chạy ở luồng riêng, không còn cửa sổ đen nháy).
 
-**Nếu Ctrl+Space không ra Orb**: máy có nhiều bộ gõ thường giữ phím này. Windows: Settings → Time & language → Typing → Advanced keyboard settings → Input language hot keys, đổi phím đó. macOS: System Settings → Keyboard → Keyboard Shortcuts → Input Sources.
-
-**Khi gặp lỗi**: mở biểu tượng ViSO trên thanh công cụ Chrome → trang ViSO → mục *App desktop* cho biết app đã kết nối chưa. Log của app: Windows `%APPDATA%\viso\logs\viso-main.log`, macOS `~/Library/Application Support/viso/logs/viso-main.log`.
+### Khi gặp lỗi
+Xem mục *Sự cố* ở https://tryviso.me/download.html#help. Log: Windows `%APPDATA%\viso\logs\viso-main.log`, macOS `~/Library/Application Support/viso/logs/viso-main.log`.
