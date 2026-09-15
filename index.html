@@ -295,8 +295,12 @@
 
 <nav class="nav">
   <div class="nav-pill" id="navPill">
-    <button class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="ViSO — về đầu trang"><img src="assets/logo.png" alt="">ViSO</button>
+    <button class="logo" onclick="goHome()" aria-label="ViSO — về đầu trang"><img src="assets/logo.png" alt="">ViSO</button>
     <div class="nav-links">
+      <button class="lnk" onclick="goManifesto()">Manifesto</button>
+      <button class="lnk" onclick="goFeatures()">Features</button>
+      <button class="lnk" onclick="openPrivacy()">Privacy Policy</button>
+      <a class="lnk" href="download.html">Download</a>
       <button class="btn btn--dark" onclick="focusWaitlist()">Join Waitlist</button>
     </div>
   </div>
@@ -499,23 +503,94 @@
 </main>
 
 
+<main id="view-manifesto" hidden>
+  <div class="manifesto">
+    <div class="eyebrow">Manifesto</div>
+    <h1>Most productivity tools create more friction than they solve.</h1>
+    <p class="lead">Every time inspiration strikes or a task pops up, you are forced to:</p>
+    <ul class="friction-list">
+      <li><b>1</b> Stop your current work.</li>
+      <li><b>2</b> Open Notion, Todoist, or Apple Notes.</li>
+      <li><b>3</b> Decide whether it's a note, a task, a reminder, or an event.</li>
+      <li><b>4</b> Lose 15 minutes of your deep focus (Flow State) trying to organize it.</li>
+    </ul>
+    <p class="m-belief">We believe your computer should adapt to how your brain works, not the other way around.</p>
+    <div class="builder-note">
+      <div class="sig">A note from the builder</div>
+      <p>Hi, I'm building ViSO because I was exhausted from losing my train of thought every time I tried to organize my daily work across 4 different apps.</p>
+      <p>ViSO is currently in its early Alpha stage. It's raw, lightweight, and focused purely on one killer experience: instant, zero-friction capture and routing on your desktop.</p>
+      <p>I'm not looking for casual downloads. I'm looking for early partners, builders, researchers, and power users who want to test the raw builds, give brutal feedback, and help shape how we interact with our computers in the AI era.</p>
+      <p>If you care deeply about focus, speed, and privacy, I'd love to have you onboard from Day 1.</p>
+      <div class="signature"><img src="assets/logo.png" alt="">— the builder, ViSO</div>
+      <img class="note-cat" src="assets/cat-cloud.png" alt="">
+    </div>
+    <h2 class="m-h">The Evolutionary Path</h2>
+    <div class="stepper">
+      <div class="stepper-row">
+        <div class="stepper-node now">Desktop Widget</div><div class="stepper-arrow"></div>
+        <div class="stepper-node">Mobile Layer</div><div class="stepper-arrow"></div>
+        <div class="stepper-node">Smartwatch &amp; Ring</div><div class="stepper-arrow"></div>
+        <div class="stepper-node">Smartglasses</div>
+      </div>
+      <div class="stepper-tags"><span>Now</span><span>Next</span><span>Wearables</span><span>Endgame</span></div>
+    </div>
+    <div class="level"><b>Level 1 — Desktop Widget (2026)</b><span>Lớp nhận thức tức thì ngay tại bàn làm việc với phím tắt Ctrl + Space. Đang chạy trên Windows, macOS và Chrome.</span></div>
+    <div class="level"><b>Level 2 — Mobile Instant Layer</b><span>Bắt trọn ý định khi đang di chuyển qua thao tác chạm viền hoặc nút vật lý.</span></div>
+    <div class="level"><b>Level 3 — Micro-Wearables (Smartwatch &amp; Ring)</b><span>Tương tác vi cử chỉ và cảm biến xúc giác để bắt dòng suy nghĩ mà không cần rút điện thoại.</span></div>
+    <div class="level"><b>Level 4 — Spatial Smartglasses (The Endgame)</b><span>Trợ lý hiển thị ngữ cảnh không gian. Nhận diện ý định qua ánh nhìn và giọng nói thầm, biến thế giới số hòa làm một với trường nhìn tự nhiên của con người.</span></div>
+    <div class="cta-final"><button class="btn btn--dark" onclick="goHome(); setTimeout(focusWaitlist, 60)">Join the Alpha Waitlist →</button></div>
+  </div>
+</main>
+
 <footer id="siteFooter">
   <div class="wrap">
     <div class="foot-links">
-      <a href="privacy.html">Privacy Policy</a>
+      <a href="download.html">Download</a>
+      <button onclick="goManifesto()">Manifesto</button>
+      <button onclick="openPrivacy()">Privacy Policy</button>
+      <a href="privacy.html">Full privacy policy</a>
     </div>
     <p>ViSO © 2026. All rights reserved.</p>
   </div>
 </footer>
 
+<div class="privacy" id="privacy" hidden role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="box">
+    <h3 id="privacyTitle">Privacy, in one screen</h3>
+    <p>ViSO is local-first. Concretely:</p>
+    <ul>
+      <li>Speech recognition and intent parsing run on your CPU (whisper.cpp, zipformer). No audio is uploaded, ever.</li>
+      <li>Notes, tasks and reminders live in a SQLite database in your user profile, and in the Chrome extension's own storage. Backups are JSON files you download yourself.</li>
+      <li>The extension reads the page you're on only to know where a note belongs — a title, an address, a favicon. It never sends page content anywhere.</li>
+      <li>The one download is the search model (multilingual-e5-small, 118 MB), fetched once from Hugging Face and verified against a pinned checksum.</li>
+      <li>No account, no telemetry, no analytics in the Alpha. The waitlist email is the only thing you give us.</li>
+    </ul>
+    <button class="btn btn--white" onclick="closePrivacy()">Close</button>
+  </div>
+</div>
 
 <script>
-  function focusWaitlist(){ var el = document.getElementById('waitlistEmail'); el.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(function(){ el.focus(); }, 300); }
+  function setView(view){
+    document.getElementById('view-home').hidden = view !== 'home';
+    document.getElementById('view-manifesto').hidden = view !== 'manifesto';
+    window.scrollTo({top:0, behavior:'auto'});
+    tintNav();
+  }
+  function goHome(){ setView('home'); if(location.hash) history.replaceState(null, '', location.pathname); }
+  function goManifesto(){ setView('manifesto'); history.replaceState(null, '', '#manifesto'); }
+  if(location.hash === '#manifesto') setView('manifesto');
+  function goFeatures(){ setView('home'); requestAnimationFrame(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }); }
+  function focusWaitlist(){ setView('home'); var el = document.getElementById('waitlistEmail'); el.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(function(){ el.focus(); }, 300); }
+  function openPrivacy(){ document.getElementById('privacy').hidden = false; }
+  function closePrivacy(){ document.getElementById('privacy').hidden = true; }
+  document.getElementById('privacy').addEventListener('click', function(e){ if(e.target === this) closePrivacy(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePrivacy(); });
 
   // The nav pill is glass over the night sky and paper over the light sections.
   function tintNav(){
     var hero = document.getElementById('hero');
-    document.getElementById('navPill').classList.toggle('on-light', hero.getBoundingClientRect().bottom <= 70);
+    var onHero = !document.getElementById('view-home').hidden && hero.getBoundingClientRect().bottom > 70;
+    document.getElementById('navPill').classList.toggle('on-light', !onHero);
   }
   window.addEventListener('scroll', tintNav, {passive:true}); tintNav();
 
