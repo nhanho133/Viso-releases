@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ViSO — the instant, on-device assistant layer for your desktop. Hit Ctrl + Space, say it, and it's filed as a note, task or reminder in under a second. Alpha early access.">
+<meta property="og:title" content="ViSO — Stop breaking your flow just to write things down.">
+<meta property="og:description" content="Ctrl + Space, say it, filed in under a second. 100% on-device. Windows, macOS & Chrome. Alpha early access.">
+<meta property="og:image" content="assets/shot-desktop-panel.png">
+<link rel="icon" href="assets/logo.png">
+<title>ViSO — Alpha early access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600;700;800;900&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff; --page:#fbfbfc; --tile:#f4f5f7; --line:#e6e8ec;
+    --ink:#0b0d14; --ink-2:#5b6475; --ink-3:#9299a8;
+    --blue:#3567dc; --blue-ink:#174ea6; --blue-soft:#edf3ff;
+    --night-1:#08153a; --night-2:#123a8f; --night-3:#3572ef; --night-4:#83a9ec;
+    --gold:#f4c95d; --ok:#28c840;
+    --display:'Gabarito', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --body:'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color-scheme: light;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body); background:var(--page); color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer; background:none; border:none; color:inherit;}
+  input{font-family:inherit;}
+  h1,h2,h3{font-family:var(--display); text-wrap:balance;}
+  h2{font-size:clamp(2rem,4.6vw,3.4rem); font-weight:800; letter-spacing:-.045em; line-height:1.02;}
+  h3{font-size:1.2rem; font-weight:700; letter-spacing:-.02em;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:6px;}
+  [hidden]{display:none !important;}
+  kbd{font-family:var(--body); font-size:.85em; font-weight:600; padding:1px 7px; border-radius:6px; border:1px solid rgba(255,255,255,.4); background:rgba(255,255,255,.18); color:#fff;}
+  .light kbd, section kbd{border-color:var(--line); background:var(--tile); color:var(--ink);}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--blue);}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; height:44px; padding:0 22px; border-radius:999px; font-size:.86rem; font-weight:600; transition:transform .15s, background .15s, box-shadow .15s; white-space:nowrap;}
+  .btn--dark{background:#0b0d14; color:#fff; box-shadow:0 10px 24px -12px rgba(0,0,0,.6);}
+  .btn--dark:hover{background:#1c2030; transform:translateY(-1px);}
+  .btn--glass{background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.35); backdrop-filter:blur(8px);}
+  .btn--glass:hover{background:rgba(255,255,255,.22);}
+  .btn--white{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  .btn--white:hover{background:var(--tile);}
+  .btn--blue{background:var(--blue); color:#fff;}
+  .btn--blue:hover{background:#2a57c4;}
+
+  /* ---------- NAV: the floating pill ---------- */
+  .nav{position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); z-index:50; width:min(1120px, calc(100% - 24px));}
+  .nav-pill{display:flex; align-items:center; justify-content:space-between; height:52px; padding:0 8px 0 16px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); color:#fff; box-shadow:0 10px 30px -18px rgba(0,0,0,.5); transition:background .25s, color .25s, border-color .25s;}
+  .nav-pill.on-light{background:rgba(255,255,255,.82); color:var(--ink); border-color:var(--line);}
+  .logo{display:flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:1rem; letter-spacing:-.02em;}
+  .logo img{width:26px; height:26px; border-radius:8px;}
+  .nav-links{display:flex; align-items:center; gap:22px; font-size:.82rem; font-weight:500;}
+  .nav-links button{opacity:.85;} .nav-links button:hover{opacity:1;}
+  .nav-links .btn{height:36px; padding:0 16px; font-size:.78rem;}
+  .nav-pill .btn--dark{background:#0b0d14;}
+  .nav-pill.on-light .btn--dark{background:#0b0d14;}
+  @media (max-width:700px){ .nav-links{gap:12px; font-size:.76rem;} .nav-links .lnk{display:none;} }
+
+  /* ---------- HERO: a starry night, clouds, the moon ---------- */
+  .hero{position:relative; margin:8px; border-radius:26px; overflow:hidden; color:#fff; text-align:center; padding:130px 24px 0;
+    background: radial-gradient(60% 40% at 50% 100%, rgba(255,255,255,.22), transparent 60%), linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 42%, var(--night-3) 74%, var(--night-4) 100%);}
+  .stars, .stars2{position:absolute; inset:0; pointer-events:none; background-repeat:repeat;}
+  .stars{background-image:
+      radial-gradient(1.4px 1.4px at 12% 18%, rgba(255,255,255,.95) 50%, transparent 52%),
+      radial-gradient(1px 1px at 28% 41%, rgba(255,255,255,.7) 50%, transparent 52%),
+      radial-gradient(1.6px 1.6px at 41% 9%, rgba(255,255,255,.9) 50%, transparent 52%),
+      radial-gradient(1px 1px at 57% 31%, rgba(255,255,255,.65) 50%, transparent 52%),
+      radial-gradient(1.4px 1.4px at 69% 14%, rgba(255,255,255,.9) 50%, transparent 52%),
+      radial-gradient(1px 1px at 83% 37%, rgba(255,255,255,.6) 50%, transparent 52%),
+      radial-gradient(1.8px 1.8px at 92% 8%, rgba(255,255,255,.95) 50%, transparent 52%),
+      radial-gradient(1px 1px at 6% 52%, rgba(255,255,255,.5) 50%, transparent 52%),
+      radial-gradient(1.2px 1.2px at 47% 56%, rgba(255,255,255,.55) 50%, transparent 52%),
+      radial-gradient(1px 1px at 76% 60%, rgba(255,255,255,.45) 50%, transparent 52%);
+    background-size:420px 420px; opacity:.9; mask-image:linear-gradient(180deg, #000 0%, #000 55%, transparent 88%); -webkit-mask-image:linear-gradient(180deg, #000 0%, #000 55%, transparent 88%);}
+  .stars2{background-image:
+      radial-gradient(2px 2px at 20% 26%, rgba(244,201,93,.95) 50%, transparent 52%),
+      radial-gradient(2.4px 2.4px at 64% 44%, rgba(255,255,255,1) 50%, transparent 52%),
+      radial-gradient(2px 2px at 86% 22%, rgba(244,201,93,.9) 50%, transparent 52%),
+      radial-gradient(1.8px 1.8px at 36% 70%, rgba(255,255,255,.9) 50%, transparent 52%);
+    background-size:640px 640px; animation:twinkle 3.6s ease-in-out infinite; mask-image:linear-gradient(180deg, #000 0%, #000 60%, transparent 90%); -webkit-mask-image:linear-gradient(180deg, #000 0%, #000 60%, transparent 90%);}
+  @keyframes twinkle{0%,100%{opacity:.35;} 50%{opacity:1;}}
+  .spark{position:absolute; color:var(--gold); pointer-events:none; animation:twinkle 2.8s ease-in-out infinite;}
+  .spark svg{width:100%; height:100%;}
+  .moon{position:absolute; right:12%; top:118px; width:74px; height:74px; border-radius:50%; background:#fff2c2; box-shadow:0 0 40px 10px rgba(255,236,170,.35), inset -18px -6px 0 0 #0f2d70; pointer-events:none;}
+  .cloud{position:absolute; border-radius:50%; background:#fff; filter:blur(22px); opacity:.55; pointer-events:none;}
+  .hero-copy{position:relative; z-index:3; max-width:920px; margin:0 auto;}
+  .kicker{display:inline-flex; align-items:center; gap:8px; font-size:.86rem; font-weight:700; color:rgba(255,255,255,.92); margin-bottom:18px;}
+  .kicker .dot{width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px 2px rgba(244,201,93,.7);}
+  .hero h1{font-size:clamp(2.6rem,6.2vw,5.2rem); font-weight:800; line-height:.98; letter-spacing:-.05em; max-width:14ch; margin:0 auto;}
+  .hero .lede{width:min(640px,92%); margin:24px auto 0; color:rgba(255,255,255,.88); font-size:clamp(1rem,1.5vw,1.15rem); line-height:1.55;}
+  .cta{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:28px;}
+  /* One bar: the field with the button sitting inside its right end. */
+  .waitlist{display:flex; align-items:center; gap:6px; width:min(520px,100%); margin:28px auto 0; padding:5px 5px 5px 20px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.14); backdrop-filter:blur(8px);}
+  .waitlist:focus-within{background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.7);}
+  .waitlist input{flex:1; min-width:0; height:38px; border:none; background:transparent; color:#fff; font-size:.9rem; outline:none;}
+  .waitlist input::placeholder{color:rgba(255,255,255,.7);}
+  .waitlist .btn{height:38px; padding:0 18px; flex:none;}
+  @media (max-width:420px){ .waitlist{padding-left:14px;} .waitlist .btn{padding:0 12px; font-size:.78rem;} }
+  .waitlist-msg{font-size:.8rem; color:#fff; min-height:18px; margin-top:10px; opacity:.9;}
+  .waitlist-msg.err{color:#ffd0cc;}
+  .proof{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:18px; font-size:.8rem; color:rgba(255,255,255,.9);}
+  .avatars{display:flex;}
+  .avatars span{width:26px; height:26px; border-radius:50%; border:2px solid #2b5ed6; margin-left:-8px; display:grid; place-items:center; font-size:.55rem; font-weight:700; color:#fff;}
+  .avatars span:first-child{margin-left:0;}
+  .community{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:12px; font-size:.76rem; color:rgba(255,255,255,.85);}
+  .icon-btn{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); color:#fff;}
+  .icon-btn:hover{background:rgba(255,255,255,.26);}
+  .icon-btn svg{width:14px; height:14px;}
+  .countdown{display:inline-flex; flex-direction:column; align-items:center; gap:10px; margin-top:28px; padding:18px 30px 16px; border-radius:22px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(12px); box-shadow:0 20px 50px -30px rgba(0,0,0,.6);}
+  .countdown .cd-label{font-size:.8rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.85);}
+  .cd-row{display:flex; gap:22px;}
+  .cd-unit{display:flex; flex-direction:column; align-items:center; min-width:64px;}
+  .cd-unit b{font-family:var(--display); font-size:clamp(2rem,4.4vw,3rem); line-height:1; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-.03em;}
+  .cd-unit span{font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.7); margin-top:6px;}
+  @media (max-width:560px){ .cd-row{gap:14px;} .cd-unit{min-width:52px;} }
+
+  /* the desktop, framed the way the reference frames its Mac: a big rounded screen at the hero's foot */
+  .screen{position:relative; z-index:3; max-width:1040px; margin:44px auto -2px; border-radius:22px 22px 0 0; overflow:hidden; box-shadow:0 -10px 60px -20px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.35);
+    background: linear-gradient(180deg, #6d9cf2 0%, #a9cbf5 60%, #d8e8fb 100%); height:460px;}
+  .screen .menubar{height:26px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; font-size:.68rem; font-weight:600; color:#fff; background:rgba(0,0,0,.18); backdrop-filter:blur(8px);}
+  .screen .menubar span{opacity:.9;}
+  .screen .sc-cloud{position:absolute; border-radius:50%; background:#fff; filter:blur(18px); opacity:.75; pointer-events:none;}
+  .screen .panel{position:absolute; right:78px; bottom:0; width:320px; border-radius:20px 20px 0 0; overflow:hidden; box-shadow:0 30px 60px -20px rgba(20,60,110,.5), 0 0 0 1px rgba(255,255,255,.8);}
+  .screen .panel img{width:100%; height:auto;}
+  .screen .tab{position:absolute; right:14px; top:50%; transform:translateY(-50%); width:4px; height:36px; border-radius:2px; background:rgba(24,25,32,.9); border:1px solid rgba(255,255,255,.4);}
+  .screen .hud{position:absolute; left:60px; bottom:-6px; width:300px; border-radius:18px 18px 0 0; overflow:hidden; box-shadow:0 30px 60px -20px rgba(20,60,110,.5), 0 0 0 1px rgba(255,255,255,.8);}
+  .screen .hud img{width:100%; height:auto;}
+  .screen .orb{position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); width:64px; height:64px; border-radius:50%; background:radial-gradient(circle at 34% 30%, #fff 0 14%, #9fd0ff 40%, #2f6fe8 74%, #10306f 100%); box-shadow:0 0 0 14px rgba(255,255,255,.28), 0 20px 40px -10px rgba(16,48,111,.7); animation:pulse 2.4s ease-in-out infinite;}
+  .screen .say{position:absolute; left:50%; top:calc(44% + 46px); transform:translateX(-50%); white-space:nowrap; font-size:.8rem; font-weight:600; color:#0b2a5e; background:rgba(255,255,255,.85); padding:6px 12px; border-radius:999px; box-shadow:0 8px 20px -12px rgba(0,0,0,.4);}
+  .screen .key{position:absolute; left:50%; top:calc(44% - 62px); transform:translateX(-50%); font-size:.72rem; font-weight:600; color:#fff; display:flex; gap:5px; align-items:center;}
+  .screen .saved{position:absolute; right:440px; top:56px; background:#fff; border-radius:14px; padding:10px 12px; width:230px; text-align:left; box-shadow:0 20px 40px -18px rgba(20,60,110,.45); animation:drift 6s ease-in-out infinite;}
+  .screen .saved .fh{display:flex; align-items:center; gap:7px; font-size:.64rem; color:var(--ink-2); margin-bottom:4px;}
+  .screen .saved .tile{width:20px; height:20px; border-radius:6px; display:grid; place-items:center; font-weight:800; font-size:.66rem; background:#fff; color:#EA4335; box-shadow:0 0 0 1px var(--line);}
+  .screen .saved .fh b{color:var(--ink); font-weight:600;}
+  .screen .saved .ft{font-size:.82rem; font-weight:600; line-height:1.3; color:var(--ink);}
+  .screen .saved .ok{margin-top:6px; font-size:.66rem; font-weight:600; color:#15803D;}
+  .screen .cat{position:absolute; right:12px; bottom:-6px; width:96px; filter:drop-shadow(0 8px 14px rgba(20,60,110,.35));}
+  @keyframes drift{0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 12px rgba(255,255,255,.26), 0 20px 40px -10px rgba(16,48,111,.7);} 50%{box-shadow:0 0 0 20px rgba(255,255,255,.14), 0 20px 40px -10px rgba(16,48,111,.7);}}
+  @media (max-width:820px){ .screen{height:420px;} .screen .saved{display:none;} .screen .hud{left:-40px; width:250px;} .screen .panel{right:20px; width:260px;} .screen .orb{top:34%;} .screen .say{top:calc(34% + 46px); font-size:.7rem;} .screen .key{top:calc(34% - 60px);} .screen .cat{display:none;} }
+
+  /* ---------- LIGHT SECTIONS ---------- */
+  section{padding:110px 0 30px;}
+  .section-head{text-align:center; max-width:720px; margin:0 auto 46px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{margin-bottom:14px;}
+  .section-head p{font-size:1rem; color:var(--ink-2); max-width:56ch; margin:0 auto;}
+
+  .tiles{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .tile-card{background:var(--tile); border-radius:26px; padding:28px 28px 26px; display:flex; flex-direction:column; gap:14px; min-height:400px; position:relative; overflow:hidden;}
+  .tile-card .art{flex:1; display:flex; align-items:center; justify-content:center; min-height:230px; position:relative;}
+  .shot{border-radius:16px; overflow:hidden; box-shadow:0 24px 50px -24px rgba(20,30,50,.45), 0 0 0 1px rgba(0,0,0,.05); background:#fff;}
+  .shot img{width:100%; height:auto;}
+  .shot--panel{width:240px;} .shot--hud{width:310px;}
+  .art .note{position:absolute; background:#fff; border-radius:12px; padding:10px 12px; box-shadow:0 14px 30px -14px rgba(20,30,50,.4); font-size:.74rem; width:214px; text-align:left;}
+  .art .note .fh{display:flex; align-items:center; gap:7px; color:var(--ink-2); font-size:.64rem; margin-bottom:4px;}
+  .art .note b{display:block; font-weight:600; color:var(--ink); font-size:.8rem; line-height:1.3;}
+  .art .note .tick{color:var(--ok); font-weight:700;}
+  .art .note--l{left:0; top:8px;} .art .note--r{right:0; bottom:8px;}
+  .tile-card h3{text-align:center;}
+  .tile-card p{font-size:.86rem; color:var(--ink-2); text-align:center; max-width:42ch; margin:0 auto;}
+  .tile-card .say{text-align:center; font-size:.76rem; color:var(--ink-3);}
+  .tile-card .say b{color:var(--ink); font-weight:600;}
+  .tile-card.soon{background:transparent; border:1.5px dashed #cfd3da;}
+  .tile-card.soon .art{color:var(--ink-3);}
+  .soon-star{width:64px; height:64px; display:block; filter:drop-shadow(0 6px 16px rgba(242,207,91,.55)); animation:twinkle 3s ease-in-out infinite;}
+  .soon-star svg{width:100%; height:100%;}
+  .tile-card.soon h3, .tile-card.soon p{color:var(--ink-3);}
+  .card{background:#fff; border-radius:14px; padding:14px 16px; box-shadow:0 14px 30px -16px rgba(20,30,50,.4); text-align:left; width:100%; max-width:340px;}
+  .card .fh{display:flex; align-items:center; gap:8px; font-size:.68rem; color:var(--ink-2); margin-bottom:6px;}
+  .card .tile{width:22px; height:22px; border-radius:6px; display:grid; place-items:center; font-weight:800; font-size:.7rem;}
+  .card .fh b{color:var(--ink); font-weight:600;}
+  .card .ft{font-size:.92rem; font-weight:600; line-height:1.3;}
+  .card .fm{margin-top:8px; display:flex; gap:6px; align-items:center; font-size:.68rem; color:var(--ink-2);}
+  .chip{display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:999px; background:var(--tile); font-weight:600; color:var(--ink); font-size:.68rem;}
+  .card .jump{display:inline-flex; align-items:center; gap:6px; margin-top:10px; height:30px; padding:0 12px; border-radius:999px; background:#0b0d14; color:#fff; font-size:.72rem; font-weight:600;}
+  @media (max-width:760px){ .tiles{grid-template-columns:1fr;} .tile-card{min-height:0;} }
+
+  .how-layout{display:grid; grid-template-columns:0.9fr 1.3fr; gap:44px;}
+  .how-intro{position:sticky; top:96px; align-self:start;}
+  .how-intro .eyebrow{margin-bottom:14px;}
+  .how-intro h2{margin-bottom:12px;}
+  .how-intro p{font-size:.94rem; color:var(--ink-2); max-width:34ch;}
+  .steps{position:relative; padding-left:44px; display:flex; flex-direction:column; gap:18px;}
+  .steps::before{content:""; position:absolute; left:11px; top:20px; bottom:20px; border-left:1.5px dashed #c9ccd3;}
+  .step{position:relative; background:var(--tile); border-radius:26px; padding:26px 26px 24px; text-align:center;}
+  .step .num{position:absolute; left:-44px; top:22px; width:24px; height:24px; border-radius:50%; background:#0b0d14; color:#fff; font-size:.7rem; font-weight:700; display:grid; place-items:center; font-family:var(--display);}
+  .step .art{min-height:190px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; position:relative;}
+  .step h3{margin-bottom:4px;}
+  .step p{font-size:.86rem; color:var(--ink-2); max-width:48ch; margin:0 auto;}
+  .sv-orb{width:60px; height:60px; border-radius:50%; background:radial-gradient(circle at 34% 30%, #fff 0 14%, #9fd0ff 40%, #2f6fe8 74%, #10306f 100%); box-shadow:0 0 0 12px rgba(47,111,232,.08), 0 18px 30px -10px rgba(16,48,111,.5);}
+  .sv-edge{position:absolute; right:0; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:14px;}
+  .sv-edge .lbl{font-size:.68rem; color:var(--ink-3); text-align:right; line-height:1.3;}
+  .sv-edge .lbl b{display:block; color:var(--ink-2); font-weight:600;}
+  .sv-screen{width:96px; height:150px; border-radius:12px 0 0 12px; background:linear-gradient(180deg,#dfe9f8,#c9dcf6); position:relative; box-shadow:0 10px 24px -14px rgba(20,30,50,.5); overflow:hidden;}
+  .sv-screen .line{position:absolute; right:0; top:50%; transform:translateY(-50%); width:4px; height:36px; border-radius:2px 0 0 2px; background:rgba(24,25,32,.9); border:1px solid rgba(255,255,255,.4); border-right:none; animation:tabrest 5s ease-in-out infinite;}
+  .sv-screen .tile{position:absolute; right:6px; top:50%; transform:translateY(-50%); width:32px; height:44px; border-radius:12px; background:rgba(24,25,32,.92); border:1px solid rgba(255,255,255,.3); display:grid; place-items:center; opacity:0; animation:tabhover 5s ease-in-out infinite;}
+  .sv-screen .tile img{width:20px; height:20px; border-radius:50%;}
+  .sv-screen .cursor{position:absolute; right:60px; top:40%; width:14px; height:14px; animation:cursor 5s ease-in-out infinite;}
+  @keyframes tabrest{0%,38%{opacity:1;} 46%,88%{opacity:0;} 96%,100%{opacity:1;}}
+  @keyframes tabhover{0%,38%{opacity:0;} 46%,88%{opacity:1;} 96%,100%{opacity:0;}}
+  @keyframes cursor{0%{transform:translate(0,0);} 40%{transform:translate(44px,4px);} 88%{transform:translate(44px,4px);} 100%{transform:translate(0,0);}}
+  .sv-key{position:absolute; left:0; top:50%; transform:translateY(-50%); font-size:.74rem; font-weight:600; color:var(--ink-2); display:flex; gap:4px; align-items:center;}
+  .flow{display:flex; flex-direction:column; gap:8px; width:100%; max-width:360px;}
+  .flow .row{display:flex; align-items:center; justify-content:space-between; background:#fff; border-radius:12px; padding:10px 14px; font-size:.8rem; font-weight:500; box-shadow:0 8px 20px -14px rgba(20,30,50,.4);}
+  .flow .row span:last-child{font-size:.68rem; color:var(--ink-3);}
+  .flow .row.on{outline:1.5px solid #0b0d14;}
+  .flow .lock{align-self:flex-end; font-size:.7rem; color:var(--ink-2); display:flex; align-items:center; gap:5px;}
+  .art--open{flex-direction:column; gap:12px;}
+  .card--click{position:relative;}
+  .card--click .click{position:absolute; width:16px; height:16px; right:118px; bottom:8px; animation:clickmove 4s ease-in-out infinite;}
+  .card--click .jump{animation:pressed 4s ease-in-out infinite;}
+  @keyframes clickmove{0%,30%{transform:translate(30px,26px); opacity:0;} 40%{opacity:1; transform:translate(0,0);} 50%{transform:translate(0,0) scale(.85);} 60%,85%{transform:translate(0,0);} 100%{transform:translate(30px,26px); opacity:0;}}
+  @keyframes pressed{0%,48%{background:#0b0d14;} 52%,62%{background:var(--blue);} 66%,100%{background:#0b0d14;}}
+  .opens{width:100%; max-width:340px; opacity:0; transform:translateY(6px); animation:opens 4s ease-in-out infinite;}
+  @keyframes opens{0%,55%{opacity:0; transform:translateY(6px);} 64%,92%{opacity:1; transform:translateY(0);} 100%{opacity:0;}}
+  .tabs{display:flex; gap:4px; padding:6px; border-radius:12px 12px 0 0; background:#dfe3ea;}
+  .tabs span{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.66rem; padding:6px 10px; border-radius:8px; color:var(--ink-2); display:flex; align-items:center; gap:6px;}
+  .tabs span.on{background:#fff; color:var(--ink); font-weight:600; box-shadow:0 2px 6px rgba(0,0,0,.08);}
+  .tabs span.on i{width:8px; height:8px; border-radius:2px; background:#EA4335; flex:none;}
+  .tabs-note{font-size:.66rem; color:var(--ink-3); padding:6px 8px 0; text-align:left;}
+  @media (max-width:820px){ .how-layout{grid-template-columns:1fr;} .how-intro{position:static;} }
+
+  .faq-list{max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:10px;}
+  .faq-item{background:#fff; border:1px solid var(--line); border-radius:16px; padding:0 20px;}
+  .faq-item summary{list-style:none; cursor:pointer; padding:18px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-weight:600; font-size:.95rem;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .plus{width:18px; height:18px; flex-shrink:0; position:relative; color:var(--ink-2);}
+  .faq-item summary .plus::before, .faq-item summary .plus::after{content:""; position:absolute; background:currentColor; top:50%; left:50%;}
+  .faq-item summary .plus::before{width:11px; height:1.5px; transform:translate(-50%,-50%);}
+  .faq-item summary .plus::after{width:1.5px; height:11px; transform:translate(-50%,-50%); transition:transform .2s;}
+  .faq-item[open] summary .plus::after{transform:translate(-50%,-50%) rotate(90deg) scaleY(0);}
+  .faq-item p{padding:0 0 18px; color:var(--ink-2); font-size:.9rem; max-width:64ch;}
+
+  /* final call: the night again */
+  .final{padding:110px 0 8px;}
+  .final-box{position:relative; overflow:hidden; border-radius:26px; padding:70px 24px; text-align:center; color:#fff;
+    background: radial-gradient(60% 50% at 50% 110%, rgba(255,255,255,.25), transparent 60%), linear-gradient(180deg, var(--night-1), var(--night-2) 55%, var(--night-3));}
+  .final-box h2{font-size:clamp(1.9rem,4vw,3rem); margin-bottom:10px;}
+  .final-box p{font-size:.95rem; color:rgba(255,255,255,.85); margin-bottom:22px; max-width:52ch; margin-inline:auto;}
+  .final-box .cat{position:absolute; right:6%; bottom:-10px; width:110px; filter:drop-shadow(0 8px 14px rgba(0,0,0,.35));}
+  footer{background:#0b0d14; color:#9299a8; padding:30px 0; padding-bottom:calc(30px + env(safe-area-inset-bottom,0px)); margin:8px; border-radius:26px;}
+  footer .wrap{display:flex; flex-direction:column; align-items:center; gap:8px; font-size:.76rem; text-align:center;}
+  footer .foot-links{display:flex; gap:18px; flex-wrap:wrap; justify-content:center;}
+  footer .foot-links a, footer .foot-links button{color:#9299a8; font-size:.76rem;}
+  footer .foot-links a:hover, footer .foot-links button:hover{color:#fff;}
+
+  .privacy{position:fixed; inset:0; z-index:80; background:rgba(8,21,58,.5); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:24px;}
+  .privacy .box{max-width:540px; width:100%; background:#fff; border-radius:20px; padding:26px 26px 22px; max-height:80vh; overflow:auto;}
+  .privacy h3{margin-bottom:12px;}
+  .privacy p, .privacy li{font-size:.88rem; color:var(--ink-2); margin-bottom:8px;}
+  .privacy ul{padding-left:18px; margin-bottom:12px;}
+
+  /* ---------- MANIFESTO ---------- */
+  #view-manifesto{padding:130px 0 80px;}
+  .manifesto{max-width:680px; margin:0 auto; padding:0 24px;}
+  .manifesto .eyebrow{margin-bottom:18px;}
+  .manifesto h1{font-size:clamp(2.1rem,4.6vw,3.2rem); font-weight:800; letter-spacing:-.045em; line-height:1.04; margin-bottom:30px;}
+  .manifesto h2.m-h{font-size:1.3rem; font-weight:800; letter-spacing:-.03em; margin:44px 0 14px;}
+  .manifesto p{font-size:1rem; color:var(--ink-2); margin-bottom:14px;}
+  .manifesto p.lead{color:var(--ink); font-weight:500;}
+  .friction-list{margin:14px 0 20px; list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .friction-list li{display:flex; gap:12px; font-size:.95rem; color:var(--ink-2); align-items:baseline;}
+  .friction-list b{width:22px; height:22px; border-radius:50%; background:#0b0d14; color:#fff; font-size:.66rem; display:grid; place-items:center; flex:none; font-family:var(--display);}
+  .m-belief{font-family:var(--display); font-size:1.35rem; font-weight:700; letter-spacing:-.03em; line-height:1.25; padding:22px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:26px 0 40px;}
+  .builder-note{background:var(--tile); border-radius:26px; padding:28px 28px 24px; margin:26px 0 44px; position:relative; overflow:hidden;}
+  .builder-note .sig{font-size:.66rem; letter-spacing:.14em; color:var(--ink-3); margin-bottom:14px; text-transform:uppercase; font-weight:700;}
+  .builder-note p{color:var(--ink); font-size:.95rem;}
+  .builder-note .signature{margin-top:18px; display:flex; align-items:center; gap:10px; color:var(--ink-2); font-size:.88rem; font-style:italic;}
+  .builder-note .signature img{width:30px; height:30px; border-radius:9px;}
+  .builder-note .note-cat{position:absolute; right:-4px; bottom:-8px; width:92px; pointer-events:none;}
+  .stepper{margin:20px 0 6px; overflow-x:auto;}
+  .stepper-row{display:flex; align-items:center; min-width:560px; margin-bottom:16px;}
+  .stepper-node{flex-shrink:0; padding:7px 13px; border-radius:999px; border:1px solid var(--line); background:#fff; font-size:.76rem; font-weight:600; white-space:nowrap;}
+  .stepper-node.now{background:#0b0d14; color:#fff; border-color:#0b0d14;}
+  .stepper-arrow{flex:1; border-top:1.5px dashed #c9ccd3; margin:0 8px;}
+  .stepper-tags{display:flex; min-width:560px; margin-bottom:28px;}
+  .stepper-tags span{flex:1; text-align:center; font-size:.66rem; color:var(--ink-3); text-transform:uppercase; letter-spacing:.08em;}
+  .level{margin-bottom:12px; padding:14px 16px; background:#fff; border:1px solid var(--line); border-radius:16px;}
+  .level b{display:block; font-size:.92rem; margin-bottom:3px;}
+  .level span{font-size:.86rem; color:var(--ink-2);}
+  .cta-final{text-align:center; margin-top:44px;}
+</style>
+</head>
+<body>
+
+
+<nav class="nav">
+  <div class="nav-pill" id="navPill">
+    <button class="logo" onclick="goHome()" aria-label="ViSO — về đầu trang"><img src="assets/logo.png" alt="">ViSO</button>
+    <div class="nav-links">
+      <button class="lnk" onclick="goManifesto()">Manifesto</button>
+      <button class="lnk" onclick="goFeatures()">Features</button>
+      <button class="lnk" onclick="openPrivacy()">Privacy Policy</button>
+      <a class="lnk" href="download.html">Download</a>
+      <button class="btn btn--dark" onclick="focusWaitlist()">Join Waitlist</button>
+    </div>
+  </div>
+</nav>
+
+<main id="view-home">
+  <header class="hero" id="hero">
+    <div class="stars" aria-hidden="true"></div>
+    <div class="stars2" aria-hidden="true"></div>
+    <span class="moon" aria-hidden="true"></span>
+    <span class="spark" style="left:9%; top:210px; width:22px; height:22px; animation-delay:.6s" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span>
+    <span class="spark" style="left:22%; top:120px; width:12px; height:12px; animation-delay:1.4s" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span>
+    <span class="spark" style="right:26%; top:300px; width:16px; height:16px; animation-delay:2s" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span>
+    <span class="cloud" style="left:-6%; bottom:280px; width:420px; height:150px" aria-hidden="true"></span>
+    <span class="cloud" style="right:-8%; bottom:250px; width:520px; height:170px; opacity:.45" aria-hidden="true"></span>
+    <span class="cloud" style="left:30%; bottom:200px; width:360px; height:120px; opacity:.35" aria-hidden="true"></span>
+
+    <div class="hero-copy">
+      <div class="kicker"><span class="dot"></span>Alpha early access</div>
+      <h1>Stop breaking your flow just to write things down.</h1>
+      <p class="lede">The instant, on-device assistant layer for your digital workspace. Dump your thoughts naturally and let ViSO route them into a note, a task or a reminder in under a second — without leaving your current window.</p>
+      <form class="waitlist" id="waitlistForm">
+        <input type="email" id="waitlistEmail" placeholder="Enter your email address..." required autocomplete="email">
+        <button type="submit" class="btn btn--dark" id="waitlistBtn">Join Waitlist</button>
+      </form>
+      <p class="waitlist-msg" id="waitlistMsg"></p>
+      <div class="proof">
+        <div class="avatars"><span style="background:#2F6FE8">JM</span><span style="background:#F59E0B">RN</span><span style="background:#10B981">AT</span><span style="background:#EF4444">SL</span><span style="background:#6366F1">+</span></div>
+        <span>Joined by 128+ builders, founders &amp; researchers.</span>
+      </div>
+      <div class="community">
+        <span>Join our Alpha Community</span>
+        <a class="icon-btn" href="#" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="6"/><circle cx="9" cy="12.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12.5" r="1.3" fill="currentColor" stroke="none"/></svg></a>
+        <a class="icon-btn" href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></a>
+        <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><line x1="7.5" y1="10" x2="7.5" y2="16.5"/><path d="M11.5 16.5v-4a2 2 0 0 1 4 0v4"/><line x1="11.5" y1="10" x2="11.5" y2="16.5"/></svg></a>
+        <a class="icon-btn" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+      <div class="countdown">
+        <span class="cd-label">Alpha build 0.1 rollout in</span>
+        <div class="cd-row">
+          <div class="cd-unit"><b id="cd-d">--</b><span>Days</span></div>
+          <div class="cd-unit"><b id="cd-h">--</b><span>Hours</span></div>
+          <div class="cd-unit"><b id="cd-m">--</b><span>Mins</span></div>
+          <div class="cd-unit"><b id="cd-s">--</b><span>Secs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" aria-label="A desktop with the ViSO panel at its edge, the ViSO panel inside a web page, and the Orb listening">
+      <div class="menubar"><span>ViSO · Gmail — Báo giá quý 3</span><span>Tue 15 Sep · 09:41</span></div>
+      <span class="sc-cloud" style="left:-4%; bottom:40px; width:380px; height:130px" aria-hidden="true"></span>
+      <span class="sc-cloud" style="right:-6%; bottom:90px; width:420px; height:140px" aria-hidden="true"></span>
+      <div class="key"><kbd>Ctrl</kbd>+<kbd>Space</kbd></div>
+      <div class="orb" aria-hidden="true"></div>
+      <div class="say">"nhắc tôi gửi báo giá thứ Sáu"</div>
+      <div class="saved">
+        <div class="fh"><span class="tile">M</span><b>Gmail</b> · Báo giá quý 3</div>
+        <div class="ft">gửi báo giá thứ Sáu</div>
+        <div class="ok">✓ Lời nhắc · Thứ Sáu 09:00 · saved in 0.6s</div>
+      </div>
+      <div class="hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page: this page's notes as cards, filter chips and a composer"></div>
+      <div class="panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel: a column of note cards, a search bar and a composer"></div>
+      <span class="tab" aria-hidden="true"></span>
+      <img class="cat" src="assets/cat-cloud.png" alt="">
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">One layer, every kind of thought</div>
+        <h2>Say it once. ViSO knows what it is.</h2>
+        <p>Real screens from build 0.2.4 — a widget on the desktop, a panel on every web page, a hub for everything you said. Not mockups.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile-card">
+          <div class="art">
+            <div class="shot shot--hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page"></div>
+            <div class="note note--l"><div class="fh"><span class="tick">✓</span> saved · YouTube</div><b>video này giải thích RAG khá dễ hiểu</b></div>
+          </div>
+          <h3>Notes &amp; Thoughts</h3>
+          <p>Nhặt ý tưởng, trích dẫn, link tài liệu tức thì — ghim sẵn trang bạn đang mở, không cần chọn folder.</p>
+          <div class="say">say <b>"ghi chú video này giải thích RAG khá dễ hiểu"</b></div>
+        </div>
+        <div class="tile-card">
+          <div class="art">
+            <div class="shot shot--panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel"></div>
+            <div class="note note--r"><div class="fh"><span class="tick">✓</span> Todo · 18/43 xong</div><b>nộp báo cáo trước thứ Tư</b></div>
+          </div>
+          <h3>Tasks &amp; Actions</h3>
+          <p>Biến việc cần làm thành checklist có deadline nếu bạn nói ra. Tick xong là xong, không đổi chỗ.</p>
+          <div class="say">say <b>"việc cần làm nộp báo cáo trước thứ Tư"</b></div>
+        </div>
+        <div class="tile-card">
+          <div class="art">
+            <div class="card">
+              <div class="fh"><span class="tile" style="background:#0068FF;color:#fff">Z</span><b>Zalo</b> · Every day · 15:00</div>
+              <div class="ft">gọi lại khách</div>
+              <div class="fm"><span class="chip">🔔 Lời nhắc</span><span>Windows · macOS notification</span></div>
+            </div>
+          </div>
+          <h3>Reminders &amp; Pings</h3>
+          <p>Đặt mốc bằng giọng nói, kể cả lặp mỗi ngày / mỗi tuần. Hệ điều hành tự báo — không cần mở app báo thức.</p>
+          <div class="say">say <b>"nhắc tôi 3 giờ chiều gọi anh Đông"</b></div>
+        </div>
+        <div class="tile-card soon">
+          <div class="art"><span class="soon-star" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><radialGradient id="ss"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#fff3b0"/><stop offset="1" stop-color="#f2cf5b"/></radialGradient></defs><path fill="url(#ss)" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span></div>
+          <h3>And so on...</h3>
+          <p>Lịch biểu Calendar, Meeting Summarizer, Dynamic File Routing... đang được hoàn thiện.</p>
+          <div class="say">coming soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap how-layout">
+      <div class="how-intro">
+        <div class="eyebrow">How it works</div>
+        <h2>Get started in 3 simple steps.</h2>
+        <p>Capture at the speed of thought. Let ViSO bridge the context back to where you left off.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">1</span>
+          <div class="art">
+            <span class="sv-key"><kbd>Ctrl</kbd>+<kbd>Space</kbd></span>
+            <div class="sv-orb" aria-hidden="true"></div>
+            <div class="sv-edge" aria-label="The ViSO tab at the screen's edge: a thin mark, a tile with the logo under the pointer">
+              <div class="lbl"><b>the tab</b>a 4px mark at rest,<br>a tile on hover</div>
+              <div class="sv-screen">
+                <span class="line"></span>
+                <span class="tile"><img src="assets/logo.png" alt=""></span>
+                <svg class="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3>Summon anywhere</h3>
+          <p>Dù đang lướt web, họp Meet, hay viết code trong IDE — một phím tắt duy nhất. Nói hoặc gõ, không cần mở app; tab ViSO chỉ là một vạch ở mép màn hình cho tới lúc đó.</p>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <div class="art">
+            <div class="flow">
+              <div class="row"><span>🎙 voice</span><span>16 kHz, on this machine</span></div>
+              <div class="row"><span>whisper.cpp · zipformer</span><span>ASR · 0.3s</span></div>
+              <div class="row on"><span>{ kind: "reminder", at: "Fri 09:00" }</span><span>intent</span></div>
+              <div class="row"><span>saved · linked to the page</span><span>&lt; 1s</span></div>
+              <span class="lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>nothing leaves your computer</span>
+            </div>
+          </div>
+          <h3>On-device processing <span style="color:var(--ink-3);font-weight:500">(&lt; 1s)</span></h3>
+          <p>whisper.cpp (English) và zipformer (tiếng Việt) chuyển giọng nói thành chữ ngay trên CPU; bộ đọc ý định phân loại tức thì thành Note, Task hay Reminder. 100% tại máy.</p>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <div class="art art--open">
+            <div class="card card--click">
+              <div class="fh"><span class="tile" style="background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)">M</span><b>Gmail · Báo giá quý 3</b> · 12h ago</div>
+              <div class="ft">gửi báo giá cho anh Đông trước thứ Sáu</div>
+              <span class="jump">↳ Jump back to this thread</span>
+              <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="opens" aria-hidden="true">
+              <div class="tabs"><span>Inbox</span><span class="on"><i></i>Báo giá quý 3 — Gmail</span><span>Timeline — Sheets</span></div>
+              <div class="tabs-note">↑ the exact thread, focused — the tab is switched to if it's already open</div>
+            </div>
+          </div>
+          <h3>Unified traceability</h3>
+          <p>Note không chỉ được lưu, mà còn tự ghim đường link nơi bạn vừa nảy ra ý — thư Gmail, tài liệu Docs, video YouTube (kèm cả link cha: hộp thư, thư mục, kênh). <b>Bấm vào thẻ</b> là về đúng thư / tài liệu / video đó: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">FAQ</div><h2>Questions, answered</h2></div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p>Tuyệt đối không. Toàn bộ nhận diện giọng nói (ASR) và bóc tách ý định đều chạy bằng model nén trực tiếp trên phần cứng máy tính của bạn. Ghi chú nằm trong một file SQLite trên máy; bản sao lưu là JSON bạn tự tải xuống.</p></details>
+        <details class="faq-item"><summary>Tôi có thể gõ phím thay vì nói không?<span class="plus"></span></summary><p>Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.</p></details>
+        <details class="faq-item"><summary>Khi nào tôi nhận được bản cài đặt Alpha?<span class="plus"></span></summary><p>Khi đồng hồ countdown kết thúc, chúng tôi gửi link tải bản build trực tiếp qua email đăng ký theo từng đợt nhỏ, kèm lời mời tham gia nhóm Discord riêng. Windows (.exe) và macOS Apple Silicon (.dmg), cộng extension cho Chrome.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="final">
+    <div class="wrap">
+      <div class="final-box">
+        <div class="stars" aria-hidden="true" style="opacity:.7"></div>
+        <div style="position:relative">
+          <h2>Be on it from Day 1.</h2>
+          <p>Raw builds, brutal feedback, a Discord with the builder. Windows, macOS and Chrome.</p>
+          <button class="btn btn--dark" onclick="focusWaitlist()">Join the Alpha Waitlist →</button>
+        </div>
+        <img class="cat" src="assets/cat-cloud.png" alt="">
+      </div>
+    </div>
+  </div>
+</main>
+
+<main id="view-manifesto" hidden>
+  <div class="manifesto">
+    <div class="eyebrow">Manifesto</div>
+    <h1>Most productivity tools create more friction than they solve.</h1>
+    <p class="lead">Every time inspiration strikes or a task pops up, you are forced to:</p>
+    <ul class="friction-list">
+      <li><b>1</b> Stop your current work.</li>
+      <li><b>2</b> Open Notion, Todoist, or Apple Notes.</li>
+      <li><b>3</b> Decide whether it's a note, a task, a reminder, or an event.</li>
+      <li><b>4</b> Lose 15 minutes of your deep focus (Flow State) trying to organize it.</li>
+    </ul>
+    <p class="m-belief">We believe your computer should adapt to how your brain works, not the other way around.</p>
+    <div class="builder-note">
+      <div class="sig">A note from the builder</div>
+      <p>Hi, I'm building ViSO because I was exhausted from losing my train of thought every time I tried to organize my daily work across 4 different apps.</p>
+      <p>ViSO is currently in its early Alpha stage. It's raw, lightweight, and focused purely on one killer experience: instant, zero-friction capture and routing on your desktop.</p>
+      <p>I'm not looking for casual downloads. I'm looking for early partners, builders, researchers, and power users who want to test the raw builds, give brutal feedback, and help shape how we interact with our computers in the AI era.</p>
+      <p>If you care deeply about focus, speed, and privacy, I'd love to have you onboard from Day 1.</p>
+      <div class="signature"><img src="assets/logo.png" alt="">— the builder, ViSO</div>
+      <img class="note-cat" src="assets/cat-cloud.png" alt="">
+    </div>
+    <h2 class="m-h">The Evolutionary Path</h2>
+    <div class="stepper">
+      <div class="stepper-row">
+        <div class="stepper-node now">Desktop Widget</div><div class="stepper-arrow"></div>
+        <div class="stepper-node">Mobile Layer</div><div class="stepper-arrow"></div>
+        <div class="stepper-node">Smartwatch &amp; Ring</div><div class="stepper-arrow"></div>
+        <div class="stepper-node">Smartglasses</div>
+      </div>
+      <div class="stepper-tags"><span>Now</span><span>Next</span><span>Wearables</span><span>Endgame</span></div>
+    </div>
+    <div class="level"><b>Level 1 — Desktop Widget (2026)</b><span>Lớp nhận thức tức thì ngay tại bàn làm việc với phím tắt Ctrl + Space. Đang chạy trên Windows, macOS và Chrome.</span></div>
+    <div class="level"><b>Level 2 — Mobile Instant Layer</b><span>Bắt trọn ý định khi đang di chuyển qua thao tác chạm viền hoặc nút vật lý.</span></div>
+    <div class="level"><b>Level 3 — Micro-Wearables (Smartwatch &amp; Ring)</b><span>Tương tác vi cử chỉ và cảm biến xúc giác để bắt dòng suy nghĩ mà không cần rút điện thoại.</span></div>
+    <div class="level"><b>Level 4 — Spatial Smartglasses (The Endgame)</b><span>Trợ lý hiển thị ngữ cảnh không gian. Nhận diện ý định qua ánh nhìn và giọng nói thầm, biến thế giới số hòa làm một với trường nhìn tự nhiên của con người.</span></div>
+    <div class="cta-final"><button class="btn btn--dark" onclick="goHome(); setTimeout(focusWaitlist, 60)">Join the Alpha Waitlist →</button></div>
+  </div>
+</main>
+
+<footer id="siteFooter">
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="#">Terms of Service</a>
+      <button onclick="openPrivacy()">Privacy Policy</button>
+      <a href="#">Security Architecture</a>
+    </div>
+    <p>ViSO © 2026. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="privacy" id="privacy" hidden role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="box">
+    <h3 id="privacyTitle">Privacy, in one screen</h3>
+    <p>ViSO is local-first. Concretely:</p>
+    <ul>
+      <li>Speech recognition and intent parsing run on your CPU (whisper.cpp, zipformer). No audio is uploaded, ever.</li>
+      <li>Notes, tasks and reminders live in a SQLite database in your user profile, and in the Chrome extension's own storage. Backups are JSON files you download yourself.</li>
+      <li>The extension reads the page you're on only to know where a note belongs — a title, an address, a favicon. It never sends page content anywhere.</li>
+      <li>The one download is the search model (multilingual-e5-small, 118 MB), fetched once from Hugging Face and verified against a pinned checksum.</li>
+      <li>No account, no telemetry, no analytics in the Alpha. The waitlist email is the only thing you give us.</li>
+    </ul>
+    <button class="btn btn--white" onclick="closePrivacy()">Close</button>
+  </div>
+</div>
+
+<script>
+  function setView(view){
+    document.getElementById('view-home').hidden = view !== 'home';
+    document.getElementById('view-manifesto').hidden = view !== 'manifesto';
+    window.scrollTo({top:0, behavior:'auto'});
+    tintNav();
+  }
+  function goHome(){ setView('home'); }
+  function goManifesto(){ setView('manifesto'); }
+  function goFeatures(){ setView('home'); requestAnimationFrame(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }); }
+  function focusWaitlist(){ setView('home'); var el = document.getElementById('waitlistEmail'); el.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(function(){ el.focus(); }, 300); }
+  function openPrivacy(){ document.getElementById('privacy').hidden = false; }
+  function closePrivacy(){ document.getElementById('privacy').hidden = true; }
+  document.getElementById('privacy').addEventListener('click', function(e){ if(e.target === this) closePrivacy(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePrivacy(); });
+
+  // The nav pill is glass over the night sky and paper over the light sections.
+  function tintNav(){
+    var hero = document.getElementById('hero');
+    var onHero = !document.getElementById('view-home').hidden && hero.getBoundingClientRect().bottom > 70;
+    document.getElementById('navPill').classList.toggle('on-light', !onHero);
+  }
+  window.addEventListener('scroll', tintNav, {passive:true}); tintNav();
+
+  // Point WAITLIST_ENDPOINT at a form backend (Formspree, Tally, your own) to
+  // collect emails; until then the address is kept in this browser only.
+  var WAITLIST_ENDPOINT = '';
+  document.getElementById('waitlistForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('waitlistMsg'), input = document.getElementById('waitlistEmail'), email = input.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent = "That doesn't look like a valid email."; msg.classList.add('err'); return; }
+    msg.classList.remove('err');
+    var done = function(){ msg.textContent = "You're on the list — we'll email you when Alpha opens."; input.value = ''; };
+    if(WAITLIST_ENDPOINT){
+      var btn = document.getElementById('waitlistBtn'); btn.disabled = true; msg.textContent = 'Sending…';
+      fetch(WAITLIST_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify({email:email})})
+        .then(function(r){ if(!r.ok) throw new Error('bad status'); done(); })
+        .catch(function(){ msg.textContent = "Couldn't reach the list right now — try again in a minute."; msg.classList.add('err'); })
+        .then(function(){ btn.disabled = false; });
+    } else {
+      try { var list = JSON.parse(localStorage.getItem('viso-waitlist') || '[]'); if(list.indexOf(email) < 0) list.push(email); localStorage.setItem('viso-waitlist', JSON.stringify(list)); } catch(_){}
+      done();
+    }
+  });
+
+  (function(){
+    var target = new Date('2026-09-20T09:00:00+07:00');
+    function tick(){
+      var diff = Math.max(0, target - new Date());
+      var d = Math.floor(diff/86400000), h = Math.floor(diff%86400000/3600000), m = Math.floor(diff%3600000/60000), s = Math.floor(diff%60000/1000);
+      document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+
+</body>
+</html>

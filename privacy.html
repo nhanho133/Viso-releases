@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chính sách quyền riêng tư — ViSO</title>
+<style>
+  :root { color-scheme: light dark; --text: #1d1d1f; --text-2: #5f6368; --bg: #eef0f4; --rule: rgba(40,45,55,.15); --accent: #0766c6; }
+  @media (prefers-color-scheme: dark) { :root { --text: #f3f4f7; --text-2: #a4a9b4; --bg: #0a0a0f; --rule: rgba(255,255,255,.12); --accent: #a5aafc; } }
+  body { margin: 0; padding: 40px 20px 80px; background: var(--bg); color: var(--text); font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 20px; margin: 36px 0 10px; }
+  p, li { color: var(--text); } .muted { color: var(--text-2); }
+  a { color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Chính sách quyền riêng tư</h1>
+  <p class="muted">ViSO — extension cho Chrome và app trên máy tính. Cập nhật 12/09/2026.</p>
+
+  <p>ViSO là công cụ ghi chú bằng giọng nói chạy <strong>hoàn toàn trên máy của bạn</strong>. Không có máy chủ ViSO. Không có tài khoản. Nội dung ghi chú, âm thanh, và trang bạn đang xem không bao giờ được gửi tới chúng tôi hay bên thứ ba.</p>
+
+  <h2>Dữ liệu ViSO lưu, và lưu ở đâu</h2>
+  <ul>
+    <li><strong>Ghi chú, việc cần làm, lời nhắc</strong> bạn tạo: lưu trong bộ nhớ riêng của extension trên trình duyệt (Origin Private File System) và, nếu bạn cài app trên máy tính, trong thư mục dữ liệu của app trên cùng máy.</li>
+    <li><strong>Địa chỉ và tiêu đề trang</strong> nơi bạn ghi chú, để mở lại đúng chỗ. Chỉ lưu với trang bạn chủ động ghi chú; ViSO không ghi lịch sử duyệt web.</li>
+    <li><strong>Đoạn văn bạn bôi đen</strong> lúc ghi chú, nếu có.</li>
+    <li><strong>Âm thanh</strong>: app trên máy tính thu và nhận dạng ngay trên máy, rồi bỏ. Extension không thu âm và không xin quyền micro.</li>
+  </ul>
+  <p>Bạn xoá từng ghi chú trong giao diện, hoặc xoá toàn bộ bằng cách gỡ extension và app. Bạn có thể xuất toàn bộ ghi chú ra một file trong Agent Hub của extension.</p>
+
+  <h2>Kết nối mạng</h2>
+  <table>
+    <thead><tr><th>Kết nối</th><th>Khi nào</th><th>Gửi gì</th></tr></thead>
+    <tbody>
+      <tr><td>huggingface.co</td><td>Một lần, khi bạn đồng ý tải mô hình tìm kiếm theo nghĩa (khoảng 120 MB)</td><td>Chỉ yêu cầu tải file. Không kèm dữ liệu của bạn.</td></tr>
+      <tr><td>github.com</td><td>App trên máy tính kiểm tra bản mới khi mở (Windows)</td><td>Chỉ yêu cầu đọc danh sách bản phát hành.</td></tr>
+      <tr><td>App ViSO trên máy tính</td><td>Khi trình duyệt đang mở</td><td>Danh sách ghi chú và, khi bạn gọi Orb, trang đang mở — qua kênh Native Messaging của Chrome, không ra khỏi máy.</td></tr>
+    </tbody>
+  </table>
+  <p>Không có phân tích sử dụng, không có quảng cáo, không có mã theo dõi.</p>
+
+  <h2>Vì sao extension xin các quyền này</h2>
+  <table>
+    <thead><tr><th>Quyền</th><th>Để làm gì</th></tr></thead>
+    <tbody>
+      <tr><td>Đọc và thay đổi dữ liệu trên mọi trang (<code>&lt;all_urls&gt;</code>, <code>scripting</code>)</td><td>Hiện khung ghi chú của trang đang mở và đọc tiêu đề, địa chỉ để gắn ghi chú vào đúng chỗ. ViSO không sửa nội dung trang.</td></tr>
+      <tr><td><code>tabs</code></td><td>Biết tab nào đang mở để gắn ghi chú và mở lại trang của một ghi chú.</td></tr>
+      <tr><td><code>storage</code>, <code>unlimitedStorage</code></td><td>Lưu ghi chú trên máy và không để Chrome tự xoá khi đầy ổ đĩa.</td></tr>
+      <tr><td><code>offscreen</code></td><td>Chạy cơ sở dữ liệu ghi chú ở nền một cách ổn định.</td></tr>
+      <tr><td><code>alarms</code>, <code>notifications</code></td><td>Đặt và hiện lời nhắc đúng giờ.</td></tr>
+      <tr><td><code>favicon</code></td><td>Hiện biểu tượng của trang cạnh ghi chú, lấy từ bộ nhớ của chính Chrome.</td></tr>
+      <tr><td><code>nativeMessaging</code></td><td>Nói chuyện với app ViSO trên cùng máy, để ghi chú bằng giọng nói qua Orb và xem ghi chú web trong app.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Liên hệ</h2>
+  <p>Câu hỏi về chính sách này: <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>. Mã nguồn phát hành và bản cài: <a href="https://github.com/nhanho133/Viso-releases">github.com/nhanho133/Viso-releases</a>.</p>
+</main>
+</body>
+</html>

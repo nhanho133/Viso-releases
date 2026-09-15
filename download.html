@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ViSO — bắt đầu</title>
+<style>
+  :root {
+    --sky-top: #eaf3ff; --sky-bottom: #cfe1fa;
+    --navy: #0f2a66; --navy-2: #1a3f8f;
+    --panel: linear-gradient(165deg, #d6e8fd 0%, #c9def9 50%, #c2d8f6 100%);
+    --glass: rgba(255,255,255,.5); --glass-2: rgba(255,255,255,.68); --edge: rgba(255,255,255,.9);
+    --tile: rgba(196,218,250,.75);
+    --accent: #2f6fe8; --accent-gradient: linear-gradient(180deg,#3d84ff 0%,#2560e0 100%); --glow: rgba(47,111,232,.35);
+    --text: #1b2b4b; --text-2: #5f7396; --gold: #f2cf5b; --cat: #16181f;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px 20px 80px; min-height: 100vh; background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)) fixed; color: var(--text); font: 16px/1.55 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 860px; margin: 0 auto; }
+  .window { position: relative; margin-top: 34px; border-radius: 28px; background: var(--panel); border: 1.5px solid var(--edge); box-shadow: 0 24px 60px rgba(30,60,120,.22); }
+  .bar { position: relative; display: flex; align-items: center; gap: 14px; height: 64px; padding: 0 28px 0 24px; border-radius: 26px 26px 0 0; background: linear-gradient(90deg, var(--navy), var(--navy-2) 60%, #2a5bc0); color: #fff; }
+  .bar::before, .bar::after { content: ''; position: absolute; top: -18px; width: 34px; height: 30px; background: var(--navy); clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+  .bar::before { left: 22px; } .bar::after { left: 62px; }
+  .bar h1 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
+  .bar .sub { color: rgba(255,255,255,.72); font-size: 14px; }
+  .star { color: var(--gold); }
+  .cat { position: absolute; right: 36px; bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.25)); }
+  .inner { padding: 26px 24px 28px; display: grid; gap: 20px; }
+  .hero { padding: 6px 4px 0; }
+  .hero h2 { margin: 0 0 6px; font-size: 30px; line-height: 1.15; letter-spacing: -.02em; }
+  .hero p { margin: 0; color: var(--text-2); font-size: 17px; }
+  kbd { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9em; padding: 1px 7px; border: 1.5px solid var(--edge); border-radius: 7px; background: var(--glass-2); }
+  ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; }
+  ol.steps > li { counter-increment: s; position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 0 16px; padding: 18px 20px 20px; border-radius: 20px; background: var(--glass); border: 1.5px solid var(--edge); }
+  ol.steps > li::before { content: counter(s); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--accent-gradient); color: #fff; font-weight: 700; font-size: 18px; box-shadow: 0 8px 20px var(--glow); }
+  .body { display: grid; gap: 8px; min-width: 0; }
+  .body h3 { margin: 4px 0 2px; font-size: 19px; }
+  .body p { margin: 0; } .muted { color: var(--text-2); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 18px; border-radius: 999px; background: var(--accent-gradient); color: #fff; text-decoration: none; font-weight: 600; box-shadow: 0 8px 20px var(--glow); }
+  .btn--soft { background: var(--glass-2); color: var(--text); box-shadow: none; border: 1.5px solid var(--edge); }
+  .note { padding: 12px 14px; border-radius: 14px; background: var(--glass-2); border: 1.5px solid var(--edge); font-size: 15px; }
+  .try { display: grid; gap: 8px; }
+  .say { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 999px; background: var(--glass-2); border: 1.5px solid var(--edge); font-size: 15px; }
+  .say .mic { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--tile); color: var(--accent); flex: none; }
+  .say b { color: var(--accent); font-weight: 600; margin-left: auto; white-space: nowrap; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { padding: 16px 18px; border-radius: 18px; background: var(--glass); border: 1.5px solid var(--edge); }
+  .card h3 { margin: 0 0 6px; font-size: 17px; }
+  .card p { margin: 0; color: var(--text-2); font-size: 15px; }
+  footer { margin: 18px 4px 0; font-size: 14px; color: var(--text-2); text-align: center; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="window">
+    <header class="bar">
+      <h1>ViSO</h1>
+      <svg class="star" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg>
+      <span class="sub">nói một câu, ghi chú nằm đúng chỗ</span>
+      <svg class="cat" width="110" height="64" viewBox="0 0 120 70" aria-hidden="true">
+        <g fill="#16181f" stroke="#f2cf5b" stroke-width="1.5" stroke-linejoin="round">
+          <path d="M22 34 L14 6 L40 22 Z"/><path d="M98 34 L106 6 L80 22 Z"/>
+          <path d="M18 40 C18 22 30 16 60 16 C90 16 102 22 102 40 C102 56 90 64 60 64 C30 64 18 56 18 40 Z"/>
+          <ellipse cx="34" cy="66" rx="12" ry="5"/><ellipse cx="86" cy="66" rx="12" ry="5"/>
+        </g>
+        <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round">
+          <path d="M40 40 C43 36 49 36 52 40"/><path d="M68 40 C71 36 77 36 80 40"/><path d="M56 47 C58 50 62 50 64 47"/>
+        </g>
+      </svg>
+    </header>
+
+    <div class="inner">
+      <section class="hero">
+        <h2>Bắt đầu trong 5 phút</h2>
+        <p>Bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd> ở bất kỳ đâu — Gmail, Google Docs, YouTube, hay ngoài màn hình — nói điều cần nhớ, ViSO ghi lại đúng chỗ đó. Mọi thứ chạy trên máy bạn: không tài khoản, không gửi đi đâu.</p>
+      </section>
+
+      <ol class="steps">
+        <li><div class="body">
+          <h3>Tải và mở app cho máy tính</h3>
+          <div class="row">
+            <a class="btn" href="https://github.com/nhanho133/Viso-releases/releases/latest">Windows (.exe)</a>
+            <a class="btn" href="https://github.com/nhanho133/Viso-releases/releases/latest">macOS Apple Silicon (.dmg)</a>
+          </div>
+          <p class="note"><strong>Windows:</strong> app chưa ký số nên lần đầu hiện SmartScreen — bấm <em>More info → Run anyway</em>.<br><strong>macOS:</strong> kéo ViSO vào Applications, chuột phải → <em>Open → Open</em>. Một lần thôi.</p>
+          <p class="muted">Mở xong, một <strong>vạch mỏng</strong> hiện ở mép phải màn hình. Rê chuột vào thấy logo mèo, bấm là ra bảng Notes. App tự đăng ký với Chrome ở lần mở này.</p>
+        </div></li>
+
+        <li><div class="body">
+          <h3>Cài extension cho Chrome</h3>
+          <div class="row">
+            <a class="btn" href="https://github.com/nhanho133/Viso-releases/releases/latest">Tải ViSO-extension.zip</a>
+            <a class="btn btn--soft" href="STORE_LINK">Hoặc từ Chrome Web Store</a>
+          </div>
+          <p class="muted">Giải nén zip → Chrome → <kbd>chrome://extensions</kbd> → bật <em>Developer mode</em> (góc phải trên) → <em>Load unpacked</em> → chọn thư mục vừa giải nén. Ghim ViSO lên thanh công cụ (nút ghim cạnh 🧩).</p>
+        </div></li>
+
+        <li><div class="body">
+          <h3>Thử ngay</h3>
+          <p class="muted">Mở Gmail (hay trang nào cũng được), <strong>tải lại tab</strong>, rồi bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd> và nói:</p>
+          <div class="try">
+            <div class="say"><span class="mic">🎤</span>"ghi chú gửi báo giá thứ Sáu"<b>→ ghi chú của trang</b></div>
+            <div class="say"><span class="mic">🎤</span>"nhắc tôi 3 giờ chiều gọi anh Đông"<b>→ lời nhắc</b></div>
+            <div class="say"><span class="mic">🎤</span>"việc cần làm nộp báo cáo"<b>→ việc</b></div>
+          </div>
+          <p class="muted">Ghi chú hiện trong khung ViSO ở mép phải trang và trong bảng Notes của app. Trong khung: <kbd>···</kbd> để Sửa/Xoá, <kbd>⚙</kbd> chọn khung tự hiện hay chỉ khi gọi.</p>
+        </div></li>
+      </ol>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Ctrl+Space không ra Orb?</h3>
+          <p>Máy có nhiều bộ gõ thường giữ phím này. Windows: Settings → Time &amp; language → Typing → Advanced keyboard settings → Input language hot keys. macOS: System Settings → Keyboard → Keyboard Shortcuts → Input Sources.</p>
+        </div>
+        <div class="card">
+          <h3>Khi gặp lỗi</h3>
+          <p>Bấm biểu tượng ViSO trên thanh công cụ Chrome → trang ViSO → mục <em>App desktop</em> cho biết app đã kết nối chưa. Log: Windows <code>%APPDATA%\viso\logs\viso-main.log</code>, macOS <code>~/Library/Application Support/viso/logs/viso-main.log</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="index.html">Trang chủ</a> · <a href="privacy.html">Chính sách quyền riêng tư</a> · <a href="https://github.com/nhanho133/Viso-releases/releases">Mọi bản phát hành</a> · Hỗ trợ: <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>
+  </footer>
+</main>
+</body>
+</html>
