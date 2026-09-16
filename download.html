@@ -59,6 +59,8 @@
   .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
   .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
   .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
+  .nav-pill .btn.lang{padding:0 12px; min-width:46px; font-weight:700; letter-spacing:.06em; gap:6px;}
+  .nav-pill .btn.lang::before{content:''; width:14px; height:14px; border-radius:50%; border:1.6px solid currentColor; background:radial-gradient(circle at 50% 50%, transparent 0 3px, currentColor 3px 4.4px, transparent 4.6px) ; opacity:.9;}
   .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
   .nav-pill .btn--white:hover{background:#eef2f9;}
   .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
@@ -174,12 +176,13 @@
     <a class="logo" href="index.html"><img src="assets/logo.png" alt="">ViSO</a>
     <div class="nav-links">
       <a class="lnk" href="index.html#manifesto">Manifesto</a>
-      <a class="lnk" href="index.html#features">Features</a>
-      <a class="lnk" href="index.html#faq">FAQ</a>
-      <a class="lnk" href="privacy.html">Privacy</a>
+      <a class="lnk" href="index.html#features" data-i="n.features">Features</a>
+      <a class="lnk" href="index.html#faq" data-i="n.faq">FAQ</a>
+      <a class="lnk" href="privacy.html" data-i="n.privacy">Privacy</a>
       <span class="nav-cta">
-        <a class="btn btn--ghost" href="index.html#waitlistEmail">Join Waitlist</a>
-        <a class="btn btn--white now" href="#top"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
+        <button class="btn btn--ghost lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
+        <a class="btn btn--ghost" href="index.html#waitlistEmail" data-i="n.join">Join Waitlist</a>
+        <a class="btn btn--white now" href="#top" data-i="n.download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
       </span>
     </div>
   </div>
@@ -190,33 +193,33 @@
   <div class="wrap">
     <div class="hero-head">
       <span class="eyebrow">Alpha <span id="relVersion">0.2.4</span> · <span id="relDate">16/09/2026</span></span>
-      <h1>Tải ViSO</h1>
-      <p class="lede">Chọn máy của bạn. Cài trong một phút, không cần tài khoản. Mọi thứ chạy trên máy — không gửi đi đâu.</p>
+      <h1 data-i="d.h1">Tải ViSO</h1>
+      <p class="lede" data-i="d.lede">Chọn máy của bạn. Cài trong một phút, không cần tài khoản. Mọi thứ chạy trên máy — không gửi đi đâu.</p>
     </div>
 
     <div class="dl-grid" id="dlGrid">
       <div class="dl" id="dl-win">
-        <span class="tag" hidden>Máy của bạn</span>
+        <span class="tag" hidden data-i="d.mine">Máy của bạn</span>
         <div class="dl-top">
           <div class="dl-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 11 4.4v7.1H3zM12 4.2 21 3v8.5h-9zM3 12.5h8v7.1L3 18.5zM12 12.5h9V21l-9-1.2z"/></svg></div>
-          <div><h2>Windows</h2><div class="req">Windows 10 / 11 · 64-bit</div></div>
+          <div><h2>Windows</h2><div class="req" data-i="d.win.req">Windows 10 / 11 · 64-bit</div></div>
         </div>
         <div class="meta"><span id="winSize">374 MB</span><span>·</span><span>.exe</span></div>
-        <a class="btn btn--blue" id="winBtn" href="#">Tải cho Windows</a>
-        <a class="steps-link" href="#windows">Xem 3 bước cài ↓</a>
-        <p class="note">Lần đầu mở, Windows hỏi một câu vì app chưa ký số — bấm <em>More info → Run anyway</em>. Có hình ở dưới.</p>
+        <a class="btn btn--blue" id="winBtn" href="#" data-i="d.win.btn">Tải cho Windows</a>
+        <a class="steps-link" href="#windows" data-i="d.win.steps">Xem 3 bước cài ↓</a>
+        <p class="note" data-i="d.win.note">Lần đầu mở, Windows hỏi một câu vì app chưa ký số — bấm <em>More info → Run anyway</em>. Có hình ở dưới.</p>
       </div>
 
       <div class="dl" id="dl-mac">
-        <span class="tag" hidden>Máy của bạn</span>
+        <span class="tag" hidden data-i="d.mine">Máy của bạn</span>
         <div class="dl-top">
           <div class="dl-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.7zM14.1 5.8c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg></div>
-          <div><h2>macOS</h2><div class="req">macOS 13+ · Apple Silicon (M1–M4)</div></div>
+          <div><h2>macOS</h2><div class="req" data-i="d.mac.req">macOS 13+ · Apple Silicon (M1–M4)</div></div>
         </div>
         <div class="meta"><span id="macSize">417 MB</span><span>·</span><span>.dmg</span></div>
-        <a class="btn btn--blue" id="macBtn" href="#">Tải cho macOS</a>
-        <a class="steps-link" href="#mac">Xem 3 bước cài ↓</a>
-        <p class="note">Mở lần đầu: chuột phải ViSO → <em>Open</em>. Máy Mac Intel chưa có bản riêng.</p>
+        <a class="btn btn--blue" id="macBtn" href="#" data-i="d.mac.btn">Tải cho macOS</a>
+        <a class="steps-link" href="#mac" data-i="d.mac.steps">Xem 3 bước cài ↓</a>
+        <p class="note" data-i="d.mac.note">Mở lần đầu: chuột phải ViSO → <em>Open</em>. Máy Mac Intel chưa có bản riêng.</p>
       </div>
 
       <div class="dl" id="dl-ext">
@@ -225,12 +228,12 @@
           <div><h2>Extension</h2><div class="req">Chrome · Brave · Edge</div></div>
         </div>
         <div class="meta"><span id="extSize">16 MB</span><span>·</span><span>.zip</span></div>
-        <a class="btn btn--blue" id="extBtn" href="#">Tải extension</a>
-        <a class="steps-link" href="#extension">Xem 4 bước cài ↓</a>
-        <p class="note">Ghi chú ngay trên trang web đang mở. Cài thêm app ở trên để nói bằng giọng.</p>
+        <a class="btn btn--blue" id="extBtn" href="#" data-i="d.ext.btn">Tải extension</a>
+        <a class="steps-link" href="#extension" data-i="d.ext.steps">Xem 4 bước cài ↓</a>
+        <p class="note" data-i="d.ext.note">Ghi chú ngay trên trang web đang mở. Cài thêm app ở trên để nói bằng giọng.</p>
       </div>
     </div>
-    <p class="hero-foot">Nút không tải được? Lấy file trực tiếp ở <a id="ghLink" href="https://github.com/nhanho133/Viso-releases/releases" target="_blank" rel="noopener">GitHub Releases</a>.</p>
+    <p class="hero-foot" data-i="d.foot">Nút không tải được? Lấy file trực tiếp ở <a id="ghLink" href="https://github.com/nhanho133/Viso-releases/releases" target="_blank" rel="noopener">GitHub Releases</a>.</p>
   </div>
 </header>
 
@@ -238,8 +241,8 @@
   <a href="#windows">Windows</a>
   <a href="#mac">macOS</a>
   <a href="#extension">Extension</a>
-  <a href="#try">Dùng thử</a>
-  <a href="#help">Sự cố</a>
+  <a href="#try" data-i="d.sub.try">Dùng thử</a>
+  <a href="#help" data-i="d.sub.help">Sự cố</a>
 </nav>
 
 <main class="wrap">
@@ -247,35 +250,35 @@
   <!-- ========== WINDOWS ========== -->
   <section class="guide" id="windows">
     <div class="g-head">
-      <div><h2>Cài trên Windows</h2><p>Ba bước, khoảng một phút. Hai màn hình hỏi bên dưới là bình thường với app chưa ký số — cứ bấm như hình.</p></div>
-      <span class="time">⏱ ~1 phút</span>
+      <div><h2 data-i="w.h2">Cài trên Windows</h2><p data-i="w.p">Ba bước, khoảng một phút. Hai màn hình hỏi bên dưới là bình thường với app chưa ký số — cứ bấm như hình.</p></div>
+      <span class="time" data-i="g.1min">⏱ ~1 phút</span>
     </div>
 
     <div class="step">
       <div>
         <span class="num">1</span>
-        <h3>Tải xong, mở file <code>ViSO-0.2.4-win-x64.exe</code></h3>
-        <p>Nếu Chrome hoặc Edge nói file "không phổ biến" và tạm giữ lại: bấm <kbd>⋮</kbd> cạnh file tải về → <em>Keep</em> (Giữ lại).</p>
+        <h3 data-i="w1.h3">Tải xong, mở file <code>ViSO-0.2.4-win-x64.exe</code></h3>
+        <p data-i="w1.p">Nếu Chrome hoặc Edge nói file "không phổ biến" và tạm giữ lại: bấm <kbd>⋮</kbd> cạnh file tải về → <em>Keep</em> (Giữ lại).</p>
       </div>
-      <figure class="shot shot--soft"><img src="assets/guide/chrome-download.png" alt="Thanh tải về của Chrome: bấm dấu ba chấm rồi chọn Keep" width="1200" height="733"><span class="cap">minh hoạ</span></figure>
+      <figure class="shot shot--soft"><img src="assets/guide/chrome-download.png" alt="Thanh tải về của Chrome: bấm dấu ba chấm rồi chọn Keep" width="1200" height="733"><span class="cap" data-i="cap.illus">minh hoạ</span></figure>
     </div>
 
     <div class="step">
       <div>
         <span class="num">2</span>
-        <h3>Windows hỏi "Windows protected your PC"</h3>
-        <p>Bấm <em>More info</em> (dòng chữ nhỏ), rồi nút <em>Run anyway</em> hiện ra. Chỉ hỏi một lần.</p>
-        <div class="why">Vì sao? Bản Alpha chưa mua chứng chỉ ký số nên Windows chưa "quen" ViSO. App không cần quyền admin và không cài gì ngoài thư mục của nó.</div>
+        <h3 data-i="w2.h3">Windows hỏi "Windows protected your PC"</h3>
+        <p data-i="w2.p">Bấm <em>More info</em> (dòng chữ nhỏ), rồi nút <em>Run anyway</em> hiện ra. Chỉ hỏi một lần.</p>
+        <div class="why" data-i="w2.why">Vì sao? Bản Alpha chưa mua chứng chỉ ký số nên Windows chưa "quen" ViSO. App không cần quyền admin và không cài gì ngoài thư mục của nó.</div>
       </div>
-      <figure class="shot shot--soft"><img src="assets/guide/win-smartscreen.png" alt="Hộp SmartScreen: bấm More info (1) rồi Run anyway (2)" width="1200" height="733"><span class="cap">minh hoạ</span></figure>
+      <figure class="shot shot--soft"><img src="assets/guide/win-smartscreen.png" alt="Hộp SmartScreen: bấm More info (1) rồi Run anyway (2)" width="1200" height="733"><span class="cap" data-i="cap.illus">minh hoạ</span></figure>
     </div>
 
     <div class="step">
       <div>
         <span class="num">3</span>
-        <h3>Cài tự động trong 30 giây — xong</h3>
-        <p>ViSO tự chạy. Bạn sẽ thấy <em>một vạch mỏng ở mép phải màn hình</em>: rê chuột vào là hiện logo, bấm là mở bảng Notes. App chạy nền, khởi động cùng Windows.</p>
-        <p>Muốn ẩn/hiện vạch: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>. Biểu tượng ViSO cũng nằm ở khay hệ thống (cạnh đồng hồ).</p>
+        <h3 data-i="w3.h3">Cài tự động trong 30 giây — xong</h3>
+        <p data-i="w3.p1">ViSO tự chạy. Bạn sẽ thấy <em>một vạch mỏng ở mép phải màn hình</em>: rê chuột vào là hiện logo, bấm là mở bảng Notes. App chạy nền, khởi động cùng Windows.</p>
+        <p data-i="w3.p2">Muốn ẩn/hiện vạch: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>. Biểu tượng ViSO cũng nằm ở khay hệ thống (cạnh đồng hồ).</p>
       </div>
       <figure class="shot edge-demo">
         <div class="screen" aria-label="Màn hình với vạch ViSO ở mép phải"><span class="line"></span><svg class="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l16 12-7 1 4 7-3 1-4-7-6 5z" fill="#fff" stroke="#1c2030" stroke-width="1.6"/></svg></div>
@@ -288,28 +291,28 @@
   <!-- ========== MACOS ========== -->
   <section class="guide" id="mac">
     <div class="g-head">
-      <div><h2>Cài trên macOS</h2><p>Kéo vào Applications như mọi app. Lần mở đầu tiên phải mở bằng chuột phải — vì app chưa qua Apple notarize.</p></div>
-      <span class="time">⏱ ~1 phút</span>
+      <div><h2 data-i="m.h2">Cài trên macOS</h2><p data-i="m.p">Kéo vào Applications như mọi app. Lần mở đầu tiên phải mở bằng chuột phải — vì app chưa qua Apple notarize.</p></div>
+      <span class="time" data-i="g.1min">⏱ ~1 phút</span>
     </div>
 
     <div class="step">
       <div>
         <span class="num">1</span>
-        <h3>Mở file <code>.dmg</code>, kéo ViSO vào Applications</h3>
-        <p>Cửa sổ hiện ra có biểu tượng ViSO và thư mục Applications: kéo thả từ trái sang phải. Xong thì đóng cửa sổ, có thể Eject ổ ViSO.</p>
+        <h3 data-i="m1.h3">Mở file <code>.dmg</code>, kéo ViSO vào Applications</h3>
+        <p data-i="m1.p">Cửa sổ hiện ra có biểu tượng ViSO và thư mục Applications: kéo thả từ trái sang phải. Xong thì đóng cửa sổ, có thể Eject ổ ViSO.</p>
       </div>
-      <figure class="shot shot--soft"><img src="assets/guide/mac-dmg.png" alt="Cửa sổ dmg: kéo ViSO vào Applications" width="1200" height="733"><span class="cap">minh hoạ</span></figure>
+      <figure class="shot shot--soft"><img src="assets/guide/mac-dmg.png" alt="Cửa sổ dmg: kéo ViSO vào Applications" width="1200" height="733"><span class="cap" data-i="cap.illus">minh hoạ</span></figure>
     </div>
 
     <div class="step">
       <div>
         <span class="num">2</span>
-        <h3>Vào Applications, <em>chuột phải</em> ViSO → Open → Open</h3>
-        <p>Đừng bấm đúp lần đầu — macOS sẽ chỉ báo "không xác minh được" rồi thôi. Chuột phải (hoặc Control + click) → <em>Open</em>, hộp thoại hiện ra có nút <em>Open</em>. Từ lần sau mở bình thường.</p>
-        <div class="alt"><b>macOS 15 Sequoia không có nút Open?</b> Bấm đúp một lần cho macOS chặn, rồi vào <em>System Settings → Privacy &amp; Security</em>, kéo xuống thấy dòng "ViSO was blocked…" → <em>Open Anyway</em>.<br><b>Thích Terminal:</b> <code>xattr -cr /Applications/ViSO.app</code> rồi mở như thường.</div>
+        <h3 data-i="m2.h3">Vào Applications, <em>chuột phải</em> ViSO → Open → Open</h3>
+        <p data-i="m2.p">Đừng bấm đúp lần đầu — macOS sẽ chỉ báo "không xác minh được" rồi thôi. Chuột phải (hoặc Control + click) → <em>Open</em>, hộp thoại hiện ra có nút <em>Open</em>. Từ lần sau mở bình thường.</p>
+        <div class="alt" data-i="m2.alt"><b>macOS 15 Sequoia không có nút Open?</b> Bấm đúp một lần cho macOS chặn, rồi vào <em>System Settings → Privacy &amp; Security</em>, kéo xuống thấy dòng "ViSO was blocked…" → <em>Open Anyway</em>.<br><b>Thích Terminal:</b> <code>xattr -cr /Applications/ViSO.app</code> rồi mở như thường.</div>
       </div>
       <div class="row2">
-        <figure class="shot shot--soft"><img src="assets/guide/mac-gatekeeper.png" alt="Chuột phải → Open (1), rồi Open (2)" width="1200" height="733"><span class="cap">minh hoạ</span></figure>
+        <figure class="shot shot--soft"><img src="assets/guide/mac-gatekeeper.png" alt="Chuột phải → Open (1), rồi Open (2)" width="1200" height="733"><span class="cap" data-i="cap.illus">minh hoạ</span></figure>
         <figure class="shot shot--soft"><img src="assets/guide/mac-openanyway.png" alt="Privacy & Security → Open Anyway" width="1200" height="733"><span class="cap">Sequoia</span></figure>
       </div>
     </div>
@@ -317,9 +320,9 @@
     <div class="step">
       <div>
         <span class="num">3</span>
-        <h3>Cho phép Microphone — xong</h3>
-        <p>Lần đầu bấm nói, macOS hỏi quyền micro: chọn <em>Allow</em>. Một vạch mỏng hiện ở mép phải màn hình; rê chuột vào là ra logo, bấm là mở bảng Notes.</p>
-        <p>Ẩn/hiện vạch: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>. ViSO cũng nằm trên thanh menu (góc phải trên).</p>
+        <h3 data-i="m3.h3">Cho phép Microphone — xong</h3>
+        <p data-i="m3.p1">Lần đầu bấm nói, macOS hỏi quyền micro: chọn <em>Allow</em>. Một vạch mỏng hiện ở mép phải màn hình; rê chuột vào là ra logo, bấm là mở bảng Notes.</p>
+        <p data-i="m3.p2">Ẩn/hiện vạch: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>. ViSO cũng nằm trên thanh menu (góc phải trên).</p>
       </div>
       <figure class="shot edge-demo">
         <div class="screen" aria-label="Màn hình với vạch ViSO ở mép phải"><span class="line"></span><svg class="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l16 12-7 1 4 7-3 1-4-7-6 5z" fill="#fff" stroke="#1c2030" stroke-width="1.6"/></svg></div>
@@ -332,16 +335,16 @@
   <!-- ========== EXTENSION ========== -->
   <section class="guide" id="extension">
     <div class="g-head">
-      <div><h2>Cài extension cho Chrome</h2><p>Bản Alpha chưa lên Chrome Web Store, nên cài bằng cách "Load unpacked" — 4 bước, có hình. Brave và Edge y hệt.</p></div>
-      <span class="time">⏱ ~2 phút</span>
+      <div><h2 data-i="e.h2">Cài extension cho Chrome</h2><p data-i="e.p">Bản Alpha chưa lên Chrome Web Store, nên cài bằng cách "Load unpacked" — 4 bước, có hình. Brave và Edge y hệt.</p></div>
+      <span class="time" data-i="g.2min">⏱ ~2 phút</span>
     </div>
 
     <div class="step">
       <div>
         <span class="num">1</span>
-        <h3>Tải zip, giải nén ra một thư mục</h3>
-        <p>Windows: chuột phải file zip → <em>Extract All…</em>. macOS: bấm đúp file zip. Bạn được thư mục <code>ViSO-extension-0.2.4</code>, bên trong có <code>manifest.json</code>.</p>
-        <p>Để thư mục này ở chỗ cố định (ví dụ Documents) — Chrome sẽ đọc từ đây mỗi lần mở, xoá thư mục là extension mất.</p>
+        <h3 data-i="e1.h3">Tải zip, giải nén ra một thư mục</h3>
+        <p data-i="e1.p1">Windows: chuột phải file zip → <em>Extract All…</em>. macOS: bấm đúp file zip. Bạn được thư mục <code>ViSO-extension-0.2.4</code>, bên trong có <code>manifest.json</code>.</p>
+        <p data-i="e1.p2">Để thư mục này ở chỗ cố định (ví dụ Documents) — Chrome sẽ đọc từ đây mỗi lần mở, xoá thư mục là extension mất.</p>
       </div>
       <figure class="shot shot--soft" style="display:grid; place-items:center; padding:28px; min-height:220px;">
         <div style="display:flex; align-items:center; gap:18px; font-weight:600; color:var(--ink)">
@@ -355,56 +358,56 @@
     <div class="step">
       <div>
         <span class="num">2</span>
-        <h3>Mở <code>chrome://extensions</code>, bật Developer mode</h3>
-        <p>Gõ <code>chrome://extensions</code> vào thanh địa chỉ (Brave: <code>brave://extensions</code>, Edge: <code>edge://extensions</code>). Bật công tắc <em>Developer mode</em> ở góc phải trên <b>(1)</b> — hàng nút mới hiện ra.</p>
+        <h3 data-i="e2.h3">Mở <code>chrome://extensions</code>, bật Developer mode</h3>
+        <p data-i="e2.p">Gõ <code>chrome://extensions</code> vào thanh địa chỉ (Brave: <code>brave://extensions</code>, Edge: <code>edge://extensions</code>). Bật công tắc <em>Developer mode</em> ở góc phải trên <b>(1)</b> — hàng nút mới hiện ra.</p>
       </div>
       <figure class="shot">
         <img src="assets/guide/chrome-devmode.png" alt="Góc phải trên trang chrome://extensions: công tắc Developer mode đang bật" width="1260" height="330">
         <span class="callout" style="left:74%; top:17%">1</span>
-        <span class="cap">Chrome — góc phải trên</span>
+        <span class="cap" data-i="cap.tr">Chrome — góc phải trên</span>
       </figure>
     </div>
 
     <div class="step">
       <div>
         <span class="num">3</span>
-        <h3>Bấm <em>Load unpacked</em>, chọn thư mục vừa giải nén</h3>
-        <p>Nút <em>Load unpacked</em> <b>(2)</b> ở góc trái. Chọn đúng thư mục có <code>manifest.json</code> (không phải file zip). ViSO xuất hiện trong danh sách — thế là xong.</p>
-        <p>Trang <em>ViSO Agent Hub</em> tự mở, và extension tự tải model tìm kiếm (118 MB, một lần, chạy nền). Ghim ViSO lên thanh công cụ: bấm 🧩 → biểu tượng ghim cạnh ViSO.</p>
+        <h3 data-i="e3.h3">Bấm <em>Load unpacked</em>, chọn thư mục vừa giải nén</h3>
+        <p data-i="e3.p1">Nút <em>Load unpacked</em> <b>(2)</b> ở góc trái. Chọn đúng thư mục có <code>manifest.json</code> (không phải file zip). ViSO xuất hiện trong danh sách — thế là xong.</p>
+        <p data-i="e3.p2">Trang <em>ViSO Agent Hub</em> tự mở, và extension tự tải model tìm kiếm (118 MB, một lần, chạy nền). Ghim ViSO lên thanh công cụ: bấm 🧩 → biểu tượng ghim cạnh ViSO.</p>
       </div>
       <figure class="shot">
         <img src="assets/guide/chrome-loadunpacked.png" alt="Góc trái trên trang chrome://extensions: nút Load unpacked" width="1400" height="560">
         <span class="callout" style="left:19.5%; top:29.5%">2</span>
-        <span class="cap">Chrome — góc trái trên</span>
+        <span class="cap" data-i="cap.tl">Chrome — góc trái trên</span>
       </figure>
     </div>
 
     <div class="step">
       <div>
         <span class="num">4</span>
-        <h3>Mở một trang web bất kỳ — tải lại tab đang mở</h3>
-        <p>Các tab đang mở từ trước cần <kbd>F5</kbd> một lần. Khung ViSO hiện ở mép phải trang: gõ <em>Ghi gì?</em>, hoặc <kbd>@</kbd> để chọn loại (ghi chú / lời nhắc / việc), bấm mic để nói (cần app ở trên).</p>
-        <div class="alt"><b>Chrome hỏi "Disable developer mode extensions?" mỗi lần khởi động</b> — đó là câu hỏi mặc định cho mọi extension cài tay. Bấm <em>Cancel</em>, ViSO vẫn chạy. Sẽ hết khi lên Web Store.</div>
+        <h3 data-i="e4.h3">Mở một trang web bất kỳ — tải lại tab đang mở</h3>
+        <p data-i="e4.p">Các tab đang mở từ trước cần <kbd>F5</kbd> một lần. Khung ViSO hiện ở mép phải trang: gõ <em>Ghi gì?</em>, hoặc <kbd>@</kbd> để chọn loại (ghi chú / lời nhắc / việc), bấm mic để nói (cần app ở trên).</p>
+        <div class="alt" data-i="e4.alt"><b>Chrome hỏi "Disable developer mode extensions?" mỗi lần khởi động</b> — đó là câu hỏi mặc định cho mọi extension cài tay. Bấm <em>Cancel</em>, ViSO vẫn chạy. Sẽ hết khi lên Web Store.</div>
       </div>
-      <figure class="shot shot--soft" style="display:grid; place-items:center; padding:22px;"><img src="assets/shot-extension-hud.png" alt="Khung ViSO trên một trang web" width="470" height="440" style="max-width:340px; border-radius:14px; box-shadow:0 20px 40px -22px rgba(11,13,20,.5)"><span class="cap">ViSO trên trang web</span></figure>
+      <figure class="shot shot--soft" style="display:grid; place-items:center; padding:22px;"><img src="assets/shot-extension-hud.png" alt="Khung ViSO trên một trang web" width="470" height="440" style="max-width:340px; border-radius:14px; box-shadow:0 20px 40px -22px rgba(11,13,20,.5)"><span class="cap" data-i="cap.hud">ViSO trên trang web</span></figure>
     </div>
   </section>
 
   <!-- ========== TRY ========== -->
   <section class="guide" id="try">
     <div class="g-head">
-      <div><h2>Dùng thử trong 60 giây</h2><p>Một phím tắt, nói một câu. ViSO tự hiểu đó là ghi chú, lời nhắc hay việc — không cần chọn trước.</p></div>
+      <div><h2 data-i="t.h2">Dùng thử trong 60 giây</h2><p data-i="t.p">Một phím tắt, nói một câu. ViSO tự hiểu đó là ghi chú, lời nhắc hay việc — không cần chọn trước.</p></div>
     </div>
     <div class="try">
       <div>
-        <p style="color:var(--ink-2)">Đang ở trang nào cũng được (Gmail, Notion, YouTube…). Bấm <kbd>Ctrl</kbd> + <kbd>Space</kbd> — quả cầu Orb hiện lên và nghe ngay. Nói xong, thả tay.</p>
-        <div class="say"><span class="mic">🎤</span><q>ghi chú gửi báo giá thứ Sáu</q><b>→ ghi chú của trang</b></div>
-        <div class="say"><span class="mic">🎤</span><q>nhắc tôi 3 giờ chiều gọi anh Đông</q><b>→ lời nhắc</b></div>
-        <div class="say"><span class="mic">🎤</span><q>việc cần làm nộp báo cáo</q><b>→ việc</b></div>
+        <p style="color:var(--ink-2)" data-i="t.intro">Đang ở trang nào cũng được (Gmail, Notion, YouTube…). Bấm <kbd>Ctrl</kbd> + <kbd>Space</kbd> — quả cầu Orb hiện lên và nghe ngay. Nói xong, thả tay.</p>
+        <div class="say" data-i="t.s1"><span class="mic">🎤</span><q>ghi chú gửi báo giá thứ Sáu</q><b>→ ghi chú của trang</b></div>
+        <div class="say" data-i="t.s2"><span class="mic">🎤</span><q>nhắc tôi 3 giờ chiều gọi anh Đông</q><b>→ lời nhắc</b></div>
+        <div class="say" data-i="t.s3"><span class="mic">🎤</span><q>việc cần làm nộp báo cáo</q><b>→ việc</b></div>
         <div class="keys">
-          <div><span>Gọi Orb (nói)</span><span><kbd>Ctrl</kbd> + <kbd>Space</kbd></span></div>
-          <div><span>Ẩn / hiện vạch ViSO</span><span><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd></span></div>
-          <div><span>Trong khung: chọn loại · sửa/xoá/nhóm · tự hiện</span><span><kbd>@</kbd> · <kbd>···</kbd> · <kbd>⚙</kbd></span></div>
+          <div data-i="t.k1"><span>Gọi Orb (nói)</span><span><kbd>Ctrl</kbd> + <kbd>Space</kbd></span></div>
+          <div data-i="t.k2"><span>Ẩn / hiện vạch ViSO</span><span><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd></span></div>
+          <div data-i="t.k3"><span>Trong khung: chọn loại · sửa/xoá/nhóm · tự hiện</span><span><kbd>@</kbd> · <kbd>···</kbd> · <kbd>⚙</kbd></span></div>
         </div>
       </div>
       <figure class="shot shot--soft" style="display:grid; place-items:center; padding:28px;"><img src="assets/guide/app-orb.png" alt="Quả cầu Orb đang nghe" width="376" height="268" style="max-width:300px"><span class="cap">Ctrl + Space</span></figure>
@@ -414,15 +417,15 @@
   <!-- ========== HELP ========== -->
   <section class="guide" id="help">
     <div class="g-head">
-      <div><h2>Sự cố thường gặp</h2><p>Ba phút đọc trước khi nhắn cho mình — 90% nằm ở đây.</p></div>
+      <div><h2 data-i="h.h2">Sự cố thường gặp</h2><p data-i="h.p">Ba phút đọc trước khi nhắn cho mình — 90% nằm ở đây.</p></div>
     </div>
     <div class="help">
-      <div class="card"><h3>Nút tải không chạy / file tải về bị chặn</h3><p>Lấy file trực tiếp ở <a href="https://github.com/nhanho133/Viso-releases/releases" style="color:var(--blue); text-decoration:underline">GitHub Releases</a> (mục Assets). Windows Defender xoá file sau khi tải: mở Windows Security → Protection history → Allow.</p></div>
-      <div class="card"><h3>Ctrl + Space không ra Orb</h3><p>Bộ gõ (Unikey, EVKey, tiếng Trung/Nhật…) thường giữ phím này. Windows: Settings → Time &amp; language → Typing → Advanced keyboard settings → Input language hot keys → đổi phím. macOS: System Settings → Keyboard → Keyboard Shortcuts → Input Sources → bỏ tick.</p></div>
-      <div class="card"><h3>macOS báo "ViSO is damaged"</h3><p>Mở Terminal, dán <code>xattr -cr /Applications/ViSO.app</code>, Enter, mở lại app. Chỉ cần làm một lần.</p></div>
-      <div class="card"><h3>Extension nói "App desktop chưa kết nối"</h3><p>Mở app ViSO một lần (app đăng ký với Chrome ở lần mở đó), rồi vào <code>chrome://extensions</code> → bấm ↻ trên ViSO, tải lại tab. Vẫn không được: khởi động lại Chrome.</p></div>
-      <div class="card"><h3>Mic không nghe / nhận sai tiếng</h3><p>Kiểm tra quyền micro cho ViSO (Windows: Settings → Privacy → Microphone; macOS: Privacy &amp; Security → Microphone). Nói cách mic 20–30 cm, câu ngắn, có "nhắc tôi…" hoặc "việc cần làm…" ở đầu để rõ loại.</p></div>
-      <div class="card"><h3>Gửi lỗi cho mình</h3><p>Chụp màn hình + file log: Windows <code>%APPDATA%\viso\logs\viso-main.log</code>, macOS <code>~/Library/Application Support/viso/logs/viso-main.log</code>. Gửi qua kênh bạn nhận link tải, kèm câu bạn đã nói.</p></div>
+      <div class="card"><h3 data-i="h1.h3">Nút tải không chạy / file tải về bị chặn</h3><p data-i="h1.p">Lấy file trực tiếp ở <a href="https://github.com/nhanho133/Viso-releases/releases" style="color:var(--blue); text-decoration:underline">GitHub Releases</a> (mục Assets). Windows Defender xoá file sau khi tải: mở Windows Security → Protection history → Allow.</p></div>
+      <div class="card"><h3 data-i="h2.h3">Ctrl + Space không ra Orb</h3><p data-i="h2.p">Bộ gõ (Unikey, EVKey, tiếng Trung/Nhật…) thường giữ phím này. Windows: Settings → Time &amp; language → Typing → Advanced keyboard settings → Input language hot keys → đổi phím. macOS: System Settings → Keyboard → Keyboard Shortcuts → Input Sources → bỏ tick.</p></div>
+      <div class="card"><h3 data-i="h3.h3">macOS báo "ViSO is damaged"</h3><p data-i="h3.p">Mở Terminal, dán <code>xattr -cr /Applications/ViSO.app</code>, Enter, mở lại app. Chỉ cần làm một lần.</p></div>
+      <div class="card"><h3 data-i="h4.h3">Extension nói "App desktop chưa kết nối"</h3><p data-i="h4.p">Mở app ViSO một lần (app đăng ký với Chrome ở lần mở đó), rồi vào <code>chrome://extensions</code> → bấm ↻ trên ViSO, tải lại tab. Vẫn không được: khởi động lại Chrome.</p></div>
+      <div class="card"><h3 data-i="h5.h3">Mic không nghe / nhận sai tiếng</h3><p data-i="h5.p">Kiểm tra quyền micro cho ViSO (Windows: Settings → Privacy → Microphone; macOS: Privacy &amp; Security → Microphone). Nói cách mic 20–30 cm, câu ngắn, có "nhắc tôi…" hoặc "việc cần làm…" ở đầu để rõ loại.</p></div>
+      <div class="card"><h3 data-i="h6.h3">Gửi lỗi cho mình</h3><p data-i="h6.p">Chụp màn hình + file log: Windows <code>%APPDATA%\viso\logs\viso-main.log</code>, macOS <code>~/Library/Application Support/viso/logs/viso-main.log</code>. Gửi qua kênh bạn nhận link tải, kèm câu bạn đã nói.</p></div>
     </div>
   </section>
 </main>
@@ -430,12 +433,12 @@
 <footer>
   <div class="wrap">
     <div class="foot-links">
-      <a href="index.html">Trang chủ</a>
+      <a href="index.html" data-i="df.home">Trang chủ</a>
       <a href="index.html#manifesto">Manifesto</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="https://github.com/nhanho133/Viso-releases/releases">Mọi bản phát hành</a>
+      <a href="privacy.html" data-i="df.privacy">Privacy Policy</a>
+      <a href="https://github.com/nhanho133/Viso-releases/releases" data-i="df.all">Mọi bản phát hành</a>
     </div>
-    <p>ViSO © 2026. Alpha — chạy hoàn toàn trên máy bạn.</p>
+    <p data-i="df.line">ViSO © 2026. Alpha — chạy hoàn toàn trên máy bạn.</p>
   </div>
 </footer>
 
@@ -487,5 +490,6 @@
   }
   window.addEventListener('scroll', markNow, {passive:true}); markNow();
 </script>
+<script src="assets/i18n.js"></script>
 </body>
 </html>

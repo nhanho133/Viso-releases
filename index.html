@@ -64,6 +64,8 @@
   .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
   .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
   .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
+  .nav-pill .btn.lang{padding:0 12px; min-width:46px; font-weight:700; letter-spacing:.06em; gap:6px;}
+  .nav-pill .btn.lang::before{content:''; width:14px; height:14px; border-radius:50%; border:1.6px solid currentColor; background:radial-gradient(circle at 50% 50%, transparent 0 3px, currentColor 3px 4.4px, transparent 4.6px) ; opacity:.9;}
   .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
   .nav-pill .btn--white:hover{background:#eef2f9;}
   .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
@@ -303,13 +305,14 @@
     <button class="logo" onclick="goHome()" aria-label="ViSO — về đầu trang"><img src="assets/logo.png" alt="">ViSO</button>
     <div class="nav-links">
       <button class="lnk" onclick="goManifesto()">Manifesto</button>
-      <button class="lnk" onclick="goFeatures()">Features</button>
-      <button class="lnk" onclick="goSection('how')">How it works</button>
-      <button class="lnk" onclick="goSection('faq')">FAQ</button>
-      <button class="lnk" onclick="openPrivacy()">Privacy</button>
+      <button class="lnk" onclick="goFeatures()" data-i="n.features">Features</button>
+      <button class="lnk" onclick="goSection('how')" data-i="n.how">How it works</button>
+      <button class="lnk" onclick="goSection('faq')" data-i="n.faq">FAQ</button>
+      <button class="lnk" onclick="openPrivacy()" data-i="n.privacy">Privacy</button>
       <span class="nav-cta">
-        <button class="btn btn--ghost" onclick="focusWaitlist()">Join Waitlist</button>
-        <a class="btn btn--white" href="download.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
+        <button class="btn btn--ghost lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
+        <button class="btn btn--ghost" onclick="focusWaitlist()" data-i="n.join">Join Waitlist</button>
+        <a class="btn btn--white" href="download.html" data-i="n.download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
       </span>
     </div>
   </div>
@@ -328,47 +331,47 @@
     <span class="cloud" style="left:30%; bottom:200px; width:360px; height:120px; opacity:.35" aria-hidden="true"></span>
 
     <div class="hero-copy">
-      <div class="kicker"><span class="dot"></span>Alpha early access</div>
-      <h1>Stop breaking your flow just to write things down.</h1>
-      <p class="lede">Press one key, say what's on your mind, and get back to work. ViSO turns it into a note, a to-do or a reminder in under a second — right on your computer, without switching windows.</p>
+      <div class="kicker" data-i="h.kicker"><span class="dot"></span>Alpha early access</div>
+      <h1 data-i="h.h1">Stop breaking your flow just to write things down.</h1>
+      <p class="lede" data-i="h.lede">Press one key, say what's on your mind, and get back to work. ViSO turns it into a note, a to-do or a reminder in under a second — right on your computer, without switching windows.</p>
       <form class="waitlist" id="waitlistForm">
-        <input type="email" id="waitlistEmail" placeholder="Enter your email address..." required autocomplete="email">
-        <button type="submit" class="btn btn--dark" id="waitlistBtn">Join Waitlist</button>
+        <input type="email" id="waitlistEmail" placeholder="Enter your email address..." data-i-placeholder="h.email" required autocomplete="email">
+        <button type="submit" class="btn btn--dark" id="waitlistBtn" data-i="n.join">Join Waitlist</button>
       </form>
       <p class="waitlist-msg" id="waitlistMsg"></p>
       <div class="proof">
         <div class="avatars"><span style="background:#2F6FE8">JM</span><span style="background:#F59E0B">RN</span><span style="background:#10B981">AT</span><span style="background:#EF4444">SL</span><span style="background:#6366F1">+</span></div>
-        <span>Joined by 128+ builders, founders &amp; researchers.</span>
+        <span data-i="h.proof">Joined by 128+ builders, founders &amp; researchers.</span>
       </div>
       <div class="community">
-        <span>Join our Alpha Community</span>
+        <span data-i="h.community">Join our Alpha Community</span>
         <a class="icon-btn" href="#" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="6"/><circle cx="9" cy="12.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12.5" r="1.3" fill="currentColor" stroke="none"/></svg></a>
         <a class="icon-btn" href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></a>
         <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><line x1="7.5" y1="10" x2="7.5" y2="16.5"/><path d="M11.5 16.5v-4a2 2 0 0 1 4 0v4"/><line x1="11.5" y1="10" x2="11.5" y2="16.5"/></svg></a>
         <a class="icon-btn" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none"/></svg></a>
       </div>
       <div class="countdown">
-        <span class="cd-label">Alpha build 0.1 rollout in</span>
+        <span class="cd-label" data-i="h.cd">Alpha build 0.1 rollout in</span>
         <div class="cd-row">
-          <div class="cd-unit"><b id="cd-d">--</b><span>Days</span></div>
-          <div class="cd-unit"><b id="cd-h">--</b><span>Hours</span></div>
-          <div class="cd-unit"><b id="cd-m">--</b><span>Mins</span></div>
-          <div class="cd-unit"><b id="cd-s">--</b><span>Secs</span></div>
+          <div class="cd-unit"><b id="cd-d">--</b><span data-i="h.days">Days</span></div>
+          <div class="cd-unit"><b id="cd-h">--</b><span data-i="h.hours">Hours</span></div>
+          <div class="cd-unit"><b id="cd-m">--</b><span data-i="h.mins">Mins</span></div>
+          <div class="cd-unit"><b id="cd-s">--</b><span data-i="h.secs">Secs</span></div>
         </div>
       </div>
     </div>
 
     <div class="screen" aria-label="A desktop with the ViSO panel at its edge, the ViSO panel inside a web page, and the Orb listening">
-      <div class="menubar"><span>ViSO · Gmail — Báo giá quý 3</span><span>Tue 15 Sep · 09:41</span></div>
+      <div class="menubar"><span data-i="sc.bar">ViSO · Gmail — Báo giá quý 3</span><span data-i="sc.date">Tue 15 Sep · 09:41</span></div>
       <span class="sc-cloud" style="left:-4%; bottom:40px; width:380px; height:130px" aria-hidden="true"></span>
       <span class="sc-cloud" style="right:-6%; bottom:90px; width:420px; height:140px" aria-hidden="true"></span>
       <div class="key"><kbd>Ctrl</kbd>+<kbd>Space</kbd></div>
       <div class="orb" aria-hidden="true"></div>
-      <div class="say">"nhắc tôi gửi báo giá thứ Sáu"</div>
+      <div class="say" data-i="sc.say">"nhắc tôi gửi báo giá thứ Sáu"</div>
       <div class="saved">
-        <div class="fh"><span class="tile">M</span><b>Gmail</b> · Báo giá quý 3</div>
-        <div class="ft">gửi báo giá thứ Sáu</div>
-        <div class="ok">✓ Đã lưu · nhắc bạn Thứ Sáu, 9:00</div>
+        <div class="fh" data-i="sc.fh"><span class="tile">M</span><b>Gmail</b> · Báo giá quý 3</div>
+        <div class="ft" data-i="sc.ft">gửi báo giá thứ Sáu</div>
+        <div class="ok" data-i="sc.ok">✓ Đã lưu · nhắc bạn Thứ Sáu, 9:00</div>
       </div>
       <div class="hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page: this page's notes as cards, filter chips and a composer"></div>
       <div class="panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel: a column of note cards, a search bar and a composer"></div>
@@ -380,46 +383,46 @@
   <section id="features">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow">One layer, every kind of thought</div>
-        <h2>Say it once. ViSO knows what it is.</h2>
-        <p>Ảnh thật từ bản đang chạy — một vạch nhỏ ở mép màn hình, một khung trên mỗi trang web, và mọi thứ bạn từng nói ở cùng một chỗ.</p>
+        <div class="eyebrow" data-i="f.eyebrow">One layer, every kind of thought</div>
+        <h2 data-i="f.h2">Say it once. ViSO knows what it is.</h2>
+        <p data-i="f.p">Ảnh thật từ bản đang chạy — một vạch nhỏ ở mép màn hình, một khung trên mỗi trang web, và mọi thứ bạn từng nói ở cùng một chỗ.</p>
       </div>
       <div class="tiles">
         <div class="tile-card">
           <div class="art">
             <div class="shot shot--hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page"></div>
-            <div class="note note--l"><div class="fh"><span class="tick">✓</span> Đã lưu · YouTube</div><b>video này giải thích RAG khá dễ hiểu</b></div>
+            <div class="note note--l" data-i="f1.note"><div class="fh"><span class="tick">✓</span> Đã lưu · YouTube</div><b>video này giải thích RAG khá dễ hiểu</b></div>
           </div>
-          <h3>Notes</h3>
-          <p>Ý tưởng, câu hay, link cần giữ — nói là xong. ViSO nhớ luôn bạn đang ở trang nào, không phải chọn thư mục.</p>
-          <div class="say">nói <b>"ghi chú video này giải thích RAG khá dễ hiểu"</b></div>
+          <h3 data-i="f1.h3">Notes</h3>
+          <p data-i="f1.p">Ý tưởng, câu hay, link cần giữ — nói là xong. ViSO nhớ luôn bạn đang ở trang nào, không phải chọn thư mục.</p>
+          <div class="say" data-i="f1.say">nói <b>"ghi chú video này giải thích RAG khá dễ hiểu"</b></div>
         </div>
         <div class="tile-card">
           <div class="art">
             <div class="shot shot--panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel"></div>
-            <div class="note note--r"><div class="fh"><span class="tick">✓</span> Việc · 18/43 xong</div><b>nộp báo cáo trước thứ Tư</b></div>
+            <div class="note note--r" data-i="f2.note"><div class="fh"><span class="tick">✓</span> Việc · 18/43 xong</div><b>nộp báo cáo trước thứ Tư</b></div>
           </div>
-          <h3>To-dos</h3>
-          <p>Việc cần làm thành danh sách để tick, có hạn nếu bạn nói hạn. Tick xong là xong — vẫn nằm đúng chỗ cũ.</p>
-          <div class="say">nói <b>"việc cần làm nộp báo cáo trước thứ Tư"</b></div>
+          <h3 data-i="f2.h3">To-dos</h3>
+          <p data-i="f2.p">Việc cần làm thành danh sách để tick, có hạn nếu bạn nói hạn. Tick xong là xong — vẫn nằm đúng chỗ cũ.</p>
+          <div class="say" data-i="f2.say">nói <b>"việc cần làm nộp báo cáo trước thứ Tư"</b></div>
         </div>
         <div class="tile-card">
           <div class="art">
             <div class="card">
-              <div class="fh"><span class="tile" style="background:#0068FF;color:#fff">Z</span><b>Zalo</b> · Every day · 15:00</div>
-              <div class="ft">gọi lại khách</div>
-              <div class="fm"><span class="chip">🔔 Lời nhắc</span><span>Máy tự báo đúng giờ</span></div>
+              <div class="fh" data-i="f3.fh"><span class="tile" style="background:#0068FF;color:#fff">Z</span><b>Zalo</b> · Every day · 15:00</div>
+              <div class="ft" data-i="f3.ft">gọi lại khách</div>
+              <div class="fm" data-i="f3.fm"><span class="chip">🔔 Lời nhắc</span><span>Máy tự báo đúng giờ</span></div>
             </div>
           </div>
-          <h3>Reminders</h3>
-          <p>Nói giờ là có nhắc, kể cả "mỗi ngày" hay "mỗi thứ Hai". Đến giờ máy tự báo — dù bạn đang ở app nào.</p>
-          <div class="say">nói <b>"nhắc tôi 3 giờ chiều gọi anh Đông"</b></div>
+          <h3 data-i="f3.h3">Reminders</h3>
+          <p data-i="f3.p">Nói giờ là có nhắc, kể cả "mỗi ngày" hay "mỗi thứ Hai". Đến giờ máy tự báo — dù bạn đang ở app nào.</p>
+          <div class="say" data-i="f3.say">nói <b>"nhắc tôi 3 giờ chiều gọi anh Đông"</b></div>
         </div>
         <div class="tile-card soon">
           <div class="art"><span class="soon-star" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><radialGradient id="ss"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#fff3b0"/><stop offset="1" stop-color="#f2cf5b"/></radialGradient></defs><path fill="url(#ss)" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span></div>
-          <h3>More on the way</h3>
-          <p>Lịch hẹn, tóm tắt cuộc họp, tự xếp file vào đúng chỗ… đang làm.</p>
-          <div class="say">sắp có</div>
+          <h3 data-i="f4.h3">More on the way</h3>
+          <p data-i="f4.p">Lịch hẹn, tóm tắt cuộc họp, tự xếp file vào đúng chỗ… đang làm.</p>
+          <div class="say" data-i="f4.say">sắp có</div>
         </div>
       </div>
     </div>
@@ -428,9 +431,9 @@
   <section id="how">
     <div class="wrap how-layout">
       <div class="how-intro">
-        <div class="eyebrow">How it works</div>
-        <h2>Get started in 3 simple steps.</h2>
-        <p>Nghĩ ra là nói. Lúc cần, ViSO đưa bạn về đúng chỗ đã nảy ra ý.</p>
+        <div class="eyebrow" data-i="how.eyebrow">How it works</div>
+        <h2 data-i="how.h2">Get started in 3 simple steps.</h2>
+        <p data-i="how.p">Nghĩ ra là nói. Lúc cần, ViSO đưa bạn về đúng chỗ đã nảy ra ý.</p>
       </div>
       <div class="steps">
         <div class="step">
@@ -439,7 +442,7 @@
             <span class="sv-key"><kbd>Ctrl</kbd>+<kbd>Space</kbd></span>
             <div class="sv-orb" aria-hidden="true"></div>
             <div class="sv-edge" aria-label="The ViSO tab at the screen's edge: a thin mark, a tile with the logo under the pointer">
-              <div class="lbl"><b>vạch ViSO</b>nằm im ở mép,<br>rê chuột là hiện</div>
+              <div class="lbl" data-i="s1.lbl"><b>vạch ViSO</b>nằm im ở mép,<br>rê chuột là hiện</div>
               <div class="sv-screen">
                 <span class="line"></span>
                 <span class="tile"><img src="assets/logo.png" alt=""></span>
@@ -447,39 +450,39 @@
               </div>
             </div>
           </div>
-          <h3>One key, anywhere</h3>
-          <p>Đang đọc mail, đang họp, đang viết — bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
+          <h3 data-i="s1.h3">One key, anywhere</h3>
+          <p data-i="s1.p">Đang đọc mail, đang họp, đang viết — bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
         </div>
         <div class="step">
           <span class="num">2</span>
           <div class="art">
             <div class="flow">
-              <div class="row"><span>🎙 Bạn nói</span><span>"nhắc tôi gửi báo giá thứ Sáu"</span></div>
-              <div class="row"><span>ViSO nghe</span><span>ngay trên máy, không qua mạng</span></div>
-              <div class="row on"><span>ViSO hiểu</span><span>một lời nhắc · Thứ Sáu, 9:00</span></div>
-              <div class="row"><span>Đã lưu</span><span>chưa tới một giây</span></div>
-              <span class="lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
+              <div class="row" data-i="s2.r1"><span>🎙 Bạn nói</span><span>"nhắc tôi gửi báo giá thứ Sáu"</span></div>
+              <div class="row" data-i="s2.r2"><span>ViSO nghe</span><span>ngay trên máy, không qua mạng</span></div>
+              <div class="row on" data-i="s2.r3"><span>ViSO hiểu</span><span>một lời nhắc · Thứ Sáu, 9:00</span></div>
+              <div class="row" data-i="s2.r4"><span>Đã lưu</span><span>chưa tới một giây</span></div>
+              <span class="lock" data-i="s2.lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
             </div>
           </div>
-          <h3>Understood in a blink</h3>
-          <p>Nói tiếng Việt hay tiếng Anh đều được. ViSO nghe, hiểu đó là ghi chú, việc hay lời nhắc, rồi cất đúng chỗ — tất cả trong chưa tới một giây, ngay trên máy bạn. Không tài khoản, không gửi đi đâu.</p>
+          <h3 data-i="s2.h3">Understood in a blink</h3>
+          <p data-i="s2.p">Nói tiếng Việt hay tiếng Anh đều được. ViSO nghe, hiểu đó là ghi chú, việc hay lời nhắc, rồi cất đúng chỗ — tất cả trong chưa tới một giây, ngay trên máy bạn. Không tài khoản, không gửi đi đâu.</p>
         </div>
         <div class="step">
           <span class="num">3</span>
           <div class="art art--open">
             <div class="card card--click">
-              <div class="fh"><span class="tile" style="background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)">M</span><b>Gmail · Báo giá quý 3</b> · 12h ago</div>
-              <div class="ft">gửi báo giá cho anh Đông trước thứ Sáu</div>
-              <span class="jump">↳ Mở lại thư này</span>
+              <div class="fh" data-i="s3.fh"><span class="tile" style="background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)">M</span><b>Gmail · Báo giá quý 3</b> · 12h ago</div>
+              <div class="ft" data-i="s3.ft">gửi báo giá cho anh Đông trước thứ Sáu</div>
+              <span class="jump" data-i="s3.jump">↳ Mở lại thư này</span>
               <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
             </div>
             <div class="opens" aria-hidden="true">
-              <div class="tabs"><span>Inbox</span><span class="on"><i></i>Báo giá quý 3 — Gmail</span><span>Timeline — Sheets</span></div>
-              <div class="tabs-note">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
+              <div class="tabs" data-i="s3.tabs"><span>Inbox</span><span class="on"><i></i>Báo giá quý 3 — Gmail</span><span>Timeline — Sheets</span></div>
+              <div class="tabs-note" data-i="s3.tabsnote">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
             </div>
           </div>
-          <h3>Back to where you were</h3>
-          <p>Mỗi ghi chú nhớ nơi bạn nảy ra nó — thư Gmail, tài liệu, video YouTube. <b>Bấm vào thẻ</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
+          <h3 data-i="s3.h3">Back to where you were</h3>
+          <p data-i="s3.p">Mỗi ghi chú nhớ nơi bạn nảy ra nó — thư Gmail, tài liệu, video YouTube. <b>Bấm vào thẻ</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
         </div>
       </div>
     </div>
@@ -487,12 +490,12 @@
 
   <section id="faq">
     <div class="wrap">
-      <div class="section-head"><div class="eyebrow">FAQ</div><h2>Questions, answered</h2></div>
+      <div class="section-head"><div class="eyebrow" data-i="faq.eyebrow">FAQ</div><h2 data-i="faq.h2">Questions, answered</h2></div>
       <div class="faq-list">
-        <details class="faq-item"><summary>ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p>Không. ViSO nghe và hiểu ngay trên máy bạn, không cần mạng. Ghi chú nằm trong máy bạn; muốn sao lưu thì tự xuất ra một file và giữ ở đâu tuỳ bạn.</p></details>
-        <details class="faq-item"><summary>Tôi có thể gõ phím thay vì nói không?<span class="plus"></span></summary><p>Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.</p></details>
-        <details class="faq-item"><summary>Khi nào tôi nhận được bản cài đặt Alpha?<span class="plus"></span></summary><p>Bản Alpha đang mở cho người thử sớm — bấm <a href="download.html" style="color:var(--blue); text-decoration:underline">Download</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
-        <details class="faq-item"><summary>Máy tôi có chạy được không?<span class="plus"></span></summary><p>Windows 10 / 11, macOS 13 trở lên với chip Apple (M1–M4), và Chrome / Brave / Edge cho extension. Mac Intel chưa có bản riêng.</p></details>
+        <details class="faq-item"><summary data-i="q1">ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p data-i="a1">Không. ViSO nghe và hiểu ngay trên máy bạn, không cần mạng. Ghi chú nằm trong máy bạn; muốn sao lưu thì tự xuất ra một file và giữ ở đâu tuỳ bạn.</p></details>
+        <details class="faq-item"><summary data-i="q2">Tôi có thể gõ phím thay vì nói không?<span class="plus"></span></summary><p data-i="a2">Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.</p></details>
+        <details class="faq-item"><summary data-i="q3">Khi nào tôi nhận được bản cài đặt Alpha?<span class="plus"></span></summary><p data-i="a3">Bản Alpha đang mở cho người thử sớm — bấm <a href="download.html" style="color:var(--blue); text-decoration:underline">Download</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
+        <details class="faq-item"><summary data-i="q4">Máy tôi có chạy được không?<span class="plus"></span></summary><p data-i="a4">Windows 10 / 11, macOS 13 trở lên với chip Apple (M1–M4), và Chrome / Brave / Edge cho extension. Mac Intel chưa có bản riêng.</p></details>
       </div>
     </div>
   </section>
@@ -502,9 +505,9 @@
       <div class="final-box">
         <div class="stars" aria-hidden="true" style="opacity:.7"></div>
         <div style="position:relative">
-          <h2>Be on it from Day 1.</h2>
-          <p>Bản thử sớm, góp ý thẳng, Discord với người làm ra nó. Windows, macOS và Chrome.</p>
-          <button class="btn btn--dark" onclick="focusWaitlist()">Join the Alpha Waitlist →</button>
+          <h2 data-i="fb.h2">Be on it from Day 1.</h2>
+          <p data-i="fb.p">Bản thử sớm, góp ý thẳng, Discord với người làm ra nó. Windows, macOS và Chrome.</p>
+          <button class="btn btn--dark" onclick="focusWaitlist()" data-i="fb.btn">Join the Alpha Waitlist →</button>
         </div>
         <img class="cat" src="assets/cat-cloud.png" alt="">
       </div>
@@ -516,49 +519,49 @@
 <main id="view-manifesto" hidden>
   <div class="manifesto">
     <div class="eyebrow">Manifesto</div>
-    <h1>Most productivity tools create more friction than they solve.</h1>
-    <p class="lead">Every time inspiration strikes or a task pops up, you are forced to:</p>
+    <h1 data-i="m.h1">Most productivity tools create more friction than they solve.</h1>
+    <p class="lead" data-i="m.lead">Every time inspiration strikes or a task pops up, you are forced to:</p>
     <ul class="friction-list">
-      <li><b>1</b> Stop your current work.</li>
-      <li><b>2</b> Open Notion, Todoist, or Apple Notes.</li>
-      <li><b>3</b> Decide whether it's a note, a task, a reminder, or an event.</li>
-      <li><b>4</b> Lose 15 minutes of your deep focus (Flow State) trying to organize it.</li>
+      <li data-i="m.l1"><b>1</b> Stop your current work.</li>
+      <li data-i="m.l2"><b>2</b> Open Notion, Todoist, or Apple Notes.</li>
+      <li data-i="m.l3"><b>3</b> Decide whether it's a note, a task, a reminder, or an event.</li>
+      <li data-i="m.l4"><b>4</b> Lose 15 minutes of your deep focus (Flow State) trying to organize it.</li>
     </ul>
-    <p class="m-belief">We believe your computer should adapt to how your brain works, not the other way around.</p>
+    <p class="m-belief" data-i="m.belief">We believe your computer should adapt to how your brain works, not the other way around.</p>
     <div class="builder-note">
-      <div class="sig">A note from the builder</div>
-      <p>Hi, I'm building ViSO because I was exhausted from losing my train of thought every time I tried to organize my daily work across 4 different apps.</p>
-      <p>ViSO is currently in its early Alpha stage. It's raw, lightweight, and focused purely on one killer experience: instant, zero-friction capture and routing on your desktop.</p>
-      <p>I'm not looking for casual downloads. I'm looking for early partners, builders, researchers, and power users who want to test the raw builds, give brutal feedback, and help shape how we interact with our computers in the AI era.</p>
-      <p>If you care deeply about focus, speed, and privacy, I'd love to have you onboard from Day 1.</p>
-      <div class="signature"><img src="assets/logo.png" alt="">— the builder, ViSO</div>
+      <div class="sig" data-i="m.sig">A note from the builder</div>
+      <p data-i="m.p1">Hi, I'm building ViSO because I was exhausted from losing my train of thought every time I tried to organize my daily work across 4 different apps.</p>
+      <p data-i="m.p2">ViSO is currently in its early Alpha stage. It's raw, lightweight, and focused purely on one killer experience: instant, zero-friction capture and routing on your desktop.</p>
+      <p data-i="m.p3">I'm not looking for casual downloads. I'm looking for early partners, builders, researchers, and power users who want to test the raw builds, give brutal feedback, and help shape how we interact with our computers in the AI era.</p>
+      <p data-i="m.p4">If you care deeply about focus, speed, and privacy, I'd love to have you onboard from Day 1.</p>
+      <div class="signature" data-i="m.signature"><img src="assets/logo.png" alt="">— the builder, ViSO</div>
       <img class="note-cat" src="assets/cat-cloud.png" alt="">
     </div>
-    <h2 class="m-h">The Evolutionary Path</h2>
+    <h2 class="m-h" data-i="m.h2">The Evolutionary Path</h2>
     <div class="stepper">
       <div class="stepper-row">
-        <div class="stepper-node now">Desktop Widget</div><div class="stepper-arrow"></div>
-        <div class="stepper-node">Mobile Layer</div><div class="stepper-arrow"></div>
-        <div class="stepper-node">Smartwatch &amp; Ring</div><div class="stepper-arrow"></div>
-        <div class="stepper-node">Smartglasses</div>
+        <div class="stepper-node now" data-i="m.n1">Desktop Widget</div><div class="stepper-arrow"></div>
+        <div class="stepper-node" data-i="m.n2">Mobile Layer</div><div class="stepper-arrow"></div>
+        <div class="stepper-node" data-i="m.n3">Smartwatch &amp; Ring</div><div class="stepper-arrow"></div>
+        <div class="stepper-node" data-i="m.n4">Smartglasses</div>
       </div>
-      <div class="stepper-tags"><span>Now</span><span>Next</span><span>Wearables</span><span>Endgame</span></div>
+      <div class="stepper-tags" data-i="m.tags"><span>Now</span><span>Next</span><span>Wearables</span><span>Endgame</span></div>
     </div>
-    <div class="level"><b>Level 1 — Desktop Widget (2026)</b><span>Lớp nhận thức tức thì ngay tại bàn làm việc với phím tắt Ctrl + Space. Đang chạy trên Windows, macOS và Chrome.</span></div>
-    <div class="level"><b>Level 2 — Mobile Instant Layer</b><span>Bắt trọn ý định khi đang di chuyển qua thao tác chạm viền hoặc nút vật lý.</span></div>
-    <div class="level"><b>Level 3 — Micro-Wearables (Smartwatch &amp; Ring)</b><span>Tương tác vi cử chỉ và cảm biến xúc giác để bắt dòng suy nghĩ mà không cần rút điện thoại.</span></div>
-    <div class="level"><b>Level 4 — Spatial Smartglasses (The Endgame)</b><span>Trợ lý hiển thị ngữ cảnh không gian. Nhận diện ý định qua ánh nhìn và giọng nói thầm, biến thế giới số hòa làm một với trường nhìn tự nhiên của con người.</span></div>
-    <div class="cta-final"><button class="btn btn--dark" onclick="goHome(); setTimeout(focusWaitlist, 60)">Join the Alpha Waitlist →</button></div>
+    <div class="level" data-i="m.L1"><b>Level 1 — Desktop Widget (2026)</b><span>Lớp nhận thức tức thì ngay tại bàn làm việc với phím tắt Ctrl + Space. Đang chạy trên Windows, macOS và Chrome.</span></div>
+    <div class="level" data-i="m.L2"><b>Level 2 — Mobile Instant Layer</b><span>Bắt trọn ý định khi đang di chuyển qua thao tác chạm viền hoặc nút vật lý.</span></div>
+    <div class="level" data-i="m.L3"><b>Level 3 — Micro-Wearables (Smartwatch &amp; Ring)</b><span>Tương tác vi cử chỉ và cảm biến xúc giác để bắt dòng suy nghĩ mà không cần rút điện thoại.</span></div>
+    <div class="level" data-i="m.L4"><b>Level 4 — Spatial Smartglasses (The Endgame)</b><span>Trợ lý hiển thị ngữ cảnh không gian. Nhận diện ý định qua ánh nhìn và giọng nói thầm, biến thế giới số hòa làm một với trường nhìn tự nhiên của con người.</span></div>
+    <div class="cta-final"><button class="btn btn--dark" onclick="goHome(); setTimeout(focusWaitlist, 60)" data-i="fb.btn">Join the Alpha Waitlist →</button></div>
   </div>
 </main>
 
 <footer id="siteFooter">
   <div class="wrap">
     <div class="foot-links">
-      <a href="download.html">Download</a>
+      <a href="download.html" data-i="f.download">Download</a>
       <button onclick="goManifesto()">Manifesto</button>
-      <button onclick="openPrivacy()">Privacy Policy</button>
-      <a href="privacy.html">Full privacy policy</a>
+      <button onclick="openPrivacy()" data-i="f.privacy">Privacy Policy</button>
+      <a href="privacy.html" data-i="f.privacyfull">Full privacy policy</a>
     </div>
     <p>ViSO © 2026. All rights reserved.</p>
   </div>
@@ -566,16 +569,16 @@
 
 <div class="privacy" id="privacy" hidden role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
   <div class="box">
-    <h3 id="privacyTitle">Privacy, in one screen</h3>
-    <p>ViSO is local-first. Concretely:</p>
+    <h3 id="privacyTitle" data-i="pv.h3">Privacy, in one screen</h3>
+    <p data-i="pv.p">ViSO is local-first. Concretely:</p>
     <ul>
-      <li>Speech recognition and intent parsing run on your CPU (whisper.cpp, zipformer). No audio is uploaded, ever.</li>
-      <li>Notes, tasks and reminders live in a SQLite database in your user profile, and in the Chrome extension's own storage. Backups are JSON files you download yourself.</li>
-      <li>The extension reads the page you're on only to know where a note belongs — a title, an address, a favicon. It never sends page content anywhere.</li>
-      <li>The one download is the search model (multilingual-e5-small, 118 MB), fetched once from Hugging Face and verified against a pinned checksum.</li>
-      <li>No account, no telemetry, no analytics in the Alpha. The waitlist email is the only thing you give us.</li>
+      <li data-i="pv.1">Speech recognition and intent parsing run on your CPU (whisper.cpp, zipformer). No audio is uploaded, ever.</li>
+      <li data-i="pv.2">Notes, tasks and reminders live in a SQLite database in your user profile, and in the Chrome extension's own storage. Backups are JSON files you download yourself.</li>
+      <li data-i="pv.3">The extension reads the page you're on only to know where a note belongs — a title, an address, a favicon. It never sends page content anywhere.</li>
+      <li data-i="pv.4">The one download is the search model (multilingual-e5-small, 118 MB), fetched once from Hugging Face and verified against a pinned checksum.</li>
+      <li data-i="pv.5">No account, no telemetry, no analytics in the Alpha. The waitlist email is the only thing you give us.</li>
     </ul>
-    <button class="btn btn--white" onclick="closePrivacy()">Close</button>
+    <button class="btn btn--white" onclick="closePrivacy()" data-i="pv.close">Close</button>
   </div>
 </div>
 
@@ -614,22 +617,22 @@
   document.getElementById('waitlistForm').addEventListener('submit', function(e){
     e.preventDefault();
     var msg = document.getElementById('waitlistMsg'), input = document.getElementById('waitlistEmail'), email = input.value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent = "That doesn't look like a valid email."; msg.classList.add('err'); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent = T('wl.invalid'); msg.classList.add('err'); return; }
     msg.classList.remove('err');
-    var done = function(){ msg.textContent = "You're on the list — we'll email you when Alpha opens."; input.value = ''; };
+    var done = function(){ msg.textContent = T('wl.done'); input.value = ''; };
     if(WAITLIST_GOOGLE_FORM.action){
       // no-cors: Google answers with an opaque response; the submission lands anyway.
       var body = new URLSearchParams(); body.append(WAITLIST_GOOGLE_FORM.field, email);
-      var btn0 = document.getElementById('waitlistBtn'); btn0.disabled = true; msg.textContent = 'Sending…';
+      var btn0 = document.getElementById('waitlistBtn'); btn0.disabled = true; msg.textContent = T('wl.sending');
       fetch(WAITLIST_GOOGLE_FORM.action, {method:'POST', mode:'no-cors', body: body})
         .then(done)
-        .catch(function(){ msg.textContent = "Couldn't reach the list right now — try again in a minute."; msg.classList.add('err'); })
+        .catch(function(){ msg.textContent = T('wl.fail'); msg.classList.add('err'); })
         .then(function(){ btn0.disabled = false; });
     } else if(WAITLIST_ENDPOINT){
-      var btn = document.getElementById('waitlistBtn'); btn.disabled = true; msg.textContent = 'Sending…';
+      var btn = document.getElementById('waitlistBtn'); btn.disabled = true; msg.textContent = T('wl.sending');
       fetch(WAITLIST_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify({email:email})})
         .then(function(r){ if(!r.ok) throw new Error('bad status'); done(); })
-        .catch(function(){ msg.textContent = "Couldn't reach the list right now — try again in a minute."; msg.classList.add('err'); })
+        .catch(function(){ msg.textContent = T('wl.fail'); msg.classList.add('err'); })
         .then(function(){ btn.disabled = false; });
     } else {
       try { var list = JSON.parse(localStorage.getItem('viso-waitlist') || '[]'); if(list.indexOf(email) < 0) list.push(email); localStorage.setItem('viso-waitlist', JSON.stringify(list)); } catch(_){}
@@ -651,5 +654,6 @@
   })();
 </script>
 
+<script src="assets/i18n.js"></script>
 </body>
 </html>
