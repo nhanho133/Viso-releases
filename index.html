@@ -63,7 +63,7 @@
   .logo{display:inline-flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.02em;}
   .logo img{width:26px; height:26px; border-radius:8px;}
   .nav-links{display:flex; align-items:center; gap:24px; font-size:.84rem; font-weight:500;}
-  .nav-links .lnk{opacity:.85; white-space:nowrap;} .nav-links .lnk:hover{opacity:1;} .nav-links .lnk.now{opacity:1; font-weight:700;}
+  .nav-links .lnk{opacity:.85; white-space:nowrap; font-size:inherit; line-height:1; padding:0;} .nav-links .lnk:hover{opacity:1;} .nav-links .lnk.now{opacity:1; font-weight:700;}
   .nav-links .btn{height:38px; padding:0 15px; font-size:.8rem;}
   .nav-cta{display:flex; align-items:center; gap:8px; margin-left:4px;}
   .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
@@ -76,6 +76,12 @@
   .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
   @media (max-width:760px){ .nav-pill{gap:14px; padding-left:14px;} .nav-links{gap:12px;} .nav-links .lnk{display:none;} .nav-links .btn{padding:0 12px; font-size:.76rem;} }
 
+  /* Moving between the two pages keeps the pill in place and fades the rest. */
+  @view-transition{ navigation:auto; }
+  .nav-pill{view-transition-name:navpill;}
+  ::view-transition-old(root), ::view-transition-new(root){animation-duration:.28s;}
+  ::view-transition-group(navpill){animation-duration:.28s;}
+  .nav-links .lnk[aria-current="page"], .nav-links .btn[aria-current="page"]{opacity:1;}
   /* ---------- HERO: a starry night, clouds, the moon ---------- */
   .hero{position:relative; margin:8px; border-radius:26px; overflow:hidden; color:#fff; text-align:center; padding:130px 24px 36px;
     background: radial-gradient(60% 40% at 50% 100%, rgba(255,255,255,.22), transparent 60%), linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 42%, var(--night-3) 74%, var(--night-4) 100%);}
