@@ -422,11 +422,11 @@
       <p class="waitlist-msg" id="waitlistMsg" aria-live="polite"></p>
       <div class="proof">
         <div class="avatars"><span style="background:#2F6FE8">JM</span><span style="background:#F59E0B">RN</span><span style="background:#10B981">AT</span><span style="background:#EF4444">SL</span><span style="background:#6366F1">+</span></div>
-        <span data-i="h.proof">128+ creators and professionals are already waiting.</span>
+        <span data-i="h.proof"><b id="wlCount">128</b>+ creators and professionals are already waiting.</span>
       </div>
       <div class="community">
         <span data-i="h.community">Join our Alpha Community</span>
-        <a class="icon-btn" href="#" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="6"/><circle cx="9" cy="12.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12.5" r="1.3" fill="currentColor" stroke="none"/></svg></a>
+        <a class="icon-btn" href="https://discord.gg/SsQuwwB3H" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="6"/><circle cx="9" cy="12.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12.5" r="1.3" fill="currentColor" stroke="none"/></svg></a>
         <a class="icon-btn" href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></a>
         <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><line x1="7.5" y1="10" x2="7.5" y2="16.5"/><path d="M11.5 16.5v-4a2 2 0 0 1 4 0v4"/><line x1="11.5" y1="10" x2="11.5" y2="16.5"/></svg></a>
         <a class="icon-btn" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none"/></svg></a>
@@ -577,7 +577,7 @@
       <div class="faq-list">
         <details class="faq-item"><summary data-i="q1">ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p data-i="a1">Không. ViSO nghe và hiểu ngay trên máy bạn, không cần mạng. Ghi chú nằm trong máy bạn; muốn sao lưu thì tự xuất ra một file và giữ ở đâu tuỳ bạn.</p></details>
         <details class="faq-item"><summary data-i="q2">Tôi có thể gõ phím thay vì nói không?<span class="plus"></span></summary><p data-i="a2">Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.</p></details>
-        <details class="faq-item"><summary data-i="q3">How do I get the Alpha build?<span class="plus"></span></span></summary><p data-i="a3">Join the waitlist, then the Discord community: that's where builds are handed out, where you get help setting up and using it, and where early members get long-term perks when ViSO launches — soon.</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
+        <details class="faq-item"><summary data-i="q3">How do I get the Alpha build?<span class="plus"></span></span></summary><p data-i="a3">Join the waitlist, then the <a href="https://discord.gg/SsQuwwB3H" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline">Discord</a> community: that's where builds are handed out, where you get help setting up and using it, and where early members get long-term perks when ViSO launches — soon.</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
         <details class="faq-item"><summary data-i="q4">Máy tôi có chạy được không?<span class="plus"></span></summary><p data-i="a4">Windows 10 / 11, macOS 13 trở lên với chip Apple (M1–M4), và Chrome / Brave / Edge cho extension. Mac Intel chưa có bản riêng.</p></details>
       </div>
     </div>
@@ -590,7 +590,7 @@
         <div style="position:relative">
           <h2 data-i="fb.h2">Be on it from Day 1.</h2>
           <p data-i="fb.p">Bản thử sớm, góp ý thẳng, Discord với người làm ra nó. Windows, macOS và Chrome.</p>
-          <button class="btn btn--dark" onclick="focusWaitlist()" data-i="fb.btn">Join the Alpha Waitlist →</button>
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap"><button class="btn btn--dark" onclick="focusWaitlist()" data-i="fb.btn">Join the Alpha Waitlist →</button><a class="btn btn--white" href="https://discord.gg/SsQuwwB3H" target="_blank" rel="noopener" data-i="fb.discord">Join the Discord</a></div>
         </div>
         <img class="cat" src="assets/cat-cloud.png" alt="">
       </div>
@@ -690,10 +690,14 @@
   }
   window.addEventListener('scroll', tintNav, {passive:true}); tintNav();
 
-  // Where the emails go. WAITLIST_TO is an inbox: every sign-up is mailed
-  // there through formsubmit.co (no account; the first submission sends that
-  // inbox an activation link once). A Google Form or any JSON endpoint work
-  // too. With none set, the address stays in this browser only.
+  // Where the emails go. WAITLIST_APPS_SCRIPT is the web-app URL of the
+  // Google Apps Script in site/waitlist.gs: every sign-up lands in a Google
+  // Sheet, and the same URL answers ?count=1 with how many are there, which
+  // the proof line adds to WAITLIST_BASE. The other two options still work:
+  // an inbox through formsubmit.co, or any JSON endpoint. With none set, the
+  // address stays in this browser only.
+  var WAITLIST_APPS_SCRIPT = '';
+  var WAITLIST_BASE = 128;
   var WAITLIST_TO = '';
   var WAITLIST_GOOGLE_FORM = { action: '', field: '' };
   var WAITLIST_ENDPOINT = '';
@@ -712,8 +716,23 @@
     wlInput.focus();
   }
   function wlFail(){ wlForm.classList.remove('is-sending'); wlForm.classList.add('is-err'); wlSay('wl.fail', true); }
+  function wlCount(){
+    var el = document.getElementById('wlCount');
+    if(!el || !WAITLIST_APPS_SCRIPT) return;
+    fetch(WAITLIST_APPS_SCRIPT + '?count=1', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(j){
+      var n = Number(j && j.count) || 0;
+      if(n > 0) el.textContent = String(WAITLIST_BASE + n);
+    }).catch(function(){});
+  }
+  wlCount();
   function wlSend(email){
     var page = location.href, lang = document.documentElement.lang;
+    if(WAITLIST_APPS_SCRIPT){
+      // text/plain keeps the browser from preflighting; Apps Script answers
+      // through a redirect the browser cannot read, so no-cors and trust it.
+      return fetch(WAITLIST_APPS_SCRIPT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ email: email, language: lang, page: page })})
+        .then(function(){ setTimeout(wlCount, 1500); });
+    }
     if(WAITLIST_TO){
       return fetch('https://formsubmit.co/ajax/' + WAITLIST_TO, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
         body: JSON.stringify({ email: email, language: lang, page: page, _subject: 'ViSO waitlist: ' + email, _template: 'table', _captcha: 'false' })})

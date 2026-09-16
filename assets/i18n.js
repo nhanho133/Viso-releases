@@ -16,7 +16,7 @@ var I18N = { vi: {
  "h.h1": "Lưu ý nghĩ lại. Làm việc tiếp.",
  "h.lede": "Bấm một phím. Nói điều bạn cần. ViSO lưu thành ghi chú, việc cần làm hay lời nhắc — không bắt bạn rời việc đang làm.",
  "h.email": "Nhập email của bạn…",
- "h.proof": "128+ nhà sáng tạo và người đi làm đang chờ sẵn.",
+ "h.proof": "<b id=\"wlCount\">128</b>+ nhà sáng tạo và người đi làm đang chờ sẵn.",
  "h.community": "Cộng đồng Alpha",
  "h.cd": "Đợt Alpha tiếp theo sau",
  "h.days": "Ngày",
@@ -69,7 +69,7 @@ var I18N = { vi: {
  "q2": "Tôi có thể gõ phím thay vì nói không?<span class=\"plus\"></span>",
  "a2": "Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.",
  "q3": "Làm sao để nhận bản Alpha?<span class=\"plus\"></span>",
- "a3": "Đăng ký waitlist rồi vào cộng đồng Discord: bản thử được gửi ở đó, có người hướng dẫn cài đặt và dùng thêm, và thành viên sớm có những quyền lợi dài hạn khi ViSO ra mắt chính thức — sắp rồi.",
+ "a3": "Đăng ký waitlist rồi vào cộng đồng <a href=\"https://discord.gg/SsQuwwB3H\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--blue); text-decoration:underline\">Discord</a>: bản thử được gửi ở đó, có người hướng dẫn cài đặt và dùng thêm, và thành viên sớm có những quyền lợi dài hạn khi ViSO ra mắt chính thức — sắp rồi.",
  "q4": "Máy tôi có chạy được không?<span class=\"plus\"></span>",
  "a4": "Windows 10 / 11, macOS 13 trở lên với chip Apple (M1–M4), và Chrome / Brave / Edge cho extension. Mac Intel chưa có bản riêng.",
  "fb.h2": "Có mặt từ ngày đầu.",
@@ -194,7 +194,8 @@ var I18N = { vi: {
  "df.privacy": "Chính sách riêng tư",
  "df.all": "Mọi bản phát hành",
  "df.line": "ViSO © 2026. Alpha — chạy hoàn toàn trên máy bạn.",
- "s2.say": "\"remind me to apply to CMC Global at 9am Friday\""
+ "s2.say": "\"remind me to apply to CMC Global at 9am Friday\"",
+ "fb.discord": "Vào Discord"
 }, en: {
  "n.features": "Features",
  "n.how": "How it works",
@@ -209,7 +210,7 @@ var I18N = { vi: {
  "h.h1": "Save the thought. Keep working.",
  "h.lede": "Press one key. Say what you need. ViSO saves it as a note, to-do, or reminder; without making you leave what you're doing.",
  "h.email": "Enter your email address...",
- "h.proof": "128+ creators and professionals are already waiting.",
+ "h.proof": "<b id=\"wlCount\">128</b>+ creators and professionals are already waiting.",
  "h.community": "Join our Alpha Community",
  "h.cd": "Next Alpha wave in",
  "h.days": "Days",
@@ -262,7 +263,7 @@ var I18N = { vi: {
  "q2": "Can I type instead of talking?<span class=\"plus\"></span>",
  "a2": "Yes. Type straight into the ViSO panel on a web page or the Notes panel in the app; type <kbd>@</kbd> to pick the kind (note, reminder, to-do) instead of saying a keyword.",
  "q3": "How do I get the Alpha build?<span class=\"plus\"></span>",
- "a3": "Join the waitlist, then the Discord community: that's where builds are handed out, where you get help setting up and using it, and where early members get long-term perks when ViSO launches — soon.",
+ "a3": "Join the waitlist, then the <a href=\"https://discord.gg/SsQuwwB3H\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--blue); text-decoration:underline\">Discord</a> community: that's where builds are handed out, where you get help setting up and using it, and where early members get long-term perks when ViSO launches — soon.",
  "q4": "Will it run on my machine?<span class=\"plus\"></span>",
  "a4": "Windows 10 / 11, macOS 13 or later on Apple silicon (M1–M4), and Chrome / Brave / Edge for the extension. No Intel Mac build yet.",
  "fb.h2": "Be on it from Day 1.",
@@ -387,7 +388,8 @@ var I18N = { vi: {
  "df.privacy": "Privacy Policy",
  "df.all": "All releases",
  "df.line": "ViSO © 2026. Alpha — runs entirely on your computer.",
- "s2.say": "\"remind me to apply to CMC Global at 9am Friday\""
+ "s2.say": "\"remind me to apply to CMC Global at 9am Friday\"",
+ "fb.discord": "Join the Discord"
 } };
 var LANG_KEY = 'viso:lang';
 function currentLang(){
@@ -402,6 +404,7 @@ function applyLang(lang){
   for (var i = 0; i < els.length; i++) { var k = els[i].getAttribute('data-i'); if (d[k] != null) els[i].innerHTML = d[k]; }
   var ph = document.querySelectorAll('[data-i-placeholder]');
   for (var j = 0; j < ph.length; j++) { var kk = ph[j].getAttribute('data-i-placeholder'); if (d[kk] != null) ph[j].placeholder = d[kk]; }
+  if (typeof wlCount === 'function') wlCount();
   var b = document.getElementById('langBtn');
   if (b) { b.innerHTML = lang === 'vi' ? '<span class="flag">🇻🇳</span>VI' : '<span class="flag">🇬🇧</span>EN'; b.title = lang === 'vi' ? 'Switch to English' : 'Chuyển sang tiếng Việt'; }
 }
