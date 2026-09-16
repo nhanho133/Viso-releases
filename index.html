@@ -69,8 +69,9 @@
   .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
   .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
   .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
-  .nav-pill .btn.lang{padding:0 12px; min-width:46px; font-weight:700; letter-spacing:.06em; gap:6px;}
-  .nav-pill .btn.lang::before{content:''; width:14px; height:14px; border-radius:50%; border:1.6px solid currentColor; background:radial-gradient(circle at 50% 50%, transparent 0 3px, currentColor 3px 4.4px, transparent 4.6px) ; opacity:.9;}
+  .nav-pill .btn.lang{padding:0 14px 0 10px; min-width:76px; font-weight:800; letter-spacing:.06em; gap:7px;}
+  .nav-pill .btn.lang .flag{font-size:1.05rem; line-height:1; filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));}
+  .nav-pill .btn.lang::after{content:''; width:6px; height:6px; border-right:1.8px solid currentColor; border-bottom:1.8px solid currentColor; transform:translateY(-2px) rotate(45deg); opacity:.7;}
   .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
   .nav-pill .btn--white:hover{background:#eef2f9;}
   .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
@@ -289,11 +290,23 @@
   .sort .lock{font-size:.7rem; color:var(--ink-2); display:flex; align-items:center; gap:5px; margin-top:2px;}
   @media (prefers-reduced-motion: reduce){ .sort__words mark{background:var(--c);} .sort__branches i:nth-child(3){opacity:1;} .bin--on{background:#0b0d14; color:#fff;} .sort__card{opacity:1; transform:none;} }
   .art--open{flex-direction:column; gap:12px;}
-  .card--click{position:relative;}
-  .card--click .click{position:absolute; width:16px; height:16px; right:118px; bottom:8px; animation:clickmove 4s ease-in-out infinite;}
-  .card--click .jump{animation:pressed 4s ease-in-out infinite;}
+  /* Real screens in steps 2 and 3: the Orb and the cards are screenshots, only the arrow, the pointer and the tab strip are drawn. */
+  .real{display:flex; flex-direction:column; align-items:center; gap:10px; width:100%;}
+  .real--2{gap:6px;}
+  .real__orb{position:relative; display:flex; flex-direction:column; align-items:center; gap:6px;}
+  .real__orb img{width:150px; height:auto;}
+  .real__say{font-size:.78rem; font-weight:600; color:#0b2a5e; background:#fff; padding:6px 12px; border-radius:999px; box-shadow:0 8px 20px -12px rgba(20,30,50,.5); white-space:nowrap;}
+  .real__arrow{font-size:1.4rem; color:var(--ink-3); transform:rotate(90deg); line-height:1;}
+  .real__card{width:200px; height:auto; border-radius:14px; box-shadow:0 18px 36px -18px rgba(20,30,50,.5);}
+  .real__card--pop{animation:pop 4s ease-in-out infinite;}
+  @keyframes pop{0%,35%{opacity:0; transform:translateY(6px) scale(.96);} 45%,90%{opacity:1; transform:none;} 100%{opacity:0;}}
+  .real--2 .lock{margin-top:4px; justify-content:center; font-size:.7rem; color:var(--ink-2); display:flex; align-items:center; gap:5px;}
+  .real__click{position:relative; width:min(305px,100%);}
+  .real__click .real__card{width:100%; animation:card-press 4s ease-in-out infinite;}
+  .real__click .click{position:absolute; width:18px; height:18px; left:52%; top:58%; animation:clickmove 4s ease-in-out infinite;}
   @keyframes clickmove{0%,30%{transform:translate(30px,26px); opacity:0;} 40%{opacity:1; transform:translate(0,0);} 50%{transform:translate(0,0) scale(.85);} 60%,85%{transform:translate(0,0);} 100%{transform:translate(30px,26px); opacity:0;}}
-  @keyframes pressed{0%,48%{background:#0b0d14;} 52%,62%{background:var(--blue);} 66%,100%{background:#0b0d14;}}
+  @keyframes card-press{0%,48%{transform:none;} 52%{transform:scale(.985);} 56%,100%{transform:none;}}
+  @media (prefers-reduced-motion: reduce){ .real__card--pop{opacity:1; transform:none;} .real__click .click{opacity:1; transform:none;} }
   .opens{width:100%; max-width:340px; opacity:0; transform:translateY(6px); animation:opens 4s ease-in-out infinite;}
   @keyframes opens{0%,55%{opacity:0; transform:translateY(6px);} 64%,92%{opacity:1; transform:translateY(0);} 100%{opacity:0;}}
   .tabs{display:flex; gap:4px; padding:6px; border-radius:12px 12px 0 0; background:#dfe3ea;}
@@ -377,9 +390,8 @@
       <button class="lnk" onclick="goSection('faq')" data-i="n.faq">FAQ</button>
       <button class="lnk" onclick="openPrivacy()" data-i="n.privacy">Privacy</button>
       <span class="nav-cta">
-        <button class="btn btn--ghost lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
         <button class="btn btn--ghost" onclick="focusWaitlist()" data-i="n.join">Join Waitlist</button>
-        <a class="btn btn--white" href="download.html" data-i="n.download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
+        <button class="btn btn--white lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
       </span>
     </div>
   </div>
@@ -431,18 +443,18 @@
     </div>
 
     <div class="screen" aria-label="A desktop with the ViSO panel at its edge, the ViSO panel inside a web page, and the Orb listening">
-      <div class="menubar"><span data-i="sc.bar">ViSO · Gmail — Báo giá quý 3</span><span data-i="sc.date">Tue 15 Sep · 09:41</span></div>
+      <div class="menubar"><span data-i="sc.bar">ViSO · Gmail — AI Engineer at CMC Global</span><span data-i="sc.date">Tue 15 Sep · 09:41</span></div>
       <span class="sc-cloud" style="left:-4%; bottom:40px; width:380px; height:130px" aria-hidden="true"></span>
       <span class="sc-cloud" style="right:-6%; bottom:90px; width:420px; height:140px" aria-hidden="true"></span>
       <div class="key"><kbd>Ctrl</kbd>+<kbd>Space</kbd></div>
       <div class="orb" aria-hidden="true"></div>
-      <div class="say" data-i="sc.say">"nhắc tôi gửi báo giá thứ Sáu"</div>
+      <div class="say" data-i="sc.say">"remind me to apply to CMC Global at 9am Friday"</div>
       <div class="saved">
-        <div class="fh" data-i="sc.fh"><span class="tile">M</span><b>Gmail</b> · Báo giá quý 3</div>
-        <div class="ft" data-i="sc.ft">gửi báo giá thứ Sáu</div>
-        <div class="ok" data-i="sc.ok">✓ Đã lưu · nhắc bạn Thứ Sáu, 9:00</div>
+        <div class="fh" data-i="sc.fh"><span class="tile">M</span><b>Gmail</b> · AI Engineer at CMC Global</span><b>Gmail</b> · Báo giá quý 3</div>
+        <div class="ft" data-i="sc.ft">apply to CMC Global</div>
+        <div class="ok" data-i="sc.ok">✓ Saved · reminds you Friday, 9:00</div>
       </div>
-      <div class="hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page: this page's notes as cards, filter chips and a composer"></div>
+      <div class="hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a Gmail thread: a reminder, a to-do and a note about the email"></div>
       <div class="panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel: a column of note cards, a search bar and a composer"></div>
       <span class="tab" aria-hidden="true"></span>
       <img class="cat" src="assets/cat-cloud.png" alt="">
@@ -519,44 +531,41 @@
               </div>
             </div>
           </div>
-          <h3 data-i="s1.h3">One key, anywhere</h3>
-          <p data-i="s1.p">Đang đọc mail, đang họp, đang viết — bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
+          <h3 data-i="s1.h3">Press a simple hotkey, anywhere</h3>
+          <p data-i="s1.p">Whether you're reading email, writing, researching, or in a meeting, press <kbd>Ctrl</kbd> + <kbd>Space</kbd> when you need it. ViSO stays quietly at the edge of your screen.</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
         </div>
         <div class="step">
           <span class="num">2</span>
           <div class="art">
-            <div class="sort" aria-label="One sentence, taken apart into what it is, what it is about and when — and filed as a reminder">
-              <div class="sort__say"><span class="sort__mic">🎙</span><span class="sort__words" data-i="s2.say"><mark class="m-k">nhắc tôi</mark> <mark class="m-w">gửi báo giá</mark> <mark class="m-t">thứ Sáu</mark></span></div>
-              <div class="sort__legend" data-i="s2.legend"><span class="l-k">loại</span><span class="l-w">việc gì</span><span class="l-t">khi nào</span></div>
-              <div class="sort__branches" aria-hidden="true"><i></i><i></i><i></i></div>
-              <div class="sort__bins">
-                <span class="bin" data-i="s2.c1">📝 Ghi chú</span>
-                <span class="bin" data-i="s2.c2">☑ Việc</span>
-                <span class="bin bin--on" data-i="s2.c3">🔔 Lời nhắc</span>
+            <div class="real real--2">
+              <div class="real__orb">
+                <img src="assets/guide/app-orb.png" alt="The ViSO Orb, listening" width="376" height="268">
+                <span class="real__say" data-i="s2.say">"remind me to apply to CMC Global at 9am Friday"</span>
               </div>
-              <div class="sort__card" data-i="s2.card"><b>gửi báo giá</b><span>Thứ Sáu · 9:00 · Gmail</span></div>
+              <span class="real__arrow" aria-hidden="true">→</span>
+              <img class="real__card real__card--pop" src="assets/guide/card-reminder.png" alt="The reminder card ViSO saved: apply to CMC Global" width="404" height="244">
               <span class="lock" data-i="s2.lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
             </div>
           </div>
-          <h3 data-i="s2.h3">Hiểu ý, xếp đúng chỗ</h3>
-          <p data-i="s2.p">Nói kiểu gì cũng được. ViSO tự nhận ra đó là <b>loại gì</b>, <b>việc gì</b> và <b>khi nào</b>, rồi cất vào đúng ngăn: ghi chú, việc, hay lời nhắc — không hỏi lại, không bắt bạn chọn. Tiếng Việt hay tiếng Anh đều hiểu, và mọi thứ diễn ra ngay trên máy bạn.</p>
+          <h3 data-i="s2.h3">Just say it</h3>
+          <p data-i="s2.p">ViSO understands what you mean, turns it into a note, to-do, or reminder, and saves it in under a second.</b>, <b>việc gì</b> và <b>khi nào</b>, rồi cất vào đúng ngăn: ghi chú, việc, hay lời nhắc — không hỏi lại, không bắt bạn chọn. Tiếng Việt hay tiếng Anh đều hiểu, và mọi thứ diễn ra ngay trên máy bạn.</p>
         </div>
         <div class="step">
           <span class="num">3</span>
           <div class="art art--open">
-            <div class="card card--click">
-              <div class="fh" data-i="s3.fh"><span class="tile" style="background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)">M</span><b>Gmail · Báo giá quý 3</b> · 12h ago</div>
-              <div class="ft" data-i="s3.ft">gửi báo giá cho anh Đông trước thứ Sáu</div>
-              <span class="jump" data-i="s3.jump">↳ Mở lại thư này</span>
-              <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="opens" aria-hidden="true">
-              <div class="tabs" data-i="s3.tabs"><span>Inbox</span><span class="on"><i></i>Báo giá quý 3 — Gmail</span><span>Timeline — Sheets</span></div>
-              <div class="tabs-note" data-i="s3.tabsnote">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
+            <div class="real real--3">
+              <div class="real__click">
+                <img class="real__card" src="assets/guide/card-gmail.png" alt="A note card in ViSO, filed from a Gmail thread" width="404" height="244">
+                <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="opens" aria-hidden="true">
+                <div class="tabs" data-i="s3.tabs"><span>Docs</span><span class="on"><i></i>Gmail</span><span>YouTube</span></div>
+                <div class="tabs-note" data-i="s3.tabsnote">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
+              </div>
             </div>
           </div>
-          <h3 data-i="s3.h3">Back to where you were</h3>
-          <p data-i="s3.p">Mỗi ghi chú nhớ nơi bạn nảy ra nó — thư Gmail, tài liệu, video YouTube. <b>Bấm vào thẻ</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
+          <h3 data-i="s3.h3">Get back to where you were</h3>
+          <p data-i="s3.p">Click the note and ViSO takes you back to the exact place, whether it's an email, document, or web page. You don't have to remember where you saw it.</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
         </div>
       </div>
     </div>
@@ -568,7 +577,7 @@
       <div class="faq-list">
         <details class="faq-item"><summary data-i="q1">ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p data-i="a1">Không. ViSO nghe và hiểu ngay trên máy bạn, không cần mạng. Ghi chú nằm trong máy bạn; muốn sao lưu thì tự xuất ra một file và giữ ở đâu tuỳ bạn.</p></details>
         <details class="faq-item"><summary data-i="q2">Tôi có thể gõ phím thay vì nói không?<span class="plus"></span></summary><p data-i="a2">Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.</p></details>
-        <details class="faq-item"><summary data-i="q3">Khi nào tôi nhận được bản cài đặt Alpha?<span class="plus"></span></summary><p data-i="a3">Bản Alpha đang mở cho người thử sớm — bấm <a href="download.html" style="color:var(--blue); text-decoration:underline">Download</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
+        <details class="faq-item"><summary data-i="q3">How do I get the Alpha build?<span class="plus"></span></span></summary><p data-i="a3">Join the waitlist, then the Discord community: that's where builds are handed out, where you get help setting up and using it, and where early members get long-term perks when ViSO launches — soon.</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
         <details class="faq-item"><summary data-i="q4">Máy tôi có chạy được không?<span class="plus"></span></summary><p data-i="a4">Windows 10 / 11, macOS 13 trở lên với chip Apple (M1–M4), và Chrome / Brave / Edge cho extension. Mac Intel chưa có bản riêng.</p></details>
       </div>
     </div>
@@ -632,7 +641,6 @@
 <footer id="siteFooter">
   <div class="wrap">
     <div class="foot-links">
-      <a href="download.html" data-i="f.download">Download</a>
       <button onclick="goManifesto()">Manifesto</button>
       <button onclick="openPrivacy()" data-i="f.privacy">Privacy Policy</button>
       <a href="privacy.html" data-i="f.privacyfull">Full privacy policy</a>

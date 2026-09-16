@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Tải ViSO cho Windows, macOS và Chrome. Cài trong 1 phút, hướng dẫn từng bước có hình.">
 <meta property="og:title" content="Tải ViSO — Alpha 0.2.4">
 <meta property="og:description" content="Windows, macOS Apple Silicon và extension Chrome. Cài trong 1 phút, hướng dẫn có hình.">
@@ -64,8 +65,9 @@
   .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
   .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
   .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
-  .nav-pill .btn.lang{padding:0 12px; min-width:46px; font-weight:700; letter-spacing:.06em; gap:6px;}
-  .nav-pill .btn.lang::before{content:''; width:14px; height:14px; border-radius:50%; border:1.6px solid currentColor; background:radial-gradient(circle at 50% 50%, transparent 0 3px, currentColor 3px 4.4px, transparent 4.6px) ; opacity:.9;}
+  .nav-pill .btn.lang{padding:0 14px 0 10px; min-width:76px; font-weight:800; letter-spacing:.06em; gap:7px;}
+  .nav-pill .btn.lang .flag{font-size:1.05rem; line-height:1; filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));}
+  .nav-pill .btn.lang::after{content:''; width:6px; height:6px; border-right:1.8px solid currentColor; border-bottom:1.8px solid currentColor; transform:translateY(-2px) rotate(45deg); opacity:.7;}
   .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
   .nav-pill .btn--white:hover{background:#eef2f9;}
   .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
@@ -197,9 +199,8 @@
       <a class="lnk" href="index.html#faq" data-i="n.faq">FAQ</a>
       <button class="lnk" type="button" onclick="openPrivacy()" data-i="n.privacy">Privacy</button>
       <span class="nav-cta">
-        <button class="btn btn--ghost lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
         <a class="btn btn--ghost" href="index.html#waitlistEmail" data-i="n.join">Join Waitlist</a>
-        <a class="btn btn--white now" href="#top" aria-current="page" data-i="n.download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
+        <button class="btn btn--white lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
       </span>
     </div>
   </div>
