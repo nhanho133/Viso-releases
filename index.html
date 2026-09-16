@@ -70,7 +70,7 @@
   @media (max-width:760px){ .nav-pill{gap:14px; padding-left:14px;} .nav-links{gap:12px;} .nav-links .lnk{display:none;} .nav-links .btn{padding:0 12px; font-size:.76rem;} }
 
   /* ---------- HERO: a starry night, clouds, the moon ---------- */
-  .hero{position:relative; margin:8px; border-radius:26px; overflow:hidden; color:#fff; text-align:center; padding:130px 24px 0;
+  .hero{position:relative; margin:8px; border-radius:26px; overflow:hidden; color:#fff; text-align:center; padding:130px 24px 36px;
     background: radial-gradient(60% 40% at 50% 100%, rgba(255,255,255,.22), transparent 60%), linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 42%, var(--night-3) 74%, var(--night-4) 100%);}
   .stars, .stars2{position:absolute; inset:0; pointer-events:none; background-repeat:repeat;}
   .stars{background-image:
@@ -128,20 +128,20 @@
   @media (max-width:560px){ .cd-row{gap:14px;} .cd-unit{min-width:52px;} }
 
   /* the desktop, framed the way the reference frames its Mac: a big rounded screen at the hero's foot */
-  .screen{position:relative; z-index:3; max-width:1040px; margin:44px auto -2px; border-radius:22px 22px 0 0; overflow:hidden; box-shadow:0 -10px 60px -20px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.35);
-    background: linear-gradient(180deg, #6d9cf2 0%, #a9cbf5 60%, #d8e8fb 100%); height:460px;}
+  .screen{position:relative; z-index:3; max-width:1120px; margin:44px auto 0; border-radius:26px; overflow:hidden; box-shadow:0 -10px 60px -20px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.35);
+    background: linear-gradient(180deg, #6d9cf2 0%, #a9cbf5 60%, #d8e8fb 100%); height:500px;}
   .screen .menubar{height:26px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; font-size:.68rem; font-weight:600; color:#fff; background:rgba(0,0,0,.18); backdrop-filter:blur(8px);}
   .screen .menubar span{opacity:.9;}
   .screen .sc-cloud{position:absolute; border-radius:50%; background:#fff; filter:blur(18px); opacity:.75; pointer-events:none;}
-  .screen .panel{position:absolute; right:78px; bottom:0; width:320px; border-radius:20px 20px 0 0; overflow:hidden; box-shadow:0 30px 60px -20px rgba(20,60,110,.5), 0 0 0 1px rgba(255,255,255,.8);}
+  .screen .panel{position:absolute; right:52px; bottom:0; width:300px; border-radius:20px 20px 0 0; overflow:hidden; box-shadow:0 30px 60px -20px rgba(20,60,110,.5), 0 0 0 1px rgba(255,255,255,.8);}
   .screen .panel img{width:100%; height:auto;}
   .screen .tab{position:absolute; right:14px; top:50%; transform:translateY(-50%); width:4px; height:36px; border-radius:2px; background:rgba(24,25,32,.9); border:1px solid rgba(255,255,255,.4);}
-  .screen .hud{position:absolute; left:60px; bottom:-6px; width:300px; border-radius:18px 18px 0 0; overflow:hidden; box-shadow:0 30px 60px -20px rgba(20,60,110,.5), 0 0 0 1px rgba(255,255,255,.8);}
+  .screen .hud{position:absolute; left:44px; bottom:-6px; width:290px; border-radius:18px 18px 0 0; overflow:hidden; box-shadow:0 30px 60px -20px rgba(20,60,110,.5), 0 0 0 1px rgba(255,255,255,.8);}
   .screen .hud img{width:100%; height:auto;}
-  .screen .orb{position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); width:64px; height:64px; border-radius:50%; background:radial-gradient(circle at 34% 30%, #fff 0 14%, #9fd0ff 40%, #2f6fe8 74%, #10306f 100%); box-shadow:0 0 0 14px rgba(255,255,255,.28), 0 20px 40px -10px rgba(16,48,111,.7); animation:pulse 2.4s ease-in-out infinite;}
-  .screen .say{position:absolute; left:50%; top:calc(44% + 46px); transform:translateX(-50%); white-space:nowrap; font-size:.8rem; font-weight:600; color:#0b2a5e; background:rgba(255,255,255,.85); padding:6px 12px; border-radius:999px; box-shadow:0 8px 20px -12px rgba(0,0,0,.4);}
-  .screen .key{position:absolute; left:50%; top:calc(44% - 62px); transform:translateX(-50%); font-size:.72rem; font-weight:600; color:#fff; display:flex; gap:5px; align-items:center;}
-  .screen .saved{position:absolute; right:440px; top:56px; background:#fff; border-radius:14px; padding:10px 12px; width:230px; text-align:left; box-shadow:0 20px 40px -18px rgba(20,60,110,.45); animation:drift 6s ease-in-out infinite;}
+  .screen .orb{position:absolute; left:50%; top:46%; transform:translate(-50%,-50%); width:64px; height:64px; border-radius:50%; background:radial-gradient(circle at 34% 30%, #fff 0 14%, #9fd0ff 40%, #2f6fe8 74%, #10306f 100%); box-shadow:0 0 0 14px rgba(255,255,255,.28), 0 20px 40px -10px rgba(16,48,111,.7); animation:pulse 2.4s ease-in-out infinite;}
+  .screen .say{position:absolute; left:50%; top:calc(46% + 46px); transform:translateX(-50%); white-space:nowrap; font-size:.8rem; font-weight:600; color:#0b2a5e; background:rgba(255,255,255,.85); padding:6px 12px; border-radius:999px; box-shadow:0 8px 20px -12px rgba(0,0,0,.4);}
+  .screen .key{position:absolute; left:50%; top:calc(46% - 62px); transform:translateX(-50%); font-size:.72rem; font-weight:600; color:#fff; display:flex; gap:5px; align-items:center;}
+  .screen .saved{position:absolute; left:64px; top:54px; background:#fff; border-radius:14px; padding:10px 12px; width:230px; text-align:left; box-shadow:0 20px 40px -18px rgba(20,60,110,.45); animation:drift 6s ease-in-out infinite;}
   .screen .saved .fh{display:flex; align-items:center; gap:7px; font-size:.64rem; color:var(--ink-2); margin-bottom:4px;}
   .screen .saved .tile{width:20px; height:20px; border-radius:6px; display:grid; place-items:center; font-weight:800; font-size:.66rem; background:#fff; color:#EA4335; box-shadow:0 0 0 1px var(--line);}
   .screen .saved .fh b{color:var(--ink); font-weight:600;}
@@ -309,7 +309,7 @@
       <button class="lnk" onclick="openPrivacy()">Privacy</button>
       <span class="nav-cta">
         <button class="btn btn--ghost" onclick="focusWaitlist()">Join Waitlist</button>
-        <a class="btn btn--white" href="download.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Tải xuống</a>
+        <a class="btn btn--white" href="download.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
       </span>
     </div>
   </div>
@@ -330,7 +330,7 @@
     <div class="hero-copy">
       <div class="kicker"><span class="dot"></span>Alpha early access</div>
       <h1>Stop breaking your flow just to write things down.</h1>
-      <p class="lede">The instant, on-device assistant layer for your digital workspace. Dump your thoughts naturally and let ViSO route them into a note, a task or a reminder in under a second — without leaving your current window.</p>
+      <p class="lede">Press one key, say what's on your mind, and get back to work. ViSO turns it into a note, a to-do or a reminder in under a second — right on your computer, without switching windows.</p>
       <form class="waitlist" id="waitlistForm">
         <input type="email" id="waitlistEmail" placeholder="Enter your email address..." required autocomplete="email">
         <button type="submit" class="btn btn--dark" id="waitlistBtn">Join Waitlist</button>
@@ -368,7 +368,7 @@
       <div class="saved">
         <div class="fh"><span class="tile">M</span><b>Gmail</b> · Báo giá quý 3</div>
         <div class="ft">gửi báo giá thứ Sáu</div>
-        <div class="ok">✓ Lời nhắc · Thứ Sáu 09:00 · saved in 0.6s</div>
+        <div class="ok">✓ Đã lưu · nhắc bạn Thứ Sáu, 9:00</div>
       </div>
       <div class="hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page: this page's notes as cards, filter chips and a composer"></div>
       <div class="panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel: a column of note cards, a search bar and a composer"></div>
@@ -382,44 +382,44 @@
       <div class="section-head">
         <div class="eyebrow">One layer, every kind of thought</div>
         <h2>Say it once. ViSO knows what it is.</h2>
-        <p>Real screens from build 0.2.4 — a widget on the desktop, a panel on every web page, a hub for everything you said. Not mockups.</p>
+        <p>Ảnh thật từ bản đang chạy — một vạch nhỏ ở mép màn hình, một khung trên mỗi trang web, và mọi thứ bạn từng nói ở cùng một chỗ.</p>
       </div>
       <div class="tiles">
         <div class="tile-card">
           <div class="art">
             <div class="shot shot--hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page"></div>
-            <div class="note note--l"><div class="fh"><span class="tick">✓</span> saved · YouTube</div><b>video này giải thích RAG khá dễ hiểu</b></div>
+            <div class="note note--l"><div class="fh"><span class="tick">✓</span> Đã lưu · YouTube</div><b>video này giải thích RAG khá dễ hiểu</b></div>
           </div>
-          <h3>Notes &amp; Thoughts</h3>
-          <p>Nhặt ý tưởng, trích dẫn, link tài liệu tức thì — ghim sẵn trang bạn đang mở, không cần chọn folder.</p>
-          <div class="say">say <b>"ghi chú video này giải thích RAG khá dễ hiểu"</b></div>
+          <h3>Notes</h3>
+          <p>Ý tưởng, câu hay, link cần giữ — nói là xong. ViSO nhớ luôn bạn đang ở trang nào, không phải chọn thư mục.</p>
+          <div class="say">nói <b>"ghi chú video này giải thích RAG khá dễ hiểu"</b></div>
         </div>
         <div class="tile-card">
           <div class="art">
             <div class="shot shot--panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel"></div>
-            <div class="note note--r"><div class="fh"><span class="tick">✓</span> Todo · 18/43 xong</div><b>nộp báo cáo trước thứ Tư</b></div>
+            <div class="note note--r"><div class="fh"><span class="tick">✓</span> Việc · 18/43 xong</div><b>nộp báo cáo trước thứ Tư</b></div>
           </div>
-          <h3>Tasks &amp; Actions</h3>
-          <p>Biến việc cần làm thành checklist có deadline nếu bạn nói ra. Tick xong là xong, không đổi chỗ.</p>
-          <div class="say">say <b>"việc cần làm nộp báo cáo trước thứ Tư"</b></div>
+          <h3>To-dos</h3>
+          <p>Việc cần làm thành danh sách để tick, có hạn nếu bạn nói hạn. Tick xong là xong — vẫn nằm đúng chỗ cũ.</p>
+          <div class="say">nói <b>"việc cần làm nộp báo cáo trước thứ Tư"</b></div>
         </div>
         <div class="tile-card">
           <div class="art">
             <div class="card">
               <div class="fh"><span class="tile" style="background:#0068FF;color:#fff">Z</span><b>Zalo</b> · Every day · 15:00</div>
               <div class="ft">gọi lại khách</div>
-              <div class="fm"><span class="chip">🔔 Lời nhắc</span><span>Windows · macOS notification</span></div>
+              <div class="fm"><span class="chip">🔔 Lời nhắc</span><span>Máy tự báo đúng giờ</span></div>
             </div>
           </div>
-          <h3>Reminders &amp; Pings</h3>
-          <p>Đặt mốc bằng giọng nói, kể cả lặp mỗi ngày / mỗi tuần. Hệ điều hành tự báo — không cần mở app báo thức.</p>
-          <div class="say">say <b>"nhắc tôi 3 giờ chiều gọi anh Đông"</b></div>
+          <h3>Reminders</h3>
+          <p>Nói giờ là có nhắc, kể cả "mỗi ngày" hay "mỗi thứ Hai". Đến giờ máy tự báo — dù bạn đang ở app nào.</p>
+          <div class="say">nói <b>"nhắc tôi 3 giờ chiều gọi anh Đông"</b></div>
         </div>
         <div class="tile-card soon">
           <div class="art"><span class="soon-star" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><radialGradient id="ss"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#fff3b0"/><stop offset="1" stop-color="#f2cf5b"/></radialGradient></defs><path fill="url(#ss)" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span></div>
-          <h3>And so on...</h3>
-          <p>Lịch biểu Calendar, Meeting Summarizer, Dynamic File Routing... đang được hoàn thiện.</p>
-          <div class="say">coming soon</div>
+          <h3>More on the way</h3>
+          <p>Lịch hẹn, tóm tắt cuộc họp, tự xếp file vào đúng chỗ… đang làm.</p>
+          <div class="say">sắp có</div>
         </div>
       </div>
     </div>
@@ -430,7 +430,7 @@
       <div class="how-intro">
         <div class="eyebrow">How it works</div>
         <h2>Get started in 3 simple steps.</h2>
-        <p>Capture at the speed of thought. Let ViSO bridge the context back to where you left off.</p>
+        <p>Nghĩ ra là nói. Lúc cần, ViSO đưa bạn về đúng chỗ đã nảy ra ý.</p>
       </div>
       <div class="steps">
         <div class="step">
@@ -439,7 +439,7 @@
             <span class="sv-key"><kbd>Ctrl</kbd>+<kbd>Space</kbd></span>
             <div class="sv-orb" aria-hidden="true"></div>
             <div class="sv-edge" aria-label="The ViSO tab at the screen's edge: a thin mark, a tile with the logo under the pointer">
-              <div class="lbl"><b>the tab</b>a 4px mark at rest,<br>a tile on hover</div>
+              <div class="lbl"><b>vạch ViSO</b>nằm im ở mép,<br>rê chuột là hiện</div>
               <div class="sv-screen">
                 <span class="line"></span>
                 <span class="tile"><img src="assets/logo.png" alt=""></span>
@@ -447,22 +447,22 @@
               </div>
             </div>
           </div>
-          <h3>Summon anywhere</h3>
-          <p>Dù đang lướt web, họp Meet, hay viết code trong IDE — một phím tắt duy nhất. Nói hoặc gõ, không cần mở app; tab ViSO chỉ là một vạch ở mép màn hình cho tới lúc đó.</p>
+          <h3>One key, anywhere</h3>
+          <p>Đang đọc mail, đang họp, đang viết — bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
         </div>
         <div class="step">
           <span class="num">2</span>
           <div class="art">
             <div class="flow">
-              <div class="row"><span>🎙 voice</span><span>16 kHz, on this machine</span></div>
-              <div class="row"><span>whisper.cpp · zipformer</span><span>ASR · 0.3s</span></div>
-              <div class="row on"><span>{ kind: "reminder", at: "Fri 09:00" }</span><span>intent</span></div>
-              <div class="row"><span>saved · linked to the page</span><span>&lt; 1s</span></div>
-              <span class="lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>nothing leaves your computer</span>
+              <div class="row"><span>🎙 Bạn nói</span><span>"nhắc tôi gửi báo giá thứ Sáu"</span></div>
+              <div class="row"><span>ViSO nghe</span><span>ngay trên máy, không qua mạng</span></div>
+              <div class="row on"><span>ViSO hiểu</span><span>một lời nhắc · Thứ Sáu, 9:00</span></div>
+              <div class="row"><span>Đã lưu</span><span>chưa tới một giây</span></div>
+              <span class="lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
             </div>
           </div>
-          <h3>On-device processing <span style="color:var(--ink-3);font-weight:500">(&lt; 1s)</span></h3>
-          <p>whisper.cpp (English) và zipformer (tiếng Việt) chuyển giọng nói thành chữ ngay trên CPU; bộ đọc ý định phân loại tức thì thành Note, Task hay Reminder. 100% tại máy.</p>
+          <h3>Understood in a blink</h3>
+          <p>Nói tiếng Việt hay tiếng Anh đều được. ViSO nghe, hiểu đó là ghi chú, việc hay lời nhắc, rồi cất đúng chỗ — tất cả trong chưa tới một giây, ngay trên máy bạn. Không tài khoản, không gửi đi đâu.</p>
         </div>
         <div class="step">
           <span class="num">3</span>
@@ -470,16 +470,16 @@
             <div class="card card--click">
               <div class="fh"><span class="tile" style="background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)">M</span><b>Gmail · Báo giá quý 3</b> · 12h ago</div>
               <div class="ft">gửi báo giá cho anh Đông trước thứ Sáu</div>
-              <span class="jump">↳ Jump back to this thread</span>
+              <span class="jump">↳ Mở lại thư này</span>
               <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
             </div>
             <div class="opens" aria-hidden="true">
               <div class="tabs"><span>Inbox</span><span class="on"><i></i>Báo giá quý 3 — Gmail</span><span>Timeline — Sheets</span></div>
-              <div class="tabs-note">↑ the exact thread, focused — the tab is switched to if it's already open</div>
+              <div class="tabs-note">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
             </div>
           </div>
-          <h3>Unified traceability</h3>
-          <p>Note không chỉ được lưu, mà còn tự ghim đường link nơi bạn vừa nảy ra ý — thư Gmail, tài liệu Docs, video YouTube (kèm cả link cha: hộp thư, thư mục, kênh). <b>Bấm vào thẻ</b> là về đúng thư / tài liệu / video đó: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
+          <h3>Back to where you were</h3>
+          <p>Mỗi ghi chú nhớ nơi bạn nảy ra nó — thư Gmail, tài liệu, video YouTube. <b>Bấm vào thẻ</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
         </div>
       </div>
     </div>
@@ -489,9 +489,10 @@
     <div class="wrap">
       <div class="section-head"><div class="eyebrow">FAQ</div><h2>Questions, answered</h2></div>
       <div class="faq-list">
-        <details class="faq-item"><summary>ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p>Tuyệt đối không. Toàn bộ nhận diện giọng nói (ASR) và bóc tách ý định đều chạy bằng model nén trực tiếp trên phần cứng máy tính của bạn. Ghi chú nằm trong một file SQLite trên máy; bản sao lưu là JSON bạn tự tải xuống.</p></details>
+        <details class="faq-item"><summary>ViSO có gửi âm thanh hay dữ liệu của tôi lên cloud không?<span class="plus"></span></summary><p>Không. ViSO nghe và hiểu ngay trên máy bạn, không cần mạng. Ghi chú nằm trong máy bạn; muốn sao lưu thì tự xuất ra một file và giữ ở đâu tuỳ bạn.</p></details>
         <details class="faq-item"><summary>Tôi có thể gõ phím thay vì nói không?<span class="plus"></span></summary><p>Có. Trong khung ViSO trên trang web hay bảng Notes của app, gõ trực tiếp; gõ <kbd>@</kbd> để chọn loại (ghi chú, lời nhắc, việc) thay vì phải nói đúng từ khoá.</p></details>
-        <details class="faq-item"><summary>Khi nào tôi nhận được bản cài đặt Alpha?<span class="plus"></span></summary><p>Khi đồng hồ countdown kết thúc, chúng tôi gửi link tải bản build trực tiếp qua email đăng ký theo từng đợt nhỏ, kèm lời mời tham gia nhóm Discord riêng. Windows (.exe) và macOS Apple Silicon (.dmg), cộng extension cho Chrome.</p></details>
+        <details class="faq-item"><summary>Khi nào tôi nhận được bản cài đặt Alpha?<span class="plus"></span></summary><p>Bản Alpha đang mở cho người thử sớm — bấm <a href="download.html" style="color:var(--blue); text-decoration:underline">Download</a> ở trên là có ngay, kèm hướng dẫn có hình. Đợt rộng hơn mở khi đồng hồ kết thúc; đăng ký email để được báo và nhận lời mời vào Discord.</p></details>
+        <details class="faq-item"><summary>Máy tôi có chạy được không?<span class="plus"></span></summary><p>Windows 10 / 11, macOS 13 trở lên với chip Apple (M1–M4), và Chrome / Brave / Edge cho extension. Mac Intel chưa có bản riêng.</p></details>
       </div>
     </div>
   </section>
@@ -502,7 +503,7 @@
         <div class="stars" aria-hidden="true" style="opacity:.7"></div>
         <div style="position:relative">
           <h2>Be on it from Day 1.</h2>
-          <p>Raw builds, brutal feedback, a Discord with the builder. Windows, macOS and Chrome.</p>
+          <p>Bản thử sớm, góp ý thẳng, Discord với người làm ra nó. Windows, macOS và Chrome.</p>
           <button class="btn btn--dark" onclick="focusWaitlist()">Join the Alpha Waitlist →</button>
         </div>
         <img class="cat" src="assets/cat-cloud.png" alt="">
