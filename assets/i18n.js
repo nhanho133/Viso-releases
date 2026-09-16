@@ -55,13 +55,9 @@ var I18N = { vi: {
  "s1.lbl": "<b>vạch ViSO</b>nằm im ở mép,<br>rê chuột là hiện",
  "s1.h3": "Một phím, ở đâu cũng được",
  "s1.p": "Đang đọc mail, đang họp, đang viết — bấm <kbd>Ctrl</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.",
- "s2.r1": "<span>🎙 Bạn nói</span><span>\"nhắc tôi gửi báo giá thứ Sáu\"</span>",
- "s2.r2": "<span>ViSO nghe</span><span>ngay trên máy, không qua mạng</span>",
- "s2.r3": "<span>ViSO hiểu</span><span>một lời nhắc · Thứ Sáu, 9:00</span>",
- "s2.r4": "<span>Đã lưu</span><span>chưa tới một giây</span>",
  "s2.lock": "<svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"4\" y=\"11\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 11V7a4 4 0 0 1 8 0v4\"/></svg>không gì rời khỏi máy bạn",
- "s2.h3": "Hiểu trong nháy mắt",
- "s2.p": "Nói tiếng Việt hay tiếng Anh đều được. ViSO nghe, hiểu đó là ghi chú, việc hay lời nhắc, rồi cất đúng chỗ — tất cả trong chưa tới một giây, ngay trên máy bạn. Không tài khoản, không gửi đi đâu.",
+ "s2.h3": "Hiểu ý, xếp đúng chỗ",
+ "s2.p": "Nói kiểu gì cũng được. ViSO tự nhận ra đó là <b>loại gì</b>, <b>việc gì</b> và <b>khi nào</b>, rồi cất vào đúng ngăn: ghi chú, việc, hay lời nhắc — không hỏi lại, không bắt bạn chọn. Tiếng Việt hay tiếng Anh đều hiểu, và mọi thứ diễn ra ngay trên máy bạn.",
  "s3.fh": "<span class=\"tile\" style=\"background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)\">M</span><b>Gmail · Báo giá quý 3</b> · 12 giờ trước",
  "s3.ft": "gửi báo giá cho anh Đông trước thứ Sáu",
  "s3.jump": "↳ Mở lại thư này",
@@ -200,7 +196,13 @@ var I18N = { vi: {
  "df.home": "Trang chủ",
  "df.privacy": "Chính sách riêng tư",
  "df.all": "Mọi bản phát hành",
- "df.line": "ViSO © 2026. Alpha — chạy hoàn toàn trên máy bạn."
+ "df.line": "ViSO © 2026. Alpha — chạy hoàn toàn trên máy bạn.",
+ "s2.say": "<mark class=\"m-k\">nhắc tôi</mark> <mark class=\"m-w\">gửi báo giá</mark> <mark class=\"m-t\">thứ Sáu</mark>",
+ "s2.legend": "<span class=\"l-k\">loại</span><span class=\"l-w\">việc gì</span><span class=\"l-t\">khi nào</span>",
+ "s2.c1": "📝 Ghi chú",
+ "s2.c2": "☑ Việc",
+ "s2.c3": "🔔 Lời nhắc",
+ "s2.card": "<b>gửi báo giá</b><span>Thứ Sáu · 9:00 · Gmail</span>"
 }, en: {
  "n.features": "Features",
  "n.how": "How it works",
@@ -254,13 +256,9 @@ var I18N = { vi: {
  "s1.lbl": "<b>the ViSO mark</b>rests at the edge,<br>shows on hover",
  "s1.h3": "One key, anywhere",
  "s1.p": "Reading mail, in a meeting, writing — press <kbd>Ctrl</kbd>+<kbd>Space</kbd>, say it, done. No app to open, no window to switch. ViSO is just a thin mark at the screen's edge until you call it.",
- "s2.r1": "<span>🎙 You say</span><span>\"remind me to send the quote on Friday\"</span>",
- "s2.r2": "<span>ViSO listens</span><span>on your computer, no internet</span>",
- "s2.r3": "<span>ViSO understands</span><span>a reminder · Friday, 9:00</span>",
- "s2.r4": "<span>Saved</span><span>in under a second</span>",
  "s2.lock": "<svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"4\" y=\"11\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 11V7a4 4 0 0 1 8 0v4\"/></svg>nothing leaves your computer",
- "s2.h3": "Understood in a blink",
- "s2.p": "Vietnamese or English, both work. ViSO listens, works out whether it's a note, a to-do or a reminder, and files it — all in under a second, on your own computer. No account, nothing sent anywhere.",
+ "s2.h3": "Sorted before you look up",
+ "s2.p": "Say it however it comes out. ViSO picks out <b>what kind</b> of thing it is, <b>what</b> it's about and <b>when</b> it's for, then files it in the right place — note, to-do or reminder — without asking you to choose. Vietnamese or English, all on your own computer.",
  "s3.fh": "<span class=\"tile\" style=\"background:#fff;color:#EA4335;box-shadow:0 0 0 1px var(--line)\">M</span><b>Gmail · Q3 quote</b> · 12h ago",
  "s3.ft": "send Đông the quote before Friday",
  "s3.jump": "↳ Jump back to this email",
@@ -399,7 +397,13 @@ var I18N = { vi: {
  "df.home": "Home",
  "df.privacy": "Privacy Policy",
  "df.all": "All releases",
- "df.line": "ViSO © 2026. Alpha — runs entirely on your computer."
+ "df.line": "ViSO © 2026. Alpha — runs entirely on your computer.",
+ "s2.say": "<mark class=\"m-k\">remind me</mark> to <mark class=\"m-w\">send the quote</mark> on <mark class=\"m-t\">Friday</mark>",
+ "s2.legend": "<span class=\"l-k\">kind</span><span class=\"l-w\">what</span><span class=\"l-t\">when</span>",
+ "s2.c1": "📝 Note",
+ "s2.c2": "☑ To-do",
+ "s2.c3": "🔔 Reminder",
+ "s2.card": "<b>send the quote</b><span>Friday · 9:00 · Gmail</span>"
 } };
 var LANG_KEY = 'viso:lang';
 function currentLang(){

@@ -264,11 +264,30 @@
   @keyframes tabhover{0%,38%{opacity:0;} 46%,88%{opacity:1;} 96%,100%{opacity:0;}}
   @keyframes cursor{0%{transform:translate(0,0);} 40%{transform:translate(44px,4px);} 88%{transform:translate(44px,4px);} 100%{transform:translate(0,0);}}
   .sv-key{position:absolute; left:0; top:50%; transform:translateY(-50%); font-size:.74rem; font-weight:600; color:var(--ink-2); display:flex; gap:4px; align-items:center;}
-  .flow{display:flex; flex-direction:column; gap:8px; width:100%; max-width:360px;}
-  .flow .row{display:flex; align-items:center; justify-content:space-between; background:#fff; border-radius:12px; padding:10px 14px; font-size:.8rem; font-weight:500; box-shadow:0 8px 20px -14px rgba(20,30,50,.4);}
-  .flow .row span:last-child{font-size:.68rem; color:var(--ink-3);}
-  .flow .row.on{outline:1.5px solid #0b0d14;}
-  .flow .lock{align-self:flex-end; font-size:.7rem; color:var(--ink-2); display:flex; align-items:center; gap:5px;}
+  /* Step 2, drawn: the sentence comes apart, the right bin lights, the card lands. Loops every 6s. */
+  .sort{width:100%; max-width:380px; display:flex; flex-direction:column; align-items:center; gap:10px; --T:6s;}
+  .sort__say{display:flex; align-items:center; gap:10px; background:#fff; border-radius:999px; padding:9px 16px 9px 10px; font-size:.86rem; font-weight:600; box-shadow:0 10px 24px -14px rgba(20,30,50,.45); white-space:nowrap;}
+  .sort__mic{display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--blue-soft); font-size:.85rem; flex:none;}
+  .sort__words mark{background:transparent; color:inherit; border-radius:6px; padding:1px 4px; margin:0 -1px; animation:sort-mark var(--T) infinite;}
+  .m-k{--c:#f4c95d;} .m-w{--c:#bfd3ff; animation-delay:.35s !important;} .m-t{--c:#c9f2d3; animation-delay:.7s !important;}
+  @keyframes sort-mark{0%,6%{background:transparent;} 12%,80%{background:var(--c);} 92%,100%{background:transparent;}}
+  .sort__legend{display:flex; gap:22px; font-size:.64rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-top:-4px;}
+  .sort__legend span{display:inline-flex; align-items:center; gap:5px;} .sort__legend span::before{content:''; width:9px; height:9px; border-radius:3px; background:var(--c);}
+  .l-k{--c:#f4c95d;} .l-w{--c:#bfd3ff;} .l-t{--c:#c9f2d3;}
+  .sort__branches{position:relative; width:220px; height:26px;}
+  .sort__branches i{position:absolute; top:0; left:50%; width:1.5px; height:100%; background:#c9ccd3; transform-origin:top; opacity:.6;}
+  .sort__branches i:nth-child(1){transform:rotate(38deg);} .sort__branches i:nth-child(3){transform:rotate(-38deg);}
+  .sort__branches i:nth-child(3){background:var(--ink); opacity:0; animation:sort-branch var(--T) infinite;}
+  @keyframes sort-branch{0%,22%{opacity:0;} 28%,80%{opacity:1;} 90%,100%{opacity:0;}}
+  .sort__bins{display:flex; gap:8px;}
+  .bin{padding:7px 12px; border-radius:999px; background:#fff; font-size:.76rem; font-weight:600; color:var(--ink-2); box-shadow:0 8px 20px -14px rgba(20,30,50,.4); white-space:nowrap;}
+  .bin--on{color:var(--ink); animation:sort-bin var(--T) infinite;}
+  @keyframes sort-bin{0%,26%{background:#fff; box-shadow:0 8px 20px -14px rgba(20,30,50,.4); transform:none;} 32%,80%{background:#0b0d14; color:#fff; box-shadow:0 12px 24px -12px rgba(0,0,0,.6); transform:translateY(-2px);} 90%,100%{background:#fff; color:var(--ink); transform:none;}}
+  .sort__card{display:flex; flex-direction:column; gap:2px; background:#fff; border-radius:14px; padding:10px 14px; min-width:220px; text-align:left; box-shadow:0 14px 30px -14px rgba(20,30,50,.4); border-left:3px solid var(--gold); opacity:0; transform:translateY(8px) scale(.96); animation:sort-card var(--T) infinite;}
+  .sort__card b{font-size:.86rem; font-weight:600;} .sort__card span{font-size:.7rem; color:var(--ink-2);}
+  @keyframes sort-card{0%,34%{opacity:0; transform:translateY(8px) scale(.96);} 42%,80%{opacity:1; transform:none;} 90%,100%{opacity:0; transform:translateY(8px) scale(.96);}}
+  .sort .lock{font-size:.7rem; color:var(--ink-2); display:flex; align-items:center; gap:5px; margin-top:2px;}
+  @media (prefers-reduced-motion: reduce){ .sort__words mark{background:var(--c);} .sort__branches i:nth-child(3){opacity:1;} .bin--on{background:#0b0d14; color:#fff;} .sort__card{opacity:1; transform:none;} }
   .art--open{flex-direction:column; gap:12px;}
   .card--click{position:relative;}
   .card--click .click{position:absolute; width:16px; height:16px; right:118px; bottom:8px; animation:clickmove 4s ease-in-out infinite;}
@@ -506,16 +525,21 @@
         <div class="step">
           <span class="num">2</span>
           <div class="art">
-            <div class="flow">
-              <div class="row" data-i="s2.r1"><span>🎙 Bạn nói</span><span>"nhắc tôi gửi báo giá thứ Sáu"</span></div>
-              <div class="row" data-i="s2.r2"><span>ViSO nghe</span><span>ngay trên máy, không qua mạng</span></div>
-              <div class="row on" data-i="s2.r3"><span>ViSO hiểu</span><span>một lời nhắc · Thứ Sáu, 9:00</span></div>
-              <div class="row" data-i="s2.r4"><span>Đã lưu</span><span>chưa tới một giây</span></div>
+            <div class="sort" aria-label="One sentence, taken apart into what it is, what it is about and when — and filed as a reminder">
+              <div class="sort__say"><span class="sort__mic">🎙</span><span class="sort__words" data-i="s2.say"><mark class="m-k">nhắc tôi</mark> <mark class="m-w">gửi báo giá</mark> <mark class="m-t">thứ Sáu</mark></span></div>
+              <div class="sort__legend" data-i="s2.legend"><span class="l-k">loại</span><span class="l-w">việc gì</span><span class="l-t">khi nào</span></div>
+              <div class="sort__branches" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="sort__bins">
+                <span class="bin" data-i="s2.c1">📝 Ghi chú</span>
+                <span class="bin" data-i="s2.c2">☑ Việc</span>
+                <span class="bin bin--on" data-i="s2.c3">🔔 Lời nhắc</span>
+              </div>
+              <div class="sort__card" data-i="s2.card"><b>gửi báo giá</b><span>Thứ Sáu · 9:00 · Gmail</span></div>
               <span class="lock" data-i="s2.lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
             </div>
           </div>
-          <h3 data-i="s2.h3">Understood in a blink</h3>
-          <p data-i="s2.p">Nói tiếng Việt hay tiếng Anh đều được. ViSO nghe, hiểu đó là ghi chú, việc hay lời nhắc, rồi cất đúng chỗ — tất cả trong chưa tới một giây, ngay trên máy bạn. Không tài khoản, không gửi đi đâu.</p>
+          <h3 data-i="s2.h3">Hiểu ý, xếp đúng chỗ</h3>
+          <p data-i="s2.p">Nói kiểu gì cũng được. ViSO tự nhận ra đó là <b>loại gì</b>, <b>việc gì</b> và <b>khi nào</b>, rồi cất vào đúng ngăn: ghi chú, việc, hay lời nhắc — không hỏi lại, không bắt bạn chọn. Tiếng Việt hay tiếng Anh đều hiểu, và mọi thứ diễn ra ngay trên máy bạn.</p>
         </div>
         <div class="step">
           <span class="num">3</span>
