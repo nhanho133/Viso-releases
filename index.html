@@ -51,18 +51,23 @@
   .btn--blue{background:var(--blue); color:#fff;}
   .btn--blue:hover{background:#2a57c4;}
 
-  /* ---------- NAV: the floating pill ---------- */
-  .nav{position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); z-index:50; width:min(1120px, calc(100% - 24px));}
-  .nav-pill{display:flex; align-items:center; justify-content:space-between; height:52px; padding:0 8px 0 16px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); color:#fff; box-shadow:0 10px 30px -18px rgba(0,0,0,.5); transition:background .25s, color .25s, border-color .25s;}
-  .nav-pill.on-light{background:rgba(255,255,255,.82); color:var(--ink); border-color:var(--line);}
-  .logo{display:flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:1rem; letter-spacing:-.02em;}
+  /* ---------- NAV: one compact pill in the middle, OneNotch-style ---------- */
+  .nav{position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); z-index:50; width:max-content; max-width:calc(100% - 24px);}
+  .nav-pill{display:flex; align-items:center; gap:30px; height:54px; padding:0 8px 0 18px; border-radius:999px; background:rgba(14,36,88,.88); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); color:#fff; box-shadow:0 14px 34px -16px rgba(0,0,0,.6); transition:background .25s, color .25s, border-color .25s;}
+  .nav-pill.on-light{background:rgba(255,255,255,.9); color:var(--ink); border-color:var(--line);}
+  .logo{display:inline-flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.02em;}
   .logo img{width:26px; height:26px; border-radius:8px;}
-  .nav-links{display:flex; align-items:center; gap:22px; font-size:.82rem; font-weight:500;}
-  .nav-links button{opacity:.85;} .nav-links button:hover{opacity:1;}
-  .nav-links .btn{height:36px; padding:0 16px; font-size:.78rem;}
-  .nav-pill .btn--dark{background:#0b0d14;}
-  .nav-pill.on-light .btn--dark{background:#0b0d14;}
-  @media (max-width:700px){ .nav-links{gap:12px; font-size:.76rem;} .nav-links .lnk{display:none;} }
+  .nav-links{display:flex; align-items:center; gap:24px; font-size:.84rem; font-weight:500;}
+  .nav-links .lnk{opacity:.85; white-space:nowrap;} .nav-links .lnk:hover{opacity:1;} .nav-links .lnk.now{opacity:1; font-weight:700;}
+  .nav-links .btn{height:38px; padding:0 15px; font-size:.8rem;}
+  .nav-cta{display:flex; align-items:center; gap:8px; margin-left:4px;}
+  .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
+  .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
+  .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
+  .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
+  .nav-pill .btn--white:hover{background:#eef2f9;}
+  .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
+  @media (max-width:760px){ .nav-pill{gap:14px; padding-left:14px;} .nav-links{gap:12px;} .nav-links .lnk{display:none;} .nav-links .btn{padding:0 12px; font-size:.76rem;} }
 
   /* ---------- HERO: a starry night, clouds, the moon ---------- */
   .hero{position:relative; margin:8px; border-radius:26px; overflow:hidden; color:#fff; text-align:center; padding:130px 24px 0;
@@ -299,9 +304,13 @@
     <div class="nav-links">
       <button class="lnk" onclick="goManifesto()">Manifesto</button>
       <button class="lnk" onclick="goFeatures()">Features</button>
-      <button class="lnk" onclick="openPrivacy()">Privacy Policy</button>
-      <a class="lnk" href="download.html">Download</a>
-      <button class="btn btn--dark" onclick="focusWaitlist()">Join Waitlist</button>
+      <button class="lnk" onclick="goSection('how')">How it works</button>
+      <button class="lnk" onclick="goSection('faq')">FAQ</button>
+      <button class="lnk" onclick="openPrivacy()">Privacy</button>
+      <span class="nav-cta">
+        <button class="btn btn--ghost" onclick="focusWaitlist()">Join Waitlist</button>
+        <a class="btn btn--white" href="download.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Tải xuống</a>
+      </span>
     </div>
   </div>
 </nav>
@@ -579,7 +588,8 @@
   function goHome(){ setView('home'); if(location.hash) history.replaceState(null, '', location.pathname); }
   function goManifesto(){ setView('manifesto'); history.replaceState(null, '', '#manifesto'); }
   if(location.hash === '#manifesto') setView('manifesto');
-  function goFeatures(){ setView('home'); requestAnimationFrame(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }); }
+  function goSection(id){ setView('home'); requestAnimationFrame(function(){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }); }
+  function goFeatures(){ goSection('features'); }
   function focusWaitlist(){ setView('home'); var el = document.getElementById('waitlistEmail'); el.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(function(){ el.focus(); }, 300); }
   function openPrivacy(){ document.getElementById('privacy').hidden = false; }
   function closePrivacy(){ document.getElementById('privacy').hidden = true; }

@@ -46,17 +46,23 @@
   .btn--blue{background:var(--blue); color:#fff; box-shadow:0 12px 26px -12px rgba(53,103,220,.8);}
   .btn--blue:hover{background:#2a57c4; transform:translateY(-1px);}
 
-  /* ---------- NAV ---------- */
-  .nav{position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); z-index:50; width:min(1120px, calc(100% - 24px));}
-  .nav-pill{display:flex; align-items:center; justify-content:space-between; height:52px; padding:0 8px 0 16px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); color:#fff; box-shadow:0 10px 30px -18px rgba(0,0,0,.5); transition:background .25s, color .25s, border-color .25s;}
-  .nav-pill.on-light{background:rgba(255,255,255,.86); color:var(--ink); border-color:var(--line);}
+  /* ---------- NAV: one compact pill in the middle, OneNotch-style ---------- */
+  .nav{position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); z-index:50; width:max-content; max-width:calc(100% - 24px);}
+  .nav-pill{display:flex; align-items:center; gap:30px; height:54px; padding:0 8px 0 18px; border-radius:999px; background:rgba(14,36,88,.88); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); color:#fff; box-shadow:0 14px 34px -16px rgba(0,0,0,.6); transition:background .25s, color .25s, border-color .25s;}
+  .nav-pill.on-light{background:rgba(255,255,255,.9); color:var(--ink); border-color:var(--line);}
   .logo{display:inline-flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.02em;}
   .logo img{width:26px; height:26px; border-radius:8px;}
-  .nav-links{display:flex; align-items:center; gap:22px; font-size:.82rem; font-weight:500;}
-  .nav-links a{opacity:.85;} .nav-links a:hover{opacity:1;} .nav-links a.now{opacity:1; font-weight:700;}
-  .nav-links .btn{height:36px; padding:0 16px; font-size:.78rem;}
-  .nav-pill .btn--dark{background:#0b0d14;}
-  @media (max-width:700px){ .nav-links{gap:12px; font-size:.76rem;} .nav-links .lnk{display:none;} }
+  .nav-links{display:flex; align-items:center; gap:24px; font-size:.84rem; font-weight:500;}
+  .nav-links .lnk{opacity:.85; white-space:nowrap;} .nav-links .lnk:hover{opacity:1;} .nav-links .lnk.now{opacity:1; font-weight:700;}
+  .nav-links .btn{height:38px; padding:0 15px; font-size:.8rem;}
+  .nav-cta{display:flex; align-items:center; gap:8px; margin-left:4px;}
+  .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
+  .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
+  .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
+  .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
+  .nav-pill .btn--white:hover{background:#eef2f9;}
+  .nav-pill.on-light .btn--white{background:#0b0d14; color:#fff;}
+  @media (max-width:760px){ .nav-pill{gap:14px; padding-left:14px;} .nav-links{gap:12px;} .nav-links .lnk{display:none;} .nav-links .btn{padding:0 12px; font-size:.76rem;} }
 
   /* ---------- HERO: pick your machine ---------- */
   .hero{position:relative; margin:8px; border-radius:26px; overflow:hidden; color:#fff; padding:118px 24px 44px;
@@ -169,8 +175,12 @@
     <div class="nav-links">
       <a class="lnk" href="index.html#manifesto">Manifesto</a>
       <a class="lnk" href="index.html#features">Features</a>
-      <a class="lnk now" href="download.html">Download</a>
-      <a class="btn btn--dark" href="index.html#waitlistEmail">Join Waitlist</a>
+      <a class="lnk" href="index.html#faq">FAQ</a>
+      <a class="lnk" href="privacy.html">Privacy</a>
+      <span class="nav-cta">
+        <a class="btn btn--ghost" href="index.html#waitlistEmail">Join Waitlist</a>
+        <a class="btn btn--white now" href="#top"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Tải xuống</a>
+      </span>
     </div>
   </div>
 </nav>
