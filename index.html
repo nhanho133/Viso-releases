@@ -717,9 +717,6 @@
     wlMine = 1;
     wlAvatar(email);
     if(first) setTimeout(function(){ wlRoll(wlShown()); }, 350); else document.getElementById('wlCount').textContent = String(wlShown());
-    // A moment later the backend has the row too: ask again so the number
-    // shown is the real one, not the guess.
-    setTimeout(wlCount, 2500);
   }
   function wlReset(){
     wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show');
@@ -746,9 +743,10 @@
       if(p < 1) requestAnimationFrame(tick);
     })(start);
   }
+  // A browser that signed up earlier counts itself until the backend answers.
+  try { if(localStorage.getItem('viso:waitlisted')) wlMine = 1; } catch(_){}
   function wlCount(){
     var el = document.getElementById('wlCount'); if(!el) return;
-    try { if(localStorage.getItem('viso:waitlisted')) wlMine = 1; } catch(_){}
     el.textContent = String(wlShown());
     if(!WAITLIST_APPS_SCRIPT) return;
     fetch(WAITLIST_APPS_SCRIPT + '?count=1', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(j){
