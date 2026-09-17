@@ -396,7 +396,6 @@
       <button class="lnk" onclick="openPrivacy()" data-i="n.privacy">Privacy</button>
       <span class="nav-cta">
         <button class="btn btn--ghost" onclick="focusWaitlist()" data-i="n.join">Join Waitlist</button>
-        <a class="btn btn--white" href="download.html" data-i="n.download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
         <button class="btn btn--ghost lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
       </span>
     </div>
@@ -644,7 +643,6 @@
 <footer id="siteFooter">
   <div class="wrap">
     <div class="foot-links">
-      <a href="download.html" data-i="f.download">Download</a>
       <button onclick="goManifesto()">Manifesto</button>
       <button onclick="openPrivacy()" data-i="f.privacy">Privacy Policy</button>
       <a href="privacy.html" data-i="f.privacyfull">Full privacy policy</a>
@@ -773,7 +771,7 @@
     if(WAITLIST_APPS_SCRIPT){
       // text/plain keeps the browser from preflighting; Apps Script answers
       // through a redirect the browser cannot read, so no-cors and trust it.
-      return fetch(WAITLIST_APPS_SCRIPT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ email: email, language: lang, page: page })})
+      return fetch(WAITLIST_APPS_SCRIPT, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ email: email, language: lang, page: page })})
         .then(function(){ setTimeout(wlCount, 1500); });
     }
     if(WAITLIST_TO){
@@ -800,7 +798,12 @@
     wlForm.classList.remove('is-err');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ void wlForm.offsetWidth; wlForm.classList.add('is-err'); wlSay('wl.invalid', true); wlInput.focus(); return; }
     wlForm.classList.add('is-sending'); wlMsg.classList.remove('show');
-    wlSend(email).then(function(){ wlDone(email); }).catch(wlFail);
+    // Google takes a few seconds to answer; the person should not watch a
+    // spinner for that. Show "you're in" quickly and let the request finish
+    // on its own — it lands either way.
+    var sent = wlSend(email), quick = new Promise(function(r){ setTimeout(r, 600); });
+    Promise.race([sent, quick]).then(function(){ wlDone(email); });
+    sent.catch(function(){ if(!wlForm.classList.contains('is-done')) wlFail(); });
   });
   wlInput.addEventListener('input', function(){ if(wlForm.classList.contains('is-err')){ wlForm.classList.remove('is-err'); wlMsg.classList.remove('show'); } });
   // i18n.js loads after this script, so the remembered state waits for it.
