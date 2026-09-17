@@ -171,8 +171,8 @@
   .waitlist-msg .again:hover{opacity:1;}
   .proof{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:18px; font-size:.8rem; color:rgba(255,255,255,.9);}
   .avatars{display:flex;}
-  .avatars span{width:26px; height:26px; border-radius:50%; border:2px solid #2b5ed6; margin-left:-8px; display:grid; place-items:center; font-size:.55rem; font-weight:700; color:#fff;}
-  .avatars span:first-child{margin-left:0;}
+  .avatars span, .avatars img{width:26px; height:26px; border-radius:50%; border:2px solid #2b5ed6; margin-left:-8px; display:grid; place-items:center; font-size:.55rem; font-weight:700; color:#fff; object-fit:cover; background:#2b5ed6;}
+  .avatars > :first-child{margin-left:0;}
   .avatars span.you{background:#fff; color:#0b1f4d; animation:av-pop .5s cubic-bezier(.2,1.6,.4,1) both;}
   @keyframes av-pop{0%{transform:scale(0); margin-left:-26px;} 100%{transform:scale(1); margin-left:-8px;}}
   #wlCount{display:inline-block; font-variant-numeric:tabular-nums; transition:transform .25s;}
@@ -434,7 +434,7 @@
       </form>
       <p class="waitlist-msg" id="waitlistMsg" aria-live="polite"></p>
       <div class="proof">
-        <div class="avatars"><span style="background:#2F6FE8">JM</span><span style="background:#F59E0B">RN</span><span style="background:#10B981">AT</span><span style="background:#EF4444">SL</span><span style="background:#6366F1">+</span></div>
+        <div class="avatars"><img src="assets/avatars/p1.jpg" alt="" width="26" height="26" loading="lazy"><img src="assets/avatars/p2.jpg" alt="" width="26" height="26" loading="lazy"><img src="assets/avatars/p3.jpg" alt="" width="26" height="26" loading="lazy"><img src="assets/avatars/p4.jpg" alt="" width="26" height="26" loading="lazy"><span style="background:#6366F1">+</span></div>
         <span data-i="h.proof"><b id="wlCount">128</b>+ creators and professionals are already waiting.</span>
       </div>
       <div class="community">
