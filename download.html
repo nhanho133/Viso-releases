@@ -54,7 +54,7 @@
 
   /* ---------- NAV: one compact pill in the middle, OneNotch-style ---------- */
   .nav{position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); z-index:50; width:max-content; max-width:calc(100% - 24px);}
-  .nav-pill{display:flex; align-items:center; gap:30px; height:54px; padding:0 8px 0 18px; border-radius:999px; background:rgba(14,36,88,.88); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%); color:#fff; box-shadow:0 14px 34px -16px rgba(0,0,0,.6); transition:background .25s, color .25s, border-color .25s;}
+  .nav-pill{display:flex; align-items:center; gap:30px; height:54px; padding:0 8px 0 18px; border-radius:999px; background:rgba(14,36,88,.94); border:1px solid rgba(255,255,255,.16); color:#fff; box-shadow:0 14px 34px -16px rgba(0,0,0,.6); transition:background .25s, color .25s, border-color .25s;}
   .nav-pill.on-light{background:rgba(255,255,255,.9); color:var(--ink); border-color:var(--line);}
   .logo{display:inline-flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.02em;}
   .logo img{width:26px; height:26px; border-radius:8px;}
@@ -66,7 +66,7 @@
   .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
   .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
   .nav-pill .btn.lang{padding:0 12px 0 9px; min-width:72px; font-weight:800; letter-spacing:.06em; gap:6px;}
-  .nav-pill .btn.lang .flag{font-size:1.05rem; line-height:1; filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));}
+  .nav-pill .btn.lang .flag{width:21px; height:14px; flex:none; border-radius:2px; box-shadow:0 1px 1px rgba(0,0,0,.2);}
   .nav-pill .btn.lang::after{content:''; width:6px; height:6px; border-right:1.8px solid currentColor; border-bottom:1.8px solid currentColor; transform:translateY(-2px) rotate(45deg); opacity:.7;}
   .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
   .nav-pill .btn--white:hover{background:#eef2f9;}

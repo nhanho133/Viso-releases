@@ -400,7 +400,7 @@ function applyLang(lang){
   for (var j = 0; j < ph.length; j++) { var kk = ph[j].getAttribute('data-i-placeholder'); if (d[kk] != null) ph[j].placeholder = d[kk]; }
   if (typeof wlCount === 'function') wlCount();
   var b = document.getElementById('langBtn');
-  if (b) { b.innerHTML = lang === 'vi' ? '<span class="flag">🇻🇳</span>VI' : '<span class="flag">🇬🇧</span>EN'; b.title = lang === 'vi' ? 'Switch to English' : 'Chuyển sang tiếng Việt'; }
+  if (b) { b.innerHTML = lang === 'vi' ? '<svg class="flag" viewBox="0 0 30 20" width="21" height="14" aria-hidden="true"><rect width="30" height="20" rx="2" fill="#da251d"/><path fill="#ff0" d="m15 4 1.76 5.41h5.69l-4.6 3.35 1.76 5.41L15 14.82l-4.61 3.35 1.76-5.41-4.6-3.35h5.69z"/></svg>' + 'VI' : '<svg class="flag" viewBox="0 0 60 40" width="21" height="14" aria-hidden="true"><clipPath id="fgb"><rect width="60" height="40" rx="4"/></clipPath><g clip-path="url(#fgb)"><rect width="60" height="40" fill="#012169"/><path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="8"/><path d="M0 0 60 40M60 0 0 40" stroke="#C8102E" stroke-width="3"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="12"/><path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="6"/></g></svg>' + 'EN'; b.title = lang === 'vi' ? 'Switch to English' : 'Chuyển sang tiếng Việt'; }
 }
 function toggleLang(){
   var next = document.documentElement.lang === 'vi' ? 'en' : 'vi';
