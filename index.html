@@ -129,7 +129,8 @@
   .waitlist input{flex:1; min-width:0; height:38px; border:none; background:transparent; color:#fff; font-size:.92rem; outline:none; font-weight:500;}
   .waitlist input::placeholder{color:rgba(255,255,255,.68); font-weight:400;}
   .waitlist input:-webkit-autofill, .waitlist input:-webkit-autofill:focus{-webkit-text-fill-color:#fff; -webkit-box-shadow:0 0 0 1000px rgba(18,58,143,.001) inset; transition:background-color 99999s ease-out;}
-  .wl-btn{position:relative; height:38px; padding:0 18px; flex:none; overflow:hidden; min-width:132px;}
+  .wl-btn{position:absolute; right:5px; top:5px; height:38px; width:132px; padding:0 18px; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; transition:width .6s cubic-bezier(.75,0,.2,1), background .45s, color .45s, box-shadow .45s;}
+  .waitlist input{padding-right:142px;}
   .wl-btn .wl-label{display:inline-flex; align-items:center; gap:7px; transition:opacity .2s, transform .2s;}
   .wl-btn .wl-label::after{content:'→'; font-weight:700; transition:transform .2s;}
   .wl-btn:hover .wl-label::after{transform:translateX(3px);}
@@ -142,24 +143,27 @@
   /* wrong address: a shake and a warm ring */
   .waitlist.is-err{border-color:#ffb4a8; box-shadow:0 0 0 4px rgba(255,120,100,.22), 0 20px 50px -24px rgba(0,0,0,.6); animation:wl-shake .4s;}
   @keyframes wl-shake{0%,100%{transform:translateX(0);} 20%{transform:translateX(-6px);} 40%{transform:translateX(6px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(4px);}}
-  /* on the list: gold ring, a tick where the envelope was, the bar settles */
-  .waitlist.is-done{border-color:rgba(244,201,93,.9); background:rgba(244,201,93,.14); box-shadow:0 0 0 4px rgba(244,201,93,.18), 0 0 40px -6px rgba(244,201,93,.45), 0 20px 50px -24px rgba(0,0,0,.6);}
-  .waitlist.is-done .wl-icon{background:var(--gold); color:#3a2a00; transform:scale(1.08); animation:wl-pop .5s cubic-bezier(.2,1.6,.4,1);}
-  .waitlist.is-done .wl-icon .mail{display:none;} .waitlist.is-done .wl-icon .tick{display:block;}
-  .waitlist.is-done input{pointer-events:none; color:rgba(255,255,255,.92);}
-  .waitlist.is-done .wl-btn{background:var(--gold); color:#3a2a00; pointer-events:none;}
+  /* on the list: the button swallows the bar — it grows leftwards over the
+     field, turns white, and carries the tick, the words and the address. The
+     bar itself lights up; the page around it goes soft (see .wl-veil). */
+  .waitlist.is-done{border-color:rgba(255,255,255,.9); background:rgba(255,255,255,.18); box-shadow:0 0 0 4px rgba(255,255,255,.16), 0 0 54px -4px rgba(255,255,255,.55), 0 20px 50px -24px rgba(0,0,0,.6);}
+  .waitlist.is-done .wl-icon{opacity:0; transition:opacity .2s;}
+  .waitlist.is-done input{pointer-events:none; opacity:0; transition:opacity .25s;}
+  .waitlist.is-done .wl-btn{width:calc(100% - 10px); background:#fff; color:#0b1f4d; pointer-events:none; box-shadow:0 10px 30px -14px rgba(0,0,0,.5);}
   .waitlist.is-done .wl-btn .wl-label::after{content:'✦';}
-  @keyframes wl-pop{0%{transform:scale(.4);} 70%{transform:scale(1.2);} 100%{transform:scale(1.08);}}
+  /* the rest of the page, softened, with a pill-shaped hole around the bar (mask set in JS) */
+  .wl-veil{position:fixed; inset:0; z-index:70; background:rgba(8,21,58,.28); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); opacity:0; pointer-events:none; transition:opacity .5s;}
+  .wl-veil.on{opacity:1; pointer-events:auto;}
   /* eight sparks fly out of the bar once */
   .wl-burst{position:absolute; inset:0; pointer-events:none;}
-  .wl-burst i{position:absolute; left:50%; top:50%; width:10px; height:10px; opacity:0; background:var(--gold); clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);}
+  .wl-burst i{position:absolute; left:50%; top:50%; width:10px; height:10px; opacity:0; background:#fff; clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);}
   .waitlist.is-done .wl-burst i{animation:wl-fly .9s ease-out forwards;}
   .wl-burst i:nth-child(1){--dx:-180px; --dy:-48px; animation-delay:.02s;} .wl-burst i:nth-child(2){--dx:-120px; --dy:-70px; animation-delay:.08s;}
   .wl-burst i:nth-child(3){--dx:-40px; --dy:-80px; animation-delay:.04s;} .wl-burst i:nth-child(4){--dx:60px; --dy:-76px; animation-delay:.1s;}
   .wl-burst i:nth-child(5){--dx:150px; --dy:-60px; animation-delay:.06s;} .wl-burst i:nth-child(6){--dx:210px; --dy:-30px; animation-delay:.12s;}
   .wl-burst i:nth-child(7){--dx:-90px; --dy:52px; animation-delay:.14s;} .wl-burst i:nth-child(8){--dx:110px; --dy:56px; animation-delay:.09s;}
   @keyframes wl-fly{0%{opacity:0; transform:translate(-50%,-50%) scale(.3) rotate(0);} 15%{opacity:1;} 100%{opacity:0; transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(200deg);}}
-  @media (max-width:420px){ .wl-btn{padding:0 12px; font-size:.78rem; min-width:0;} .wl-icon{display:none;} .waitlist{padding-left:14px;} }
+  @media (max-width:420px){ .wl-btn{padding:0 12px; font-size:.78rem; width:104px;} .waitlist input{padding-right:110px;} .wl-icon{display:none;} .waitlist{padding-left:14px;} }
   .waitlist-msg{font-size:.82rem; color:#fff; min-height:20px; margin-top:12px; opacity:0; transform:translateY(-4px); transition:opacity .3s, transform .3s;}
   .waitlist-msg.show{opacity:.95; transform:none;}
   .waitlist-msg.err{color:#ffd0cc;}
@@ -169,11 +173,11 @@
   .avatars{display:flex;}
   .avatars span{width:26px; height:26px; border-radius:50%; border:2px solid #2b5ed6; margin-left:-8px; display:grid; place-items:center; font-size:.55rem; font-weight:700; color:#fff;}
   .avatars span:first-child{margin-left:0;}
-  .avatars span.you{background:var(--gold); color:#3a2a00; animation:av-pop .5s cubic-bezier(.2,1.6,.4,1) both;}
+  .avatars span.you{background:#fff; color:#0b1f4d; animation:av-pop .5s cubic-bezier(.2,1.6,.4,1) both;}
   @keyframes av-pop{0%{transform:scale(0); margin-left:-26px;} 100%{transform:scale(1); margin-left:-8px;}}
   #wlCount{display:inline-block; font-variant-numeric:tabular-nums; transition:transform .25s;}
   #wlCount.bump{animation:count-bump .6s cubic-bezier(.2,1.6,.4,1);}
-  @keyframes count-bump{0%{transform:scale(1);} 40%{transform:scale(1.35); color:var(--gold);} 100%{transform:scale(1);}}
+  @keyframes count-bump{0%{transform:scale(1);} 40%{transform:scale(1.35); color:#fff;} 100%{transform:scale(1);}}
   .community{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:12px; font-size:.76rem; color:rgba(255,255,255,.85);}
   .icon-btn{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); color:#fff;}
   .icon-btn:hover{background:rgba(255,255,255,.26);}
@@ -670,6 +674,7 @@
   </div>
 </div>
 
+<div class="wl-veil" id="wlVeil" aria-hidden="true"></div>
 <script>
   function setView(view){
     document.getElementById('view-home').hidden = view !== 'home';
@@ -709,10 +714,27 @@
   var WAITLIST_ENDPOINT = '';
   var wlForm = document.getElementById('waitlistForm'), wlInput = document.getElementById('waitlistEmail'), wlMsg = document.getElementById('waitlistMsg');
   function wlSay(key, err){ wlMsg.innerHTML = T(key) + (key === 'wl.done' ? ' <a class="again" onclick="wlReset()">' + T('wl.again') + '</a>' : ''); wlMsg.classList.toggle('err', !!err); wlMsg.classList.add('show'); }
-  function wlDone(email){
+  // The veil: everything but the bar goes soft. An SVG mask cuts a pill-shaped
+  // hole around the bar (glow included), and the first scroll or click lifts it.
+  var wlVeil = document.getElementById('wlVeil'), wlVeilY = 0;
+  function wlVeilOn(){
+    var r = wlForm.getBoundingClientRect(), pad = 30, w = innerWidth, h = innerHeight;
+    var x = r.left - pad, y = r.top - pad, rw = r.width + pad * 2, rh = r.height + pad * 2, rr = rh / 2;
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><path fill="#000" fill-rule="evenodd" d="M0 0h' + w + 'v' + h + 'H0z M' + (x + rr) + ' ' + y + 'h' + (rw - 2 * rr) + 'a' + rr + ' ' + rr + ' 0 0 1 0 ' + rh + 'h-' + (rw - 2 * rr) + 'a' + rr + ' ' + rr + ' 0 0 1 0 -' + rh + 'z"/></svg>';
+    var url = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+    wlVeil.style.webkitMaskImage = url; wlVeil.style.maskImage = url;
+    wlVeil.style.webkitMaskSize = '100% 100%'; wlVeil.style.maskSize = '100% 100%';
+    wlVeil.classList.add('on'); wlVeilY = scrollY;
+  }
+  function wlVeilOff(){ wlVeil.classList.remove('on'); }
+  addEventListener('scroll', function(){ if(wlVeil.classList.contains('on') && Math.abs(scrollY - wlVeilY) > 24) wlVeilOff(); }, {passive:true});
+  addEventListener('resize', wlVeilOff);
+  wlVeil.addEventListener('click', wlVeilOff);
+  function wlDone(email, quiet){
     wlForm.classList.remove('is-sending', 'is-err'); wlForm.classList.add('is-done');
     wlInput.value = email; wlInput.readOnly = true; wlSay('wl.done');
     var lbl = document.querySelector('#waitlistBtn .wl-label'); lbl.removeAttribute('data-i'); lbl.textContent = T('wl.on');
+    if(!quiet) wlVeilOn();
     var first = false;
     try { first = !localStorage.getItem('viso:waitlisted'); localStorage.setItem('viso:waitlisted', email); } catch(_){}
     // One more on the list: the number rolls up and a face joins the row.
@@ -721,7 +743,7 @@
     if(first) setTimeout(function(){ wlRoll(wlShown()); }, 350); else document.getElementById('wlCount').textContent = String(wlShown());
   }
   function wlReset(){
-    wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show');
+    wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show'); wlVeilOff();
     var you = document.querySelector('.avatars .you'); if(you) you.remove();
     wlMine = 0; wlRoll(wlShown());
     var lbl = document.querySelector('#waitlistBtn .wl-label'); lbl.setAttribute('data-i', 'n.join'); lbl.textContent = T('n.join');
@@ -817,7 +839,7 @@
   });
   wlInput.addEventListener('input', function(){ if(wlForm.classList.contains('is-err')){ wlForm.classList.remove('is-err'); wlMsg.classList.remove('show'); } });
   // i18n.js loads after this script, so the remembered state waits for it.
-  window.addEventListener('load', function(){ try { var was = localStorage.getItem('viso:waitlisted'); if(was) wlDone(was); } catch(_){} });
+  window.addEventListener('load', function(){ try { var was = localStorage.getItem('viso:waitlisted'); if(was) wlDone(was, true); } catch(_){} });
 
   (function(){
     var target = new Date('2026-09-20T09:00:00+07:00');
