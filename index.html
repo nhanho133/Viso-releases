@@ -69,7 +69,7 @@
   .nav-pill .btn--ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.28);}
   .nav-pill .btn--ghost:hover{background:rgba(255,255,255,.2);}
   .nav-pill.on-light .btn--ghost{background:var(--tile); color:var(--ink); border-color:var(--line);}
-  .nav-pill .btn.lang{padding:0 14px 0 10px; min-width:76px; font-weight:800; letter-spacing:.06em; gap:7px;}
+  .nav-pill .btn.lang{padding:0 12px 0 9px; min-width:72px; font-weight:800; letter-spacing:.06em; gap:6px;}
   .nav-pill .btn.lang .flag{font-size:1.05rem; line-height:1; filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));}
   .nav-pill .btn.lang::after{content:''; width:6px; height:6px; border-right:1.8px solid currentColor; border-bottom:1.8px solid currentColor; transform:translateY(-2px) rotate(45deg); opacity:.7;}
   .nav-pill .btn--white{background:#fff; color:#0b0d14; border:none; font-weight:700; box-shadow:0 8px 20px -10px rgba(0,0,0,.6);}
@@ -391,7 +391,8 @@
       <button class="lnk" onclick="openPrivacy()" data-i="n.privacy">Privacy</button>
       <span class="nav-cta">
         <button class="btn btn--ghost" onclick="focusWaitlist()" data-i="n.join">Join Waitlist</button>
-        <button class="btn btn--white lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
+        <a class="btn btn--white" href="download.html" data-i="n.download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg>Download</a>
+        <button class="btn btn--ghost lang" id="langBtn" type="button" onclick="toggleLang()" aria-label="Language"></button>
       </span>
     </div>
   </div>
@@ -638,6 +639,7 @@
 <footer id="siteFooter">
   <div class="wrap">
     <div class="foot-links">
+      <a href="download.html" data-i="f.download">Download</a>
       <button onclick="goManifesto()">Manifesto</button>
       <button onclick="openPrivacy()" data-i="f.privacy">Privacy Policy</button>
       <a href="privacy.html" data-i="f.privacyfull">Full privacy policy</a>
