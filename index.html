@@ -700,7 +700,7 @@
   // the proof line adds to WAITLIST_BASE. The other two options still work:
   // an inbox through formsubmit.co, or any JSON endpoint. With none set, the
   // address stays in this browser only.
-  var WAITLIST_APPS_SCRIPT = '';
+  var WAITLIST_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbwQojYgjJ0ZVkrZsIGQSnmCiim7GAXKRbFywsxpvxo8lU_lD9CBiMvQ26v7V9mEI2tWEw/exec';
   var WAITLIST_BASE = 128;
   var WAITLIST_TO = '';
   var WAITLIST_GOOGLE_FORM = { action: '', field: '' };
@@ -717,6 +717,9 @@
     wlMine = 1;
     wlAvatar(email);
     if(first) setTimeout(function(){ wlRoll(wlShown()); }, 350); else document.getElementById('wlCount').textContent = String(wlShown());
+    // A moment later the backend has the row too: ask again so the number
+    // shown is the real one, not the guess.
+    setTimeout(wlCount, 2500);
   }
   function wlReset(){
     wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show');
@@ -730,7 +733,7 @@
   // The number on the proof line: the base, plus everyone the backend has
   // counted, plus this browser's own sign-up until the backend knows it.
   var wlKnown = 0, wlMine = 0;
-  function wlShown(){ return WAITLIST_BASE + Math.max(wlKnown, wlMine); }
+  function wlShown(){ return WAITLIST_BASE + wlKnown + wlMine; }
   function wlRoll(to){
     var el = document.getElementById('wlCount'); if(!el) return;
     var from = Number(el.textContent) || WAITLIST_BASE;
@@ -749,7 +752,11 @@
     el.textContent = String(wlShown());
     if(!WAITLIST_APPS_SCRIPT) return;
     fetch(WAITLIST_APPS_SCRIPT + '?count=1', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(j){
-      wlKnown = Number(j && j.count) || 0;
+      var n = Number(j && j.count) || 0;
+      // Once the backend counts more than before, this browser's own sign-up
+      // is in that number; stop adding it on top.
+      if(n > wlKnown || wlMine === 0) wlMine = 0;
+      wlKnown = n;
       wlRoll(wlShown());
     }).catch(function(){});
   }
