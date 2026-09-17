@@ -6,7 +6,7 @@
 <meta name="description" content="ViSO — the instant, on-device assistant layer for your desktop. Hit Ctrl + Space, say it, and it's filed as a note, task or reminder in under a second. Alpha early access.">
 <meta property="og:title" content="ViSO — Stop breaking your flow just to write things down.">
 <meta property="og:description" content="Ctrl + Space, say it, filed in under a second. 100% on-device. Windows, macOS & Chrome. Alpha early access.">
-<meta property="og:image" content="assets/shot-desktop-panel.png">
+<meta property="og:image" content="assets/shot-extension-hud.png">
 <link rel="icon" href="assets/logo.png">
 <title>ViSO — Alpha early access</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -455,7 +455,7 @@
         <div class="ok" data-i="sc.ok">✓ Saved · reminds you Friday, 9:00</div>
       </div>
       <div class="hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a Gmail thread: a reminder, a to-do and a note about the email"></div>
-      <div class="panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel: a column of note cards, a search bar and a composer"></div>
+      <div class="panel"><img src="assets/shot-extension-todos.png" alt="ViSO panel on a web page, showing the to-dos"></div>
       <span class="tab" aria-hidden="true"></span>
       <img class="cat" src="assets/cat-cloud.png" alt="">
     </div>
@@ -472,20 +472,18 @@
         <div class="tile-card">
           <div class="art">
             <div class="shot shot--hud"><img src="assets/shot-extension-hud.png" alt="ViSO panel inside a web page"></div>
-            <div class="note note--l" data-i="f1.note"><div class="fh"><span class="tick">✓</span> Đã lưu · YouTube</div><b>video này giải thích RAG khá dễ hiểu</b></div>
+            <div class="note note--l" data-i="f1.note"><div class="fh"><span class="tick">✓</span> Saved · YouTube</div><b>this video explains RAG really well</b></div>
           </div>
           <h3 data-i="f1.h3">Notes</h3>
           <p data-i="f1.p">Save anything worth keeping</p>
-          <div class="say" data-i="f1.say">nói <b>"ghi chú video này giải thích RAG khá dễ hiểu"</b></div>
         </div>
         <div class="tile-card">
           <div class="art">
-            <div class="shot shot--panel"><img src="assets/shot-desktop-panel.png" alt="ViSO desktop panel"></div>
-            <div class="note note--r" data-i="f2.note"><div class="fh"><span class="tick">✓</span> Việc · 18/43 xong</div><b>nộp báo cáo trước thứ Tư</b></div>
+            <div class="shot shot--hud"><img src="assets/shot-extension-todos.png" alt="ViSO panel showing the to-dos"></div>
+            <div class="note note--r" data-i="f2.note"><div class="fh"><span class="tick">✓</span> To-dos · 18/43 done</div><b>hand in the report before Wednesday</b></div>
           </div>
           <h3 data-i="f2.h3">To-dos</h3>
           <p data-i="f2.p">Turn “I need to do this” into a to-do</p>
-          <div class="say" data-i="f2.say">nói <b>"việc cần làm nộp báo cáo trước thứ Tư"</b></div>
         </div>
         <div class="tile-card">
           <div class="art">
@@ -497,7 +495,6 @@
           </div>
           <h3 data-i="f3.h3">Reminders</h3>
           <p data-i="f3.p">Set a reminder without setting one up</p>
-          <div class="say" data-i="f3.say">nói <b>"nhắc tôi 3 giờ chiều gọi anh Đông"</b></div>
         </div>
         <div class="tile-card soon">
           <div class="art"><span class="soon-star" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><radialGradient id="ss"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#fff3b0"/><stop offset="1" stop-color="#f2cf5b"/></radialGradient></defs><path fill="url(#ss)" d="M12 1c.6 5.6 3.4 8.4 9 9-5.6.6-8.4 3.4-9 9-.6-5.6-3.4-8.4-9-9 5.6-.6 8.4-3.4 9-9z"/></svg></span></div>
@@ -514,7 +511,7 @@
       <div class="how-intro">
         <div class="eyebrow" data-i="how.eyebrow">How it works</div>
         <h2 data-i="how.h2">Get started in 3 simple steps.</h2>
-        <p data-i="how.p">Think it. Say it. Done! ViSO does the rest and takes you back to where the thought came from.</p>
+        <p data-i="how.p">Think it. Say it. Done. ViSO takes you back to where the thought began.</p>
       </div>
       <div class="steps">
         <div class="step">
@@ -532,7 +529,7 @@
             </div>
           </div>
           <h3 data-i="s1.h3">Press a simple hotkey, anywhere</h3>
-          <p data-i="s1.p">Whether you're reading email, writing, researching, or in a meeting, press <kbd>Ctrl</kbd> + <kbd>Space</kbd> when you need it. ViSO stays quietly at the edge of your screen.</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
+          <p data-i="s1.p">Reading email, writing, or in a meeting — press <kbd>Ctrl</kbd> + <kbd>Space</kbd>. ViSO waits quietly at the edge of your screen.</kbd> + <kbd>Space</kbd> when you need it. ViSO stays quietly at the edge of your screen.</kbd>+<kbd>Space</kbd>, nói, xong. Không mở app, không đổi cửa sổ. ViSO chỉ là một vạch nhỏ ở mép màn hình cho tới khi bạn gọi.</p>
         </div>
         <div class="step">
           <span class="num">2</span>
@@ -543,7 +540,7 @@
                 <span class="real__say" data-i="s2.say">"remind me to apply to CMC Global at 9am Friday"</span>
               </div>
               <span class="real__arrow" aria-hidden="true">→</span>
-              <img class="real__card real__card--pop" src="assets/guide/card-reminder.png" alt="The reminder card ViSO saved: apply to CMC Global" width="404" height="244">
+              <img class="real__card real__card--pop" src="assets/guide/card-en-reminder.png" alt="The reminder card ViSO saved: apply to CMC Global at 9am Friday" width="404" height="296">
               <span class="lock" data-i="s2.lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
             </div>
           </div>
@@ -555,7 +552,7 @@
           <div class="art art--open">
             <div class="real real--3">
               <div class="real__click">
-                <img class="real__card" src="assets/guide/card-gmail.png" alt="A note card in ViSO, filed from a Gmail thread" width="404" height="244">
+                <img class="real__card" src="assets/guide/card-en-note.png" alt="A note card in ViSO, filed from a Gmail thread" width="404" height="244">
                 <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
               </div>
               <div class="opens" aria-hidden="true">
@@ -565,7 +562,7 @@
             </div>
           </div>
           <h3 data-i="s3.h3">Get back to where you were</h3>
-          <p data-i="s3.p">Click the note and ViSO takes you back to the exact place, whether it's an email, document, or web page. You don't have to remember where you saw it.</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
+          <p data-i="s3.p">Click a note and ViSO takes you back to the exact email, document, or page. No need to remember where you saw it.</b> là quay về đúng chỗ: tab đang mở thì nhảy sang, chưa mở thì mở lên.</p>
         </div>
       </div>
     </div>
