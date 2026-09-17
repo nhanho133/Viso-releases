@@ -166,6 +166,11 @@
   .avatars{display:flex;}
   .avatars span{width:26px; height:26px; border-radius:50%; border:2px solid #2b5ed6; margin-left:-8px; display:grid; place-items:center; font-size:.55rem; font-weight:700; color:#fff;}
   .avatars span:first-child{margin-left:0;}
+  .avatars span.you{background:var(--gold); color:#3a2a00; animation:av-pop .5s cubic-bezier(.2,1.6,.4,1) both;}
+  @keyframes av-pop{0%{transform:scale(0); margin-left:-26px;} 100%{transform:scale(1); margin-left:-8px;}}
+  #wlCount{display:inline-block; font-variant-numeric:tabular-nums; transition:transform .25s;}
+  #wlCount.bump{animation:count-bump .6s cubic-bezier(.2,1.6,.4,1);}
+  @keyframes count-bump{0%{transform:scale(1);} 40%{transform:scale(1.35); color:var(--gold);} 100%{transform:scale(1);}}
   .community{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:12px; font-size:.76rem; color:rgba(255,255,255,.85);}
   .icon-btn{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); color:#fff;}
   .icon-btn:hover{background:rgba(255,255,255,.26);}
@@ -706,22 +711,56 @@
     wlForm.classList.remove('is-sending', 'is-err'); wlForm.classList.add('is-done');
     wlInput.value = email; wlInput.readOnly = true; wlSay('wl.done');
     var lbl = document.querySelector('#waitlistBtn .wl-label'); lbl.removeAttribute('data-i'); lbl.textContent = T('wl.on');
-    try { localStorage.setItem('viso:waitlisted', email); } catch(_){}
+    var first = false;
+    try { first = !localStorage.getItem('viso:waitlisted'); localStorage.setItem('viso:waitlisted', email); } catch(_){}
+    // One more on the list: the number rolls up and a face joins the row.
+    wlMine = 1;
+    wlAvatar(email);
+    if(first) setTimeout(function(){ wlRoll(wlShown()); }, 350); else document.getElementById('wlCount').textContent = String(wlShown());
   }
   function wlReset(){
     wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show');
+    var you = document.querySelector('.avatars .you'); if(you) you.remove();
+    wlMine = 0; wlRoll(wlShown());
     var lbl = document.querySelector('#waitlistBtn .wl-label'); lbl.setAttribute('data-i', 'n.join'); lbl.textContent = T('n.join');
     try { localStorage.removeItem('viso:waitlisted'); } catch(_){}
     wlInput.focus();
   }
   function wlFail(){ wlForm.classList.remove('is-sending'); wlForm.classList.add('is-err'); wlSay('wl.fail', true); }
+  // The number on the proof line: the base, plus everyone the backend has
+  // counted, plus this browser's own sign-up until the backend knows it.
+  var wlKnown = 0, wlMine = 0;
+  function wlShown(){ return WAITLIST_BASE + Math.max(wlKnown, wlMine); }
+  function wlRoll(to){
+    var el = document.getElementById('wlCount'); if(!el) return;
+    var from = Number(el.textContent) || WAITLIST_BASE;
+    if(to === from){ el.textContent = String(to); return; }
+    var start = performance.now(), dur = 700;
+    el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+    (function tick(now){
+      var p = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(from + (to - from) * e));
+      if(p < 1) requestAnimationFrame(tick);
+    })(start);
+  }
   function wlCount(){
-    var el = document.getElementById('wlCount');
-    if(!el || !WAITLIST_APPS_SCRIPT) return;
+    var el = document.getElementById('wlCount'); if(!el) return;
+    try { if(localStorage.getItem('viso:waitlisted')) wlMine = 1; } catch(_){}
+    el.textContent = String(wlShown());
+    if(!WAITLIST_APPS_SCRIPT) return;
     fetch(WAITLIST_APPS_SCRIPT + '?count=1', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(j){
-      var n = Number(j && j.count) || 0;
-      if(n > 0) el.textContent = String(WAITLIST_BASE + n);
+      wlKnown = Number(j && j.count) || 0;
+      wlRoll(wlShown());
     }).catch(function(){});
+  }
+  // A face for the newcomer in the row of avatars: their initials, in gold.
+  function wlAvatar(email){
+    var row = document.querySelector('.avatars'); if(!row || row.querySelector('.you')) return;
+    var name = (email.split('@')[0] || '').replace(/[^a-z0-9]/gi, ' ').trim();
+    var parts = name.split(/\s+/).filter(Boolean);
+    var initials = ((parts[0] || 'y')[0] + ((parts[1] || parts[0] || 'u')[parts[1] ? 0 : 1] || '')).toUpperCase();
+    var me = document.createElement('span'); me.className = 'you'; me.textContent = initials; me.title = email;
+    var plus = row.lastElementChild; row.insertBefore(me, plus);
   }
   wlCount();
   function wlSend(email){
