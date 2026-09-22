@@ -149,8 +149,9 @@
   .waitlist.is-done{border-color:rgba(255,255,255,.9); background:rgba(255,255,255,.18); box-shadow:0 0 0 4px rgba(255,255,255,.16), 0 0 54px -4px rgba(255,255,255,.55), 0 20px 50px -24px rgba(0,0,0,.6);}
   .waitlist.is-done .wl-icon{opacity:0; transition:opacity .2s;}
   .waitlist.is-done input{pointer-events:none; opacity:0; transition:opacity .25s;}
-  .waitlist.is-done .wl-btn{width:calc(100% - 10px); background:#fff; color:#0b1f4d; pointer-events:none; box-shadow:0 10px 30px -14px rgba(0,0,0,.5);}
-  .waitlist.is-done .wl-btn .wl-label::after{content:'✦';}
+  .waitlist.is-done .wl-btn{width:calc(100% - 10px); background:#fff; color:#0b1f4d; box-shadow:0 10px 30px -14px rgba(0,0,0,.5); cursor:pointer;}
+  .waitlist.is-done .wl-btn:hover{background:#f3f7ff;}
+  .waitlist.is-done .wl-btn .wl-label::after{content:'→';}
   /* the rest of the page, softened, with a pill-shaped hole around the bar (mask set in JS) */
   .wl-veil{position:fixed; inset:0; z-index:70; background:rgba(8,21,58,.28); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); opacity:0; pointer-events:none; transition:opacity .5s;}
   .wl-veil.on{opacity:1; pointer-events:auto;}
@@ -837,7 +838,8 @@
   }
   wlForm.addEventListener('submit', function(e){
     e.preventDefault();
-    if(wlForm.classList.contains('is-done') || wlForm.classList.contains('is-sending')) return;
+    if(wlForm.classList.contains('is-done')){ window.open('https://discord.gg/SsQuwwB3H', '_blank', 'noopener'); return; }
+    if(wlForm.classList.contains('is-sending')) return;
     var email = wlInput.value.trim();
     wlForm.classList.remove('is-err');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ void wlForm.offsetWidth; wlForm.classList.add('is-err'); wlSay('wl.invalid', true); wlInput.focus(); return; }
