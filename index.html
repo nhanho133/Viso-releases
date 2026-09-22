@@ -435,7 +435,7 @@
       <p class="waitlist-msg" id="waitlistMsg" aria-live="polite"></p>
       <div class="proof">
         <div class="avatars"><img src="assets/avatars/p1.jpg" alt="" width="26" height="26" loading="lazy"><img src="assets/avatars/p2.jpg" alt="" width="26" height="26" loading="lazy"><img src="assets/avatars/p3.jpg" alt="" width="26" height="26" loading="lazy"><img src="assets/avatars/p4.jpg" alt="" width="26" height="26" loading="lazy"><span style="background:#6366F1">+</span></div>
-        <span data-i="h.proof"><b id="wlCount">128</b>+ creators and professionals are already waiting.</span>
+        <span data-i="h.proof"><b id="wlCount">0</b>+ creators and professionals are already waiting.</span>
       </div>
       <div class="community">
         <span data-i="h.community">Join our Alpha Community</span>
@@ -708,7 +708,7 @@
   // an inbox through formsubmit.co, or any JSON endpoint. With none set, the
   // address stays in this browser only.
   var WAITLIST_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbwQojYgjJ0ZVkrZsIGQSnmCiim7GAXKRbFywsxpvxo8lU_lD9CBiMvQ26v7V9mEI2tWEw/exec';
-  var WAITLIST_BASE = 128;
+  var WAITLIST_BASE = 0;
   var WAITLIST_TO = '';
   var WAITLIST_GOOGLE_FORM = { action: '', field: '' };
   var WAITLIST_ENDPOINT = '';
@@ -842,7 +842,7 @@
   window.addEventListener('load', function(){ try { var was = localStorage.getItem('viso:waitlisted'); if(was) wlDone(was, true); } catch(_){} });
 
   (function(){
-    var target = new Date('2026-09-20T09:00:00+07:00');
+    var target = new Date('2026-10-02T09:00:00+07:00');
     function tick(){
       var diff = Math.max(0, target - new Date());
       var d = Math.floor(diff/86400000), h = Math.floor(diff%86400000/3600000), m = Math.floor(diff%3600000/60000), s = Math.floor(diff%60000/1000);
