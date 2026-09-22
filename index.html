@@ -149,9 +149,19 @@
   .waitlist.is-done{border-color:rgba(255,255,255,.9); background:rgba(255,255,255,.18); box-shadow:0 0 0 4px rgba(255,255,255,.16), 0 0 54px -4px rgba(255,255,255,.55), 0 20px 50px -24px rgba(0,0,0,.6);}
   .waitlist.is-done .wl-icon{opacity:0; transition:opacity .2s;}
   .waitlist.is-done input{pointer-events:none; opacity:0; transition:opacity .25s;}
-  .waitlist.is-done .wl-btn{width:calc(100% - 10px); background:#fff; color:#0b1f4d; box-shadow:0 10px 30px -14px rgba(0,0,0,.5); cursor:pointer;}
-  .waitlist.is-done .wl-btn:hover{background:#f3f7ff;}
-  .waitlist.is-done .wl-btn .wl-label::after{content:'→';}
+  .waitlist.is-done .wl-btn{width:calc(100% - 10px); background:#fff; color:#0b1f4d; box-shadow:0 10px 30px -14px rgba(0,0,0,.5); pointer-events:none;}
+  .waitlist.is-done .wl-btn .wl-label{opacity:0;}
+  /* On the white bar, once you're in: the community, each door its own button. */
+  .wl-join{position:absolute; right:5px; top:5px; height:38px; width:calc(100% - 10px); display:flex; align-items:center; justify-content:center; gap:8px; color:#0b1f4d; font-weight:700; font-size:.9rem; opacity:0; pointer-events:none;}
+  .wl-join[hidden]{display:none;}
+  .waitlist.is-done .wl-join{opacity:1; pointer-events:auto; animation:wl-fadein .35s .45s both;}
+  @keyframes wl-fadein{from{opacity:0;} to{opacity:1;}}
+  .wl-join span{margin-right:4px; white-space:nowrap;}
+  .wl-join a{display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:#0b1f4d; color:#fff; transition:transform .15s, background .15s;}
+  .wl-join a svg{width:15px; height:15px;}
+  .wl-join a:hover{background:var(--blue, #2f6fe8); transform:translateY(-1px);}
+  @media (max-width:520px){ .wl-join span{display:none;} }
+  .community.is-in{display:none;}
   /* the rest of the page, softened, with a pill-shaped hole around the bar (mask set in JS) */
   .wl-veil{position:fixed; inset:0; z-index:70; background:rgba(8,21,58,.28); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); opacity:0; pointer-events:none; transition:opacity .5s;}
   .wl-veil.on{opacity:1; pointer-events:auto;}
@@ -431,6 +441,7 @@
         <span class="wl-icon" aria-hidden="true"><svg class="mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
         <input type="email" id="waitlistEmail" placeholder="Enter your email address..." data-i-placeholder="h.email" required autocomplete="email" inputmode="email" spellcheck="false">
         <button type="submit" class="btn btn--dark wl-btn" id="waitlistBtn"><span class="wl-label" data-i="n.join">Join Waitlist</span><span class="wl-spin" aria-hidden="true"></span></button>
+        <div class="wl-join" id="wlJoin" hidden></div>
         <span class="wl-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </form>
       <p class="waitlist-msg" id="waitlistMsg" aria-live="polite"></p>
@@ -719,11 +730,9 @@
   // hole around the bar (glow included), and the first scroll or click lifts it.
   var wlVeil = document.getElementById('wlVeil'), wlVeilY = 0;
   function wlVeilOn(){
-    // The hole: from the bar down through "You're on the list", the count and
-    // the community icons — everything the newcomer is meant to read next.
+    // The hole: the bar and its glow, nothing more — the community is on the bar now.
     var r = wlForm.getBoundingClientRect(), pad = 30, w = innerWidth, h = innerHeight;
-    var last = document.querySelector('.community'); var b = last ? last.getBoundingClientRect() : r;
-    var side = 70; var x = r.left - side, y = r.top - pad, rw = r.width + side * 2, rh = b.bottom - r.top + pad * 2, rr = Math.min(rh / 2, 44);
+    var x = r.left - pad, y = r.top - pad, rw = r.width + pad * 2, rh = r.height + pad * 2, rr = rh / 2;
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><path fill="#000" fill-rule="evenodd" d="M0 0h' + w + 'v' + h + 'H0z M' + (x + rr) + ' ' + y + 'h' + (rw - 2 * rr) + 'a' + rr + ' ' + rr + ' 0 0 1 0 ' + rh + 'h-' + (rw - 2 * rr) + 'a' + rr + ' ' + rr + ' 0 0 1 0 -' + rh + 'z"/></svg>';
     var url = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
     wlVeil.style.webkitMaskImage = url; wlVeil.style.maskImage = url;
@@ -738,6 +747,7 @@
     wlForm.classList.remove('is-sending', 'is-err'); wlForm.classList.add('is-done');
     wlInput.value = email; wlInput.readOnly = true; wlSay('wl.done');
     var lbl = document.querySelector('#waitlistBtn .wl-label'); lbl.removeAttribute('data-i'); lbl.textContent = T('wl.on');
+    wlJoinBar(true);
     wlNavCommunity(true);
     if(!quiet) wlVeilOn();
     var first = false;
@@ -754,7 +764,19 @@
     if(on){ b.setAttribute('data-i', 'n.community'); b.textContent = T('n.community'); b.setAttribute('onclick', "window.open('https://discord.gg/SsQuwwB3H','_blank','noopener')"); }
     else { b.setAttribute('data-i', 'n.join'); b.textContent = T('n.join'); b.setAttribute('onclick', 'focusWaitlist()'); }
   }
+  // The community row moves into the white bar once you're in — the same
+  // links, cloned, so they are written once — and comes back on reset.
+  function wlJoinBar(on){
+    var row = document.querySelector('.community'), bar = document.getElementById('wlJoin'); if(!row || !bar) return;
+    if(on){
+      bar.replaceChildren();
+      var label = document.createElement('span'); label.textContent = T('wl.on'); bar.appendChild(label);
+      row.querySelectorAll('a').forEach(function(a){ bar.appendChild(a.cloneNode(true)); });
+      bar.hidden = false; row.classList.add('is-in');
+    } else { bar.hidden = true; bar.replaceChildren(); row.classList.remove('is-in'); }
+  }
   function wlReset(){
+    wlJoinBar(false);
     wlNavCommunity(false);
     wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show'); wlVeilOff();
     var you = document.querySelector('.avatars .you'); if(you) you.remove();
@@ -838,8 +860,7 @@
   }
   wlForm.addEventListener('submit', function(e){
     e.preventDefault();
-    if(wlForm.classList.contains('is-done')){ window.open('https://discord.gg/SsQuwwB3H', '_blank', 'noopener'); return; }
-    if(wlForm.classList.contains('is-sending')) return;
+    if(wlForm.classList.contains('is-done') || wlForm.classList.contains('is-sending')) return;
     var email = wlInput.value.trim();
     wlForm.classList.remove('is-err');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ void wlForm.offsetWidth; wlForm.classList.add('is-err'); wlSay('wl.invalid', true); wlInput.focus(); return; }
@@ -869,6 +890,6 @@
   })();
 </script>
 
-<script src="assets/i18n.js?v=202609221252"></script>
+<script src="assets/i18n.js?v=202609221255"></script>
 </body>
 </html>
