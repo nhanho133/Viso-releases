@@ -718,8 +718,11 @@
   // hole around the bar (glow included), and the first scroll or click lifts it.
   var wlVeil = document.getElementById('wlVeil'), wlVeilY = 0;
   function wlVeilOn(){
+    // The hole: from the bar down through "You're on the list", the count and
+    // the community icons — everything the newcomer is meant to read next.
     var r = wlForm.getBoundingClientRect(), pad = 30, w = innerWidth, h = innerHeight;
-    var x = r.left - pad, y = r.top - pad, rw = r.width + pad * 2, rh = r.height + pad * 2, rr = rh / 2;
+    var last = document.querySelector('.community'); var b = last ? last.getBoundingClientRect() : r;
+    var side = 70; var x = r.left - side, y = r.top - pad, rw = r.width + side * 2, rh = b.bottom - r.top + pad * 2, rr = Math.min(rh / 2, 44);
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><path fill="#000" fill-rule="evenodd" d="M0 0h' + w + 'v' + h + 'H0z M' + (x + rr) + ' ' + y + 'h' + (rw - 2 * rr) + 'a' + rr + ' ' + rr + ' 0 0 1 0 ' + rh + 'h-' + (rw - 2 * rr) + 'a' + rr + ' ' + rr + ' 0 0 1 0 -' + rh + 'z"/></svg>';
     var url = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
     wlVeil.style.webkitMaskImage = url; wlVeil.style.maskImage = url;
@@ -734,6 +737,7 @@
     wlForm.classList.remove('is-sending', 'is-err'); wlForm.classList.add('is-done');
     wlInput.value = email; wlInput.readOnly = true; wlSay('wl.done');
     var lbl = document.querySelector('#waitlistBtn .wl-label'); lbl.removeAttribute('data-i'); lbl.textContent = T('wl.on');
+    wlNavCommunity(true);
     if(!quiet) wlVeilOn();
     var first = false;
     try { first = !localStorage.getItem('viso:waitlisted'); localStorage.setItem('viso:waitlisted', email); } catch(_){}
@@ -742,7 +746,15 @@
     wlAvatar(email);
     if(first) setTimeout(function(){ wlRoll(wlShown()); }, 350); else document.getElementById('wlCount').textContent = String(wlShown());
   }
+  // Once on the list, the nav's "Join Waitlist" has done its job: it points
+  // at the community instead. Back to the waitlist if the sign-up is undone.
+  function wlNavCommunity(on){
+    var b = document.querySelector('.nav-cta .btn--ghost:not(.lang)'); if(!b) return;
+    if(on){ b.setAttribute('data-i', 'n.community'); b.textContent = T('n.community'); b.setAttribute('onclick', "window.open('https://discord.gg/SsQuwwB3H','_blank','noopener')"); }
+    else { b.setAttribute('data-i', 'n.join'); b.textContent = T('n.join'); b.setAttribute('onclick', 'focusWaitlist()'); }
+  }
   function wlReset(){
+    wlNavCommunity(false);
     wlForm.classList.remove('is-done', 'is-err'); wlInput.readOnly = false; wlInput.value = ''; wlMsg.classList.remove('show'); wlVeilOff();
     var you = document.querySelector('.avatars .you'); if(you) you.remove();
     wlMine = 0; wlRoll(wlShown());
