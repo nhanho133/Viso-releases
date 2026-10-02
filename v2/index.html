@@ -494,29 +494,6 @@
     </div>
   </header>
 
-  <section id="context">
-    <div class="wrap ctx-layout">
-      <div class="ctx-copy">
-        <div class="eyebrow" data-i="ctx.eyebrow">Where it came from</div>
-        <h2 data-i="ctx.h2">Don't just save the thought. Save where it came from.</h2>
-        <p data-i="ctx.p">ViSO remembers the email, document, page, or tab where your thought started. Click it later and the exact email reopens.</p>
-      </div>
-      <div class="step ctx-art">
-        <div class="art art--open">
-          <div class="real real--3">
-            <div class="real__click">
-              <img class="real__card" src="assets/guide/card-en-note.png" alt="A note card in ViSO, filed from a Gmail thread" width="404" height="244">
-              <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="opens" aria-hidden="true">
-              <div class="tabs" data-i="s3.tabs"><span>Docs</span><span class="on"><i></i>Gmail</span><span>YouTube</span></div>
-              <div class="tabs-note" data-i="s3.tabsnote">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="features">
     <div class="wrap">
@@ -596,6 +573,8 @@
                 <img src="assets/guide/app-orb.png" alt="The ViSO Orb, listening" width="376" height="268">
                 <span class="real__say" data-i="s2.say">"remind me to apply to CMC Global at 9am Friday"</span>
               </div>
+              <span class="real__arrow" aria-hidden="true">→</span>
+              <img class="real__card real__card--pop" src="assets/guide/card-en-reminder.png" alt="The reminder card ViSO saved: apply to CMC Global at 9am Friday" width="404" height="296">
               <span class="lock" data-i="s2.lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>không gì rời khỏi máy bạn</span>
             </div>
           </div>
@@ -604,10 +583,16 @@
         </div>
         <div class="step">
           <span class="num">3</span>
-          <div class="art">
-            <div class="real">
-              <img class="real__card real__card--pop" src="assets/guide/card-en-reminder.png" alt="The reminder ViSO filed: apply to CMC Global at 9am Friday" width="404" height="296">
-              <span class="real__ok">✓ Filed with where it came from</span>
+          <div class="art art--open">
+            <div class="real real--3">
+              <div class="real__click">
+                <img class="real__card" src="assets/guide/card-en-note.png" alt="A note card in ViSO, filed from a Gmail thread" width="404" height="244">
+                <svg class="click" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#0b0d14" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="opens" aria-hidden="true">
+                <div class="tabs" data-i="s3.tabs"><span>Docs</span><span class="on"><i></i>Gmail</span><span>YouTube</span></div>
+                <div class="tabs-note" data-i="s3.tabsnote">↑ về đúng thư đó — tab đang mở thì nhảy sang, chưa mở thì mở lên</div>
+              </div>
             </div>
           </div>
           <h3 data-i="s3.h3">Get back to where you were</h3>
@@ -925,6 +910,6 @@
   })();
 </script>
 
-<script src="assets/i18n.js?v=202609292136"></script>
+<script src="assets/i18n.js?v=202610022152"></script>
 </body>
 </html>
